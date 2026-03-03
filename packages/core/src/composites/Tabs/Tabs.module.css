@@ -32,8 +32,7 @@
   cursor: pointer;
   border: none;
   background: transparent;
-  transition:
-    color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default),
+  transition: color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default),
     background-color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default);
   white-space: nowrap;
 }

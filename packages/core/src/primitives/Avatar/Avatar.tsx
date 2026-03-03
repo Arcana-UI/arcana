@@ -1,42 +1,48 @@
-import React, { useState } from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Avatar.module.css'
+import React, { useState } from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Avatar.module.css';
 
 // ─── Avatar ───────────────────────────────────────────────────────────────────
 
 export interface AvatarProps {
-  src?: string
-  alt?: string
-  name?: string
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  className?: string
+  src?: string;
+  alt?: string;
+  name?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
 }
 
 function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/)
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
 function getColorFromName(name: string): string {
   const colors = [
-    '#4f46e5', '#7c3aed', '#db2777', '#dc2626',
-    '#d97706', '#16a34a', '#0284c7', '#0891b2',
-  ]
-  let hash = 0
+    '#4f46e5',
+    '#7c3aed',
+    '#db2777',
+    '#dc2626',
+    '#d97706',
+    '#16a34a',
+    '#0284c7',
+    '#0891b2',
+  ];
+  let hash = 0;
   for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash)
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return colors[Math.abs(hash) % colors.length]
+  return colors[Math.abs(hash) % colors.length];
 }
 
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
   ({ src, alt, name, size = 'md', className }, ref) => {
-    const [imgError, setImgError] = useState(false)
+    const [imgError, setImgError] = useState(false);
 
-    const showImage = src && !imgError
-    const showInitials = !showImage && name
-    const bgColor = name ? getColorFromName(name) : 'var(--arcana-surface-tertiary)'
+    const showImage = src && !imgError;
+    const showInitials = !showImage && name;
+    const bgColor = name ? getColorFromName(name) : 'var(--arcana-surface-tertiary)';
 
     return (
       <div
@@ -67,32 +73,28 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           </span>
         )}
       </div>
-    )
-  }
-)
-Avatar.displayName = 'Avatar'
+    );
+  },
+);
+Avatar.displayName = 'Avatar';
 
 // ─── AvatarGroup ──────────────────────────────────────────────────────────────
 
 export interface AvatarGroupProps {
-  max?: number
-  children: React.ReactNode
-  className?: string
+  max?: number;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const AvatarGroup = ({ max, children, className }: AvatarGroupProps) => {
-  const childArray = React.Children.toArray(children)
-  const visible = max ? childArray.slice(0, max) : childArray
-  const overflow = max ? childArray.length - max : 0
+  const childArray = React.Children.toArray(children);
+  const visible = max ? childArray.slice(0, max) : childArray;
+  const overflow = max ? childArray.length - max : 0;
 
   return (
     <div className={cn(styles.group, className)} role="group">
       {visible.map((child, i) => (
-        <div
-          key={i}
-          className={styles.groupItem}
-          style={{ zIndex: visible.length - i }}
-        >
+        <div key={i} className={styles.groupItem} style={{ zIndex: visible.length - i }}>
           {child}
         </div>
       ))}
@@ -102,6 +104,6 @@ export const AvatarGroup = ({ max, children, className }: AvatarGroupProps) => {
         </div>
       )}
     </div>
-  )
-}
-AvatarGroup.displayName = 'AvatarGroup'
+  );
+};
+AvatarGroup.displayName = 'AvatarGroup';

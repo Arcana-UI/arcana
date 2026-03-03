@@ -1,48 +1,49 @@
-import React, { createContext, useContext, useId, useState } from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Accordion.module.css'
+import type React from 'react';
+import { createContext, useContext, useId, useState } from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Accordion.module.css';
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
 interface AccordionContextValue {
-  openValues: string[]
-  toggle: (value: string) => void
-  type: 'single' | 'multiple'
+  openValues: string[];
+  toggle: (value: string) => void;
+  type: 'single' | 'multiple';
 }
 
-const AccordionContext = createContext<AccordionContextValue | null>(null)
+const AccordionContext = createContext<AccordionContextValue | null>(null);
 
 interface AccordionItemContextValue {
-  value: string
-  isOpen: boolean
-  disabled: boolean
-  triggerId: string
-  panelId: string
+  value: string;
+  isOpen: boolean;
+  disabled: boolean;
+  triggerId: string;
+  panelId: string;
 }
 
-const AccordionItemContext = createContext<AccordionItemContextValue | null>(null)
+const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
 
 function useAccordion() {
-  const ctx = useContext(AccordionContext)
-  if (!ctx) throw new Error('Accordion components must be used within <Accordion>')
-  return ctx
+  const ctx = useContext(AccordionContext);
+  if (!ctx) throw new Error('Accordion components must be used within <Accordion>');
+  return ctx;
 }
 
 function useAccordionItem() {
-  const ctx = useContext(AccordionItemContext)
-  if (!ctx) throw new Error('AccordionTrigger/Content must be used within <AccordionItem>')
-  return ctx
+  const ctx = useContext(AccordionItemContext);
+  if (!ctx) throw new Error('AccordionTrigger/Content must be used within <AccordionItem>');
+  return ctx;
 }
 
 // ─── Accordion ────────────────────────────────────────────────────────────────
 
 export interface AccordionProps {
-  type?: 'single' | 'multiple'
-  defaultValue?: string | string[]
-  value?: string | string[]
-  onChange?: (value: string | string[]) => void
-  children: React.ReactNode
-  className?: string
+  type?: 'single' | 'multiple';
+  defaultValue?: string | string[];
+  value?: string | string[];
+  onChange?: (value: string | string[]) => void;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const Accordion = ({
@@ -52,64 +53,75 @@ export const Accordion = ({
   className,
 }: AccordionProps) => {
   const [openValues, setOpenValues] = useState<string[]>(() => {
-    if (!defaultValue) return []
-    return Array.isArray(defaultValue) ? defaultValue : [defaultValue]
-  })
+    if (!defaultValue) return [];
+    return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+  });
 
   const toggle = (value: string) => {
     setOpenValues((prev) => {
       if (type === 'single') {
-        return prev.includes(value) ? [] : [value]
-      } else {
-        return prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+        return prev.includes(value) ? [] : [value];
       }
-    })
-  }
+      return prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value];
+    });
+  };
 
   return (
     <AccordionContext.Provider value={{ openValues, toggle, type }}>
       <div className={cn(styles.accordion, className)}>{children}</div>
     </AccordionContext.Provider>
-  )
-}
-Accordion.displayName = 'Accordion'
+  );
+};
+Accordion.displayName = 'Accordion';
 
 // ─── AccordionItem ────────────────────────────────────────────────────────────
 
 export interface AccordionItemProps {
-  value: string
-  disabled?: boolean
-  children: React.ReactNode
-  className?: string
+  value: string;
+  disabled?: boolean;
+  children: React.ReactNode;
+  className?: string;
 }
 
-export const AccordionItem = ({ value, disabled = false, children, className }: AccordionItemProps) => {
-  const { openValues } = useAccordion()
-  const baseId = useId()
-  const triggerId = `${baseId}-trigger`
-  const panelId = `${baseId}-panel`
-  const isOpen = openValues.includes(value)
+export const AccordionItem = ({
+  value,
+  disabled = false,
+  children,
+  className,
+}: AccordionItemProps) => {
+  const { openValues } = useAccordion();
+  const baseId = useId();
+  const triggerId = `${baseId}-trigger`;
+  const panelId = `${baseId}-panel`;
+  const isOpen = openValues.includes(value);
 
   return (
     <AccordionItemContext.Provider value={{ value, isOpen, disabled, triggerId, panelId }}>
-      <div className={cn(styles.item, isOpen && styles.itemOpen, disabled && styles.itemDisabled, className)}>
+      <div
+        className={cn(
+          styles.item,
+          isOpen && styles.itemOpen,
+          disabled && styles.itemDisabled,
+          className,
+        )}
+      >
         {children}
       </div>
     </AccordionItemContext.Provider>
-  )
-}
-AccordionItem.displayName = 'AccordionItem'
+  );
+};
+AccordionItem.displayName = 'AccordionItem';
 
 // ─── AccordionTrigger ─────────────────────────────────────────────────────────
 
 export interface AccordionTriggerProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const AccordionTrigger = ({ children, className }: AccordionTriggerProps) => {
-  const { toggle } = useAccordion()
-  const { value, isOpen, disabled, triggerId, panelId } = useAccordionItem()
+  const { toggle } = useAccordion();
+  const { value, isOpen, disabled, triggerId, panelId } = useAccordionItem();
 
   return (
     <h3 className={styles.triggerHeading}>
@@ -133,25 +145,26 @@ export const AccordionTrigger = ({ children, className }: AccordionTriggerProps)
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </span>
       </button>
     </h3>
-  )
-}
-AccordionTrigger.displayName = 'AccordionTrigger'
+  );
+};
+AccordionTrigger.displayName = 'AccordionTrigger';
 
 // ─── AccordionContent ─────────────────────────────────────────────────────────
 
 export interface AccordionContentProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const AccordionContent = ({ children, className }: AccordionContentProps) => {
-  const { isOpen, triggerId, panelId } = useAccordionItem()
+  const { isOpen, triggerId, panelId } = useAccordionItem();
 
   return (
     <div
@@ -163,6 +176,6 @@ export const AccordionContent = ({ children, className }: AccordionContentProps)
     >
       <div className={styles.contentInner}>{children}</div>
     </div>
-  )
-}
-AccordionContent.displayName = 'AccordionContent'
+  );
+};
+AccordionContent.displayName = 'AccordionContent';

@@ -37,7 +37,8 @@
   font-size: var(--arcana-typography-font-size-sm);
   font-weight: var(--arcana-typography-font-weight-medium);
   line-height: var(--arcana-typography-line-height-normal);
-  transition: background-color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default);
+  transition: background-color var(--arcana-motion-duration-fast)
+    var(--arcana-motion-easing-default);
 }
 
 .trigger:hover:not(:disabled) {

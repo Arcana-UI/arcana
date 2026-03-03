@@ -21,9 +21,8 @@
   border-radius: var(--arcana-component-radius);
   box-shadow: var(--arcana-shadow-lg);
   pointer-events: auto;
-  transition:
-    opacity var(--arcana-motion-duration-slow) var(--arcana-motion-easing-out),
-    transform var(--arcana-motion-duration-slow) var(--arcana-motion-easing-out);
+  transition: opacity var(--arcana-motion-duration-slow) var(--arcana-motion-easing-out), transform
+    var(--arcana-motion-duration-slow) var(--arcana-motion-easing-out);
 }
 
 .hidden {

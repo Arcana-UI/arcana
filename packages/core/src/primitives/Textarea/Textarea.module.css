@@ -28,8 +28,7 @@
   line-height: var(--arcana-typography-line-height-normal);
   resize: vertical;
   box-sizing: border-box;
-  transition:
-    border-color var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default),
+  transition: border-color var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default),
     box-shadow var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default);
 }
 

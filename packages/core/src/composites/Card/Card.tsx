@@ -1,26 +1,19 @@
-import React from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Card.module.css'
+import React from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Card.module.css';
 
 // Card
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'outlined' | 'elevated'
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-  interactive?: boolean
+  variant?: 'default' | 'outlined' | 'elevated';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  interactive?: boolean;
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
-    {
-      variant = 'default',
-      padding = 'md',
-      interactive = false,
-      className,
-      children,
-      ...props
-    },
-    ref
+    { variant = 'default', padding = 'md', interactive = false, className, children, ...props },
+    ref,
   ) => (
     <div
       ref={ref}
@@ -29,22 +22,22 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         styles[variant],
         styles[`padding-${padding}`],
         interactive && styles.interactive,
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </div>
-  )
-)
-Card.displayName = 'Card'
+  ),
+);
+Card.displayName = 'Card';
 
 // CardHeader
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  title?: string
-  description?: string
-  action?: React.ReactNode
+  title?: string;
+  description?: string;
+  action?: React.ReactNode;
 }
 
 export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
@@ -57,9 +50,9 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
       </div>
       {action && <div className={styles.headerAction}>{action}</div>}
     </div>
-  )
-)
-CardHeader.displayName = 'CardHeader'
+  ),
+);
+CardHeader.displayName = 'CardHeader';
 
 // CardBody
 
@@ -70,25 +63,21 @@ export const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
     <div ref={ref} className={cn(styles.body, className)} {...props}>
       {children}
     </div>
-  )
-)
-CardBody.displayName = 'CardBody'
+  ),
+);
+CardBody.displayName = 'CardBody';
 
 // CardFooter
 
 export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
-  align?: 'left' | 'center' | 'right' | 'space-between'
+  align?: 'left' | 'center' | 'right' | 'space-between';
 }
 
 export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ align = 'right', className, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(styles.footer, styles[`align-${align}`], className)}
-      {...props}
-    >
+    <div ref={ref} className={cn(styles.footer, styles[`align-${align}`], className)} {...props}>
       {children}
     </div>
-  )
-)
-CardFooter.displayName = 'CardFooter'
+  ),
+);
+CardFooter.displayName = 'CardFooter';

@@ -1,22 +1,22 @@
-import React from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Table.module.css'
+import React from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Table.module.css';
 
 // ─── Table Context ────────────────────────────────────────────────────────────
 
 interface TableContextValue {
-  striped: boolean
-  hoverable: boolean
+  striped: boolean;
+  hoverable: boolean;
 }
 
-const TableContext = React.createContext<TableContextValue>({ striped: false, hoverable: false })
+const TableContext = React.createContext<TableContextValue>({ striped: false, hoverable: false });
 
 // ─── Table ────────────────────────────────────────────────────────────────────
 
 export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
-  striped?: boolean
-  hoverable?: boolean
-  children?: React.ReactNode
+  striped?: boolean;
+  hoverable?: boolean;
+  children?: React.ReactNode;
 }
 
 export const Table = React.forwardRef<HTMLTableElement, TableProps>(
@@ -24,24 +24,20 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
     return (
       <TableContext.Provider value={{ striped, hoverable }}>
         <div className={styles.tableWrapper}>
-          <table
-            ref={ref}
-            className={cn(styles.table, className)}
-            {...props}
-          >
+          <table ref={ref} className={cn(styles.table, className)} {...props}>
             {children}
           </table>
         </div>
       </TableContext.Provider>
-    )
-  }
-)
-Table.displayName = 'Table'
+    );
+  },
+);
+Table.displayName = 'Table';
 
 // ─── TableHeader ──────────────────────────────────────────────────────────────
 
 export interface TableHeaderProps extends React.HTMLAttributes<HTMLTableSectionElement> {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
@@ -50,15 +46,15 @@ export const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeader
       <thead ref={ref} className={cn(styles.thead, className)} {...props}>
         {children}
       </thead>
-    )
-  }
-)
-TableHeader.displayName = 'TableHeader'
+    );
+  },
+);
+TableHeader.displayName = 'TableHeader';
 
 // ─── TableBody ────────────────────────────────────────────────────────────────
 
 export interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
@@ -67,20 +63,20 @@ export const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProp
       <tbody ref={ref} className={cn(styles.tbody, className)} {...props}>
         {children}
       </tbody>
-    )
-  }
-)
-TableBody.displayName = 'TableBody'
+    );
+  },
+);
+TableBody.displayName = 'TableBody';
 
 // ─── TableRow ─────────────────────────────────────────────────────────────────
 
 export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
   ({ children, className, ...props }, ref) => {
-    const { hoverable, striped } = React.useContext(TableContext)
+    const { hoverable, striped } = React.useContext(TableContext);
     return (
       <tr
         ref={ref}
@@ -88,24 +84,24 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
           styles.row,
           hoverable && styles.rowHoverable,
           striped && styles.rowStriped,
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </tr>
-    )
-  }
-)
-TableRow.displayName = 'TableRow'
+    );
+  },
+);
+TableRow.displayName = 'TableRow';
 
 // ─── TableHead ────────────────────────────────────────────────────────────────
 
 export interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
-  sortable?: boolean
-  sortDirection?: 'asc' | 'desc' | null
-  onSort?: () => void
-  children?: React.ReactNode
+  sortable?: boolean;
+  sortDirection?: 'asc' | 'desc' | null;
+  onSort?: () => void;
+  children?: React.ReactNode;
 }
 
 export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
@@ -119,8 +115,8 @@ export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
             ? sortDirection === 'asc'
               ? 'ascending'
               : sortDirection === 'desc'
-              ? 'descending'
-              : 'none'
+                ? 'descending'
+                : 'none'
             : undefined
         }
         className={cn(styles.th, sortable && styles.thSortable, className)}
@@ -131,16 +127,47 @@ export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
             {children}
             <span className={styles.sortIcon} aria-hidden="true">
               {sortDirection === 'asc' ? (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
                   <polyline points="18 15 12 9 6 15" />
                 </svg>
               ) : sortDirection === 'desc' ? (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               ) : (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="18 9 12 3 6 9" /><polyline points="6 15 12 21 18 15" />
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="18 9 12 3 6 9" />
+                  <polyline points="6 15 12 21 18 15" />
                 </svg>
               )}
             </span>
@@ -149,15 +176,15 @@ export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
           children
         )}
       </th>
-    )
-  }
-)
-TableHead.displayName = 'TableHead'
+    );
+  },
+);
+TableHead.displayName = 'TableHead';
 
 // ─── TableCell ────────────────────────────────────────────────────────────────
 
 export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
@@ -166,7 +193,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       <td ref={ref} className={cn(styles.td, className)} {...props}>
         {children}
       </td>
-    )
-  }
-)
-TableCell.displayName = 'TableCell'
+    );
+  },
+);
+TableCell.displayName = 'TableCell';

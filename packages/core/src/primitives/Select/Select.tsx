@@ -1,20 +1,20 @@
-import React from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Select.module.css'
+import React from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Select.module.css';
 
 export interface SelectOption {
-  value: string
-  label: string
-  disabled?: boolean
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
 export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string
-  error?: string | boolean
-  helperText?: string
-  placeholder?: string
-  options?: SelectOption[]
-  fullWidth?: boolean
+  label?: string;
+  error?: string | boolean;
+  helperText?: string;
+  placeholder?: string;
+  options?: SelectOption[];
+  fullWidth?: boolean;
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
@@ -32,15 +32,15 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const generatedId = React.useId()
-    const selectId = id ?? generatedId
-    const errorId = `${selectId}-error`
-    const helperId = `${selectId}-helper`
+    const generatedId = React.useId();
+    const selectId = id ?? generatedId;
+    const errorId = `${selectId}-error`;
+    const helperId = `${selectId}-helper`;
 
-    const hasError = Boolean(error)
-    const errorMessage = typeof error === 'string' ? error : undefined
+    const hasError = Boolean(error);
+    const errorMessage = typeof error === 'string' ? error : undefined;
 
     return (
       <div className={cn(styles.wrapper, fullWidth && styles.fullWidth)}>
@@ -50,16 +50,21 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           </label>
         )}
 
-        <div className={cn(styles.selectWrapper, hasError && styles.hasError, disabled && styles.disabled)}>
+        <div
+          className={cn(
+            styles.selectWrapper,
+            hasError && styles.hasError,
+            disabled && styles.disabled,
+          )}
+        >
           <select
             ref={ref}
             id={selectId}
             disabled={disabled}
             aria-invalid={hasError || undefined}
             aria-describedby={
-              [errorMessage && errorId, helperText && helperId]
-                .filter(Boolean)
-                .join(' ') || undefined
+              [errorMessage && errorId, helperText && helperId].filter(Boolean).join(' ') ||
+              undefined
             }
             className={cn(styles.select, className)}
             {...props}
@@ -105,8 +110,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           </span>
         )}
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-Select.displayName = 'Select'
+Select.displayName = 'Select';

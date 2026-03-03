@@ -30,8 +30,7 @@
   background-color: var(--arcana-surface-primary);
   border: var(--arcana-component-border-width) solid var(--arcana-border-default);
   border-radius: var(--arcana-component-radius);
-  transition:
-    border-color var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default),
+  transition: border-color var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default),
     box-shadow var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default);
 }
 
