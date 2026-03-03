@@ -446,22 +446,25 @@ Phase 0 — Foundation Cleanup
 - PROGRESS.md created (task tracker)
 - CLAUDE.md rewritten (this file)
 - Task 0.1 — Token audit completed (`docs/audits/token-audit.md`)
+- Task 0.2 — Token JSON restructured to three-tier hierarchy (primitive → semantic → component)
+  - Created JSON Schema (`packages/tokens/src/schema/tokens.schema.json`)
+  - Migrated all 6 presets to new format (`packages/tokens/src/presets/{light,dark,terminal,retro98,glass,brutalist}.json`)
+  - All 6 presets validated against schema
+  - Created migration guide (`docs/MIGRATION.md`) with old→new token name mapping
 
 ### Currently Working On
-Ready to begin Phase 0, Task 0.2 — Restructure token JSON to three-tier hierarchy
+Ready to begin Phase 0, Task 0.3 — Establish code standards (strict TS, naming, exports)
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.2 is next
-2. Read `docs/audits/token-audit.md` for the complete gap analysis
-3. Read the prompt for Task 0.2 in `AI_OPS.md` Part 2
-4. Restructure token JSON to three-tier hierarchy (primitive → semantic → component)
-5. Create JSON Schema for token validation
-6. Migrate all 6 theme presets to new format
-7. Update build script to resolve references and output all themes
-8. Update `PROGRESS.md` to check off 0.2
+1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.3 is next
+2. Read `docs/MIGRATION.md` for token name mapping (old → new)
+3. Read the prompt for Task 0.3 in `AI_OPS.md` Part 2
+4. Establish strict TypeScript config, naming conventions, barrel exports
+5. Note: Task 0.4 (build pipeline) will need to resolve `{primitive.*}` references in the new JSON format
+6. Update `PROGRESS.md` to check off 0.3
 
 ### Session History
 
@@ -469,3 +472,4 @@ None
 |------|-------|-----------------|-------|
 | 2026-03-01 | Claude (claude.ai) | Project planning | Created ROADMAP.md, AI_OPS.md, PROGRESS.md, CLAUDE.md |
 | 2026-03-02 | Claude (Claude Code) | Task 0.1 — Token audit | Scanned 32 CSS files, cataloged ~176 tokens, found 88 hardcoded violations in components, 4 unbuilt themes. Full report at docs/audits/token-audit.md |
+| 2026-03-03 | Claude (Claude Code) | Task 0.2 — Token restructure | Created JSON Schema, migrated 6 presets to three-tier format, validated all against schema, created MIGRATION.md |

@@ -1,0 +1,459 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://arcana-ui.dev/schema/tokens.json",
+  "title": "Arcana UI Token Preset",
+  "description": "Schema for Arcana UI three-tier design token preset files (primitive → semantic → component).",
+  "type": "object",
+  "required": ["$schema", "name", "version", "description", "primitive", "semantic"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference for validation."
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^arcana-[a-z0-9-]+$",
+      "description": "Machine-readable preset name, e.g. 'arcana-light'."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of this preset."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the preset personality."
+    },
+    "primitive": {
+      "$ref": "#/$defs/primitive",
+      "description": "Tier 1: Raw design values. Never referenced directly by components."
+    },
+    "semantic": {
+      "$ref": "#/$defs/semantic",
+      "description": "Tier 2: Contextual tokens that reference primitives. Components use these."
+    },
+    "component": {
+      "$ref": "#/$defs/component",
+      "description": "Tier 3: Optional per-component token overrides."
+    }
+  },
+  "$defs": {
+    "tokenValue": {
+      "description": "A token value: raw CSS value or a reference like '{primitive.color.stone.50}'.",
+      "type": "string"
+    },
+    "colorScale": {
+      "description": "A color hue with up to 11 lightness steps (50–950).",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(50|100|200|300|400|500|600|700|800|900|950)$": {
+          "$ref": "#/$defs/tokenValue"
+        }
+      }
+    },
+    "primitive": {
+      "type": "object",
+      "description": "Tier 1 primitive tokens — raw values.",
+      "required": ["color", "spacing", "radius", "typography", "shadow", "motion", "zIndex"],
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "object",
+          "description": "Primitive color palette. Keys are hue names (e.g. 'stone', 'white'). Values are either a color scale object or a single color string.",
+          "patternProperties": {
+            "^[a-z]+$": {
+              "oneOf": [
+                { "$ref": "#/$defs/colorScale" },
+                { "$ref": "#/$defs/tokenValue" }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "spacing": {
+          "type": "object",
+          "description": "Spacing scale on a 4px grid.",
+          "patternProperties": {
+            "^(0|px|0\\.5|1|1\\.5|2|2\\.5|3|3\\.5|4|5|6|7|8|10|12|14|16|20|24|32)$": {
+              "$ref": "#/$defs/tokenValue"
+            }
+          },
+          "additionalProperties": false
+        },
+        "radius": {
+          "type": "object",
+          "description": "Border radius scale.",
+          "additionalProperties": false,
+          "properties": {
+            "none": { "$ref": "#/$defs/tokenValue" },
+            "xs": { "$ref": "#/$defs/tokenValue" },
+            "sm": { "$ref": "#/$defs/tokenValue" },
+            "md": { "$ref": "#/$defs/tokenValue" },
+            "lg": { "$ref": "#/$defs/tokenValue" },
+            "xl": { "$ref": "#/$defs/tokenValue" },
+            "2xl": { "$ref": "#/$defs/tokenValue" },
+            "full": { "$ref": "#/$defs/tokenValue" }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "description": "Typography primitives: families, sizes, weights, line heights, letter spacing.",
+          "required": ["fontFamily", "fontSize", "fontWeight", "lineHeight", "letterSpacing"],
+          "additionalProperties": false,
+          "properties": {
+            "fontFamily": {
+              "type": "object",
+              "description": "Font family stacks.",
+              "additionalProperties": false,
+              "properties": {
+                "sans": { "$ref": "#/$defs/tokenValue" },
+                "mono": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "fontSize": {
+              "type": "object",
+              "description": "Font size scale.",
+              "additionalProperties": false,
+              "properties": {
+                "xs": { "$ref": "#/$defs/tokenValue" },
+                "sm": { "$ref": "#/$defs/tokenValue" },
+                "base": { "$ref": "#/$defs/tokenValue" },
+                "lg": { "$ref": "#/$defs/tokenValue" },
+                "xl": { "$ref": "#/$defs/tokenValue" },
+                "2xl": { "$ref": "#/$defs/tokenValue" },
+                "3xl": { "$ref": "#/$defs/tokenValue" },
+                "4xl": { "$ref": "#/$defs/tokenValue" },
+                "5xl": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "fontWeight": {
+              "type": "object",
+              "description": "Font weight scale.",
+              "additionalProperties": false,
+              "properties": {
+                "normal": { "$ref": "#/$defs/tokenValue" },
+                "medium": { "$ref": "#/$defs/tokenValue" },
+                "semibold": { "$ref": "#/$defs/tokenValue" },
+                "bold": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "lineHeight": {
+              "type": "object",
+              "description": "Line height scale.",
+              "additionalProperties": false,
+              "properties": {
+                "none": { "$ref": "#/$defs/tokenValue" },
+                "tight": { "$ref": "#/$defs/tokenValue" },
+                "snug": { "$ref": "#/$defs/tokenValue" },
+                "normal": { "$ref": "#/$defs/tokenValue" },
+                "relaxed": { "$ref": "#/$defs/tokenValue" },
+                "loose": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "letterSpacing": {
+              "type": "object",
+              "description": "Letter spacing scale.",
+              "additionalProperties": false,
+              "properties": {
+                "tighter": { "$ref": "#/$defs/tokenValue" },
+                "tight": { "$ref": "#/$defs/tokenValue" },
+                "normal": { "$ref": "#/$defs/tokenValue" },
+                "wide": { "$ref": "#/$defs/tokenValue" },
+                "wider": { "$ref": "#/$defs/tokenValue" },
+                "widest": { "$ref": "#/$defs/tokenValue" }
+              }
+            }
+          }
+        },
+        "shadow": {
+          "type": "object",
+          "description": "Box shadow scale.",
+          "additionalProperties": false,
+          "properties": {
+            "none": { "$ref": "#/$defs/tokenValue" },
+            "xs": { "$ref": "#/$defs/tokenValue" },
+            "sm": { "$ref": "#/$defs/tokenValue" },
+            "md": { "$ref": "#/$defs/tokenValue" },
+            "lg": { "$ref": "#/$defs/tokenValue" },
+            "xl": { "$ref": "#/$defs/tokenValue" },
+            "2xl": { "$ref": "#/$defs/tokenValue" },
+            "inner": { "$ref": "#/$defs/tokenValue" }
+          }
+        },
+        "motion": {
+          "type": "object",
+          "description": "Motion primitives: durations and easing curves.",
+          "required": ["duration", "easing"],
+          "additionalProperties": false,
+          "properties": {
+            "duration": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "instant": { "$ref": "#/$defs/tokenValue" },
+                "fast": { "$ref": "#/$defs/tokenValue" },
+                "normal": { "$ref": "#/$defs/tokenValue" },
+                "slow": { "$ref": "#/$defs/tokenValue" },
+                "slower": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "easing": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "default": { "$ref": "#/$defs/tokenValue" },
+                "in": { "$ref": "#/$defs/tokenValue" },
+                "out": { "$ref": "#/$defs/tokenValue" },
+                "spring": { "$ref": "#/$defs/tokenValue" }
+              }
+            }
+          }
+        },
+        "zIndex": {
+          "type": "object",
+          "description": "Z-index stacking scale.",
+          "additionalProperties": false,
+          "properties": {
+            "base": { "$ref": "#/$defs/tokenValue" },
+            "raised": { "$ref": "#/$defs/tokenValue" },
+            "dropdown": { "$ref": "#/$defs/tokenValue" },
+            "sticky": { "$ref": "#/$defs/tokenValue" },
+            "overlay": { "$ref": "#/$defs/tokenValue" },
+            "modal": { "$ref": "#/$defs/tokenValue" },
+            "toast": { "$ref": "#/$defs/tokenValue" },
+            "tooltip": { "$ref": "#/$defs/tokenValue" }
+          }
+        }
+      }
+    },
+    "actionStates": {
+      "type": "object",
+      "description": "Action color with state variants.",
+      "additionalProperties": false,
+      "properties": {
+        "default": { "$ref": "#/$defs/tokenValue" },
+        "hover": { "$ref": "#/$defs/tokenValue" },
+        "active": { "$ref": "#/$defs/tokenValue" }
+      }
+    },
+    "statusGroup": {
+      "type": "object",
+      "description": "Status color group with bg, fg, and border.",
+      "additionalProperties": false,
+      "required": ["default", "bg", "fg", "border"],
+      "properties": {
+        "default": { "$ref": "#/$defs/tokenValue" },
+        "bg": { "$ref": "#/$defs/tokenValue" },
+        "fg": { "$ref": "#/$defs/tokenValue" },
+        "border": { "$ref": "#/$defs/tokenValue" }
+      }
+    },
+    "semantic": {
+      "type": "object",
+      "description": "Tier 2 semantic tokens — contextual meaning, reference primitives.",
+      "required": ["color", "typography", "spacing", "elevation", "radius", "border", "motion"],
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "object",
+          "description": "Semantic color tokens.",
+          "required": ["background", "foreground", "action", "border", "status"],
+          "additionalProperties": false,
+          "properties": {
+            "background": {
+              "type": "object",
+              "description": "Background colors.",
+              "additionalProperties": false,
+              "properties": {
+                "page": { "$ref": "#/$defs/tokenValue" },
+                "surface": { "$ref": "#/$defs/tokenValue" },
+                "elevated": { "$ref": "#/$defs/tokenValue" },
+                "overlay": { "$ref": "#/$defs/tokenValue" },
+                "sunken": { "$ref": "#/$defs/tokenValue" },
+                "subtle": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "foreground": {
+              "type": "object",
+              "description": "Foreground/text colors.",
+              "additionalProperties": false,
+              "properties": {
+                "primary": { "$ref": "#/$defs/tokenValue" },
+                "secondary": { "$ref": "#/$defs/tokenValue" },
+                "muted": { "$ref": "#/$defs/tokenValue" },
+                "disabled": { "$ref": "#/$defs/tokenValue" },
+                "inverse": { "$ref": "#/$defs/tokenValue" },
+                "on-primary": { "$ref": "#/$defs/tokenValue" },
+                "on-destructive": { "$ref": "#/$defs/tokenValue" },
+                "link": { "$ref": "#/$defs/tokenValue" },
+                "link-hover": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "action": {
+              "type": "object",
+              "description": "Interactive element colors.",
+              "additionalProperties": false,
+              "properties": {
+                "primary": { "$ref": "#/$defs/actionStates" },
+                "secondary": { "$ref": "#/$defs/actionStates" },
+                "destructive": { "$ref": "#/$defs/actionStates" },
+                "ghost": { "$ref": "#/$defs/actionStates" },
+                "outline": { "$ref": "#/$defs/actionStates" }
+              }
+            },
+            "border": {
+              "type": "object",
+              "description": "Border colors.",
+              "additionalProperties": false,
+              "properties": {
+                "default": { "$ref": "#/$defs/tokenValue" },
+                "strong": { "$ref": "#/$defs/tokenValue" },
+                "stronger": { "$ref": "#/$defs/tokenValue" },
+                "focus": { "$ref": "#/$defs/tokenValue" },
+                "error": { "$ref": "#/$defs/tokenValue" },
+                "inverse": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "status": {
+              "type": "object",
+              "description": "Status/feedback colors.",
+              "additionalProperties": false,
+              "properties": {
+                "success": { "$ref": "#/$defs/statusGroup" },
+                "warning": { "$ref": "#/$defs/statusGroup" },
+                "error": { "$ref": "#/$defs/statusGroup" },
+                "info": { "$ref": "#/$defs/statusGroup" }
+              }
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "description": "Semantic typography tokens.",
+          "required": ["family"],
+          "additionalProperties": false,
+          "properties": {
+            "family": {
+              "type": "object",
+              "description": "Semantic font family mappings.",
+              "additionalProperties": false,
+              "properties": {
+                "display": { "$ref": "#/$defs/tokenValue" },
+                "body": { "$ref": "#/$defs/tokenValue" },
+                "mono": { "$ref": "#/$defs/tokenValue" }
+              }
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "description": "Semantic spacing aliases.",
+          "additionalProperties": false,
+          "properties": {
+            "xs": { "$ref": "#/$defs/tokenValue" },
+            "sm": { "$ref": "#/$defs/tokenValue" },
+            "md": { "$ref": "#/$defs/tokenValue" },
+            "lg": { "$ref": "#/$defs/tokenValue" },
+            "xl": { "$ref": "#/$defs/tokenValue" },
+            "2xl": { "$ref": "#/$defs/tokenValue" },
+            "3xl": { "$ref": "#/$defs/tokenValue" },
+            "section": { "$ref": "#/$defs/tokenValue" }
+          }
+        },
+        "elevation": {
+          "type": "object",
+          "description": "Semantic elevation tokens (shadow references).",
+          "additionalProperties": false,
+          "properties": {
+            "none": { "$ref": "#/$defs/tokenValue" },
+            "xs": { "$ref": "#/$defs/tokenValue" },
+            "sm": { "$ref": "#/$defs/tokenValue" },
+            "md": { "$ref": "#/$defs/tokenValue" },
+            "lg": { "$ref": "#/$defs/tokenValue" },
+            "xl": { "$ref": "#/$defs/tokenValue" },
+            "2xl": { "$ref": "#/$defs/tokenValue" },
+            "inner": { "$ref": "#/$defs/tokenValue" }
+          }
+        },
+        "radius": {
+          "type": "object",
+          "description": "Semantic border radius tokens.",
+          "additionalProperties": false,
+          "properties": {
+            "none": { "$ref": "#/$defs/tokenValue" },
+            "xs": { "$ref": "#/$defs/tokenValue" },
+            "sm": { "$ref": "#/$defs/tokenValue" },
+            "md": { "$ref": "#/$defs/tokenValue" },
+            "lg": { "$ref": "#/$defs/tokenValue" },
+            "xl": { "$ref": "#/$defs/tokenValue" },
+            "2xl": { "$ref": "#/$defs/tokenValue" },
+            "full": { "$ref": "#/$defs/tokenValue" }
+          }
+        },
+        "border": {
+          "type": "object",
+          "description": "Semantic border width and focus ring tokens.",
+          "additionalProperties": false,
+          "properties": {
+            "width": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "thin": { "$ref": "#/$defs/tokenValue" },
+                "default": { "$ref": "#/$defs/tokenValue" },
+                "thick": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "focus": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ring": { "$ref": "#/$defs/tokenValue" },
+                "offset": { "$ref": "#/$defs/tokenValue" }
+              }
+            }
+          }
+        },
+        "motion": {
+          "type": "object",
+          "description": "Semantic motion tokens (references to primitive durations/easings).",
+          "additionalProperties": false,
+          "properties": {
+            "duration": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "instant": { "$ref": "#/$defs/tokenValue" },
+                "fast": { "$ref": "#/$defs/tokenValue" },
+                "normal": { "$ref": "#/$defs/tokenValue" },
+                "slow": { "$ref": "#/$defs/tokenValue" },
+                "slower": { "$ref": "#/$defs/tokenValue" }
+              }
+            },
+            "easing": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "default": { "$ref": "#/$defs/tokenValue" },
+                "in": { "$ref": "#/$defs/tokenValue" },
+                "out": { "$ref": "#/$defs/tokenValue" },
+                "spring": { "$ref": "#/$defs/tokenValue" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "description": "Tier 3 component tokens — optional per-component overrides.",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Component-scoped token overrides. Keys are token names, values are references.",
+        "additionalProperties": { "$ref": "#/$defs/tokenValue" }
+      }
+    }
+  }
+}
