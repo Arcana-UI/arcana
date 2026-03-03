@@ -1,11 +1,11 @@
-import '@testing-library/jest-dom'
-import { expect } from 'vitest'
-import { toHaveNoViolations } from 'jest-axe'
+import '@testing-library/jest-dom';
+import { toHaveNoViolations } from 'jest-axe';
+import { expect } from 'vitest';
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
 // Silence console.error in tests for known React warnings
-const originalError = console.error
+const originalError = console.error;
 beforeAll(() => {
   console.error = (...args: unknown[]) => {
     if (
@@ -14,12 +14,12 @@ beforeAll(() => {
         args[0].includes('act(...)') ||
         args[0].includes('Not implemented'))
     ) {
-      return
+      return;
     }
-    originalError.call(console, ...args)
-  }
-})
+    originalError.call(console, ...args);
+  };
+});
 
 afterAll(() => {
-  console.error = originalError
-})
+  console.error = originalError;
+});

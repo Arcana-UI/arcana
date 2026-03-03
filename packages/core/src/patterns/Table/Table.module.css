@@ -16,13 +16,16 @@
   background-color: var(--arcana-surface-secondary);
 }
 
-.tbody {}
+.tbody {
+}
 
-.row {}
+.row {
+}
 
 .rowHoverable:hover {
   background-color: var(--arcana-surface-secondary);
-  transition: background-color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default);
+  transition: background-color var(--arcana-motion-duration-fast)
+    var(--arcana-motion-easing-default);
 }
 
 .rowStriped:nth-child(even) {

@@ -1,14 +1,14 @@
-import React from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Textarea.module.css'
+import React from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Textarea.module.css';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string
-  error?: string | boolean
-  helperText?: string
-  autoResize?: boolean
-  showCount?: boolean
-  maxLength?: number
+  label?: string;
+  error?: string | boolean;
+  helperText?: string;
+  autoResize?: boolean;
+  showCount?: boolean;
+  maxLength?: number;
 }
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -29,70 +29,73 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       defaultValue,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const generatedId = React.useId()
-    const textareaId = id ?? generatedId
-    const errorId = `${textareaId}-error`
-    const helperId = `${textareaId}-helper`
+    const generatedId = React.useId();
+    const textareaId = id ?? generatedId;
+    const errorId = `${textareaId}-error`;
+    const helperId = `${textareaId}-helper`;
 
     const [charCount, setCharCount] = React.useState(() => {
-      if (typeof value === 'string') return value.length
-      if (typeof defaultValue === 'string') return defaultValue.length
-      return 0
-    })
+      if (typeof value === 'string') return value.length;
+      if (typeof defaultValue === 'string') return defaultValue.length;
+      return 0;
+    });
 
-    const hasError = Boolean(error)
-    const errorMessage = typeof error === 'string' ? error : undefined
+    const hasError = Boolean(error);
+    const errorMessage = typeof error === 'string' ? error : undefined;
 
-    const internalRef = React.useRef<HTMLTextAreaElement | null>(null)
+    const internalRef = React.useRef<HTMLTextAreaElement | null>(null);
 
     // Merge external ref with internal ref
     const setRef = React.useCallback(
       (node: HTMLTextAreaElement | null) => {
-        internalRef.current = node
+        internalRef.current = node;
         if (typeof ref === 'function') {
-          ref(node)
+          ref(node);
         } else if (ref) {
-          ;(ref as React.MutableRefObject<HTMLTextAreaElement | null>).current = node
+          (ref as React.MutableRefObject<HTMLTextAreaElement | null>).current = node;
         }
       },
-      [ref]
-    )
+      [ref],
+    );
 
-    const handleAutoResize = React.useCallback((el: HTMLTextAreaElement) => {
-      if (autoResize) {
-        el.style.height = 'auto'
-        el.style.height = `${el.scrollHeight}px`
-      }
-    }, [autoResize])
+    const handleAutoResize = React.useCallback(
+      (el: HTMLTextAreaElement) => {
+        if (autoResize) {
+          el.style.height = 'auto';
+          el.style.height = `${el.scrollHeight}px`;
+        }
+      },
+      [autoResize],
+    );
 
     const handleInput = React.useCallback(
       (e: React.FormEvent<HTMLTextAreaElement>) => {
-        const el = e.currentTarget
-        setCharCount(el.value.length)
-        handleAutoResize(el)
-        onInput?.(e)
+        const el = e.currentTarget;
+        setCharCount(el.value.length);
+        handleAutoResize(el);
+        onInput?.(e);
       },
-      [handleAutoResize, onInput]
-    )
+      [handleAutoResize, onInput],
+    );
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setCharCount(e.currentTarget.value.length)
-        onChange?.(e)
+        setCharCount(e.currentTarget.value.length);
+        onChange?.(e);
       },
-      [onChange]
-    )
+      [onChange],
+    );
 
     // Initial auto-resize on mount
     React.useEffect(() => {
       if (autoResize && internalRef.current) {
-        handleAutoResize(internalRef.current)
+        handleAutoResize(internalRef.current);
       }
-    }, [autoResize, handleAutoResize])
+    }, [autoResize, handleAutoResize]);
 
-    const showCountDisplay = showCount && (maxLength !== undefined || showCount)
+    const showCountDisplay = showCount && (maxLength !== undefined || showCount);
 
     return (
       <div className={styles.wrapper}>
@@ -111,16 +114,14 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           defaultValue={defaultValue}
           aria-invalid={hasError || undefined}
           aria-describedby={
-            [errorMessage && errorId, helperText && helperId]
-              .filter(Boolean)
-              .join(' ') || undefined
+            [errorMessage && errorId, helperText && helperId].filter(Boolean).join(' ') || undefined
           }
           className={cn(
             styles.textarea,
             hasError && styles.hasError,
             disabled && styles.disabled,
             autoResize && styles.autoResize,
-            className
+            className,
           )}
           onInput={handleInput}
           onChange={handleChange}
@@ -141,14 +142,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             )}
           </div>
           {showCountDisplay && (
-            <span className={cn(styles.count, maxLength && charCount >= maxLength && styles.countAtMax)}>
+            <span
+              className={cn(styles.count, maxLength && charCount >= maxLength && styles.countAtMax)}
+            >
               {maxLength !== undefined ? `${charCount}/${maxLength}` : `${charCount}`}
             </span>
           )}
         </div>
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-Textarea.displayName = 'Textarea'
+Textarea.displayName = 'Textarea';

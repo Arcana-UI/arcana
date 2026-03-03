@@ -12,8 +12,8 @@
   border-radius: var(--arcana-radius-full);
   background-color: var(--arcana-border-strong);
   cursor: pointer;
-  transition:
-    background-color var(--arcana-motion-duration-normal) var(--arcana-motion-easing-default);
+  transition: background-color var(--arcana-motion-duration-normal)
+    var(--arcana-motion-easing-default);
   padding: 0;
   flex-shrink: 0;
 }

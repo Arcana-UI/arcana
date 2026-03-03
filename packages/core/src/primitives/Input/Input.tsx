@@ -1,14 +1,15 @@
-import React from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Input.module.css'
+import React from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Input.module.css';
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'suffix'> {
-  label?: string
-  error?: string | boolean
-  helperText?: string
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  fullWidth?: boolean
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'suffix'> {
+  label?: string;
+  error?: string | boolean;
+  helperText?: string;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -25,30 +26,31 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       disabled,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const generatedId = React.useId()
-    const inputId = id ?? generatedId
-    const errorId = `${inputId}-error`
-    const helperId = `${inputId}-helper`
+    const generatedId = React.useId();
+    const inputId = id ?? generatedId;
+    const errorId = `${inputId}-error`;
+    const helperId = `${inputId}-helper`;
 
-    const hasError = Boolean(error)
-    const errorMessage = typeof error === 'string' ? error : undefined
+    const hasError = Boolean(error);
+    const errorMessage = typeof error === 'string' ? error : undefined;
 
     return (
-      <div
-        className={cn(
-          styles.wrapper,
-          fullWidth && styles.fullWidth
-        )}
-      >
+      <div className={cn(styles.wrapper, fullWidth && styles.fullWidth)}>
         {label && (
           <label htmlFor={inputId} className={styles.label}>
             {label}
           </label>
         )}
 
-        <div className={cn(styles.inputWrapper, hasError && styles.hasError, disabled && styles.disabled)}>
+        <div
+          className={cn(
+            styles.inputWrapper,
+            hasError && styles.hasError,
+            disabled && styles.disabled,
+          )}
+        >
           {prefix && (
             <span className={styles.prefix} aria-hidden="true">
               {prefix}
@@ -60,15 +62,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             aria-invalid={hasError || undefined}
             aria-describedby={
-              [errorMessage && errorId, helperText && helperId]
-                .filter(Boolean)
-                .join(' ') || undefined
+              [errorMessage && errorId, helperText && helperId].filter(Boolean).join(' ') ||
+              undefined
             }
             className={cn(
               styles.input,
               prefix && styles.hasPrefix,
               suffix && styles.hasSuffix,
-              className
+              className,
             )}
             {...props}
           />
@@ -90,8 +91,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </span>
         )}
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-Input.displayName = 'Input'
+Input.displayName = 'Input';

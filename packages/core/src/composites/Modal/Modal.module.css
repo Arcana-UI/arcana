@@ -140,8 +140,9 @@
   background: transparent;
   color: var(--arcana-text-muted);
   cursor: pointer;
-  transition: background-color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default),
-    color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default);
+  transition: background-color var(--arcana-motion-duration-fast)
+    var(--arcana-motion-easing-default), color var(--arcana-motion-duration-fast)
+    var(--arcana-motion-easing-default);
   flex-shrink: 0;
   padding: 0;
 }

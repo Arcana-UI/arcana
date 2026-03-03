@@ -54,9 +54,9 @@
   border: var(--arcana-component-border-width) solid var(--arcana-border-strong);
   background-color: var(--arcana-surface-primary);
   cursor: pointer;
-  transition:
-    background-color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default),
-    border-color var(--arcana-motion-duration-fast) var(--arcana-motion-easing-default);
+  transition: background-color var(--arcana-motion-duration-fast)
+    var(--arcana-motion-easing-default), border-color var(--arcana-motion-duration-fast)
+    var(--arcana-motion-easing-default);
   margin: 0;
 }
 

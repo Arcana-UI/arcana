@@ -1,62 +1,70 @@
-import React, { createContext, useContext, useId, useState } from 'react'
-import { cn } from '../../utils/cn'
-import styles from './Tabs.module.css'
+import type React from 'react';
+import { createContext, useContext, useId, useState } from 'react';
+import { cn } from '../../utils/cn';
+import styles from './Tabs.module.css';
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
 interface TabsContextValue {
-  activeValue: string
-  setActiveValue: (value: string) => void
-  variant: 'line' | 'pills'
-  baseId: string
+  activeValue: string;
+  setActiveValue: (value: string) => void;
+  variant: 'line' | 'pills';
+  baseId: string;
 }
 
-const TabsContext = createContext<TabsContextValue | null>(null)
+const TabsContext = createContext<TabsContextValue | null>(null);
 
 function useTabsContext() {
-  const ctx = useContext(TabsContext)
-  if (!ctx) throw new Error('Tabs compound components must be used within <Tabs>')
-  return ctx
+  const ctx = useContext(TabsContext);
+  if (!ctx) throw new Error('Tabs compound components must be used within <Tabs>');
+  return ctx;
 }
 
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
 
 export interface TabsProps {
-  value?: string
-  onChange?: (value: string) => void
-  defaultValue?: string
-  variant?: 'line' | 'pills'
-  children: React.ReactNode
-  className?: string
+  value?: string;
+  onChange?: (value: string) => void;
+  defaultValue?: string;
+  variant?: 'line' | 'pills';
+  children: React.ReactNode;
+  className?: string;
 }
 
-export const Tabs = ({ value, onChange, defaultValue = '', variant = 'line', children, className }: TabsProps) => {
-  const [internalValue, setInternalValue] = useState(defaultValue)
-  const baseId = useId()
+export const Tabs = ({
+  value,
+  onChange,
+  defaultValue = '',
+  variant = 'line',
+  children,
+  className,
+}: TabsProps) => {
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const baseId = useId();
 
-  const activeValue = value !== undefined ? value : internalValue
+  const activeValue = value !== undefined ? value : internalValue;
   const setActiveValue = (v: string) => {
-    if (value === undefined) setInternalValue(v)
-    onChange?.(v)
-  }
+    if (value === undefined) setInternalValue(v);
+    onChange?.(v);
+  };
 
   return (
     <TabsContext.Provider value={{ activeValue, setActiveValue, variant, baseId }}>
       <div className={cn(styles.tabs, className)}>{children}</div>
     </TabsContext.Provider>
-  )
-}
-Tabs.displayName = 'Tabs'
+  );
+};
+Tabs.displayName = 'Tabs';
 
 // ─── TabList ──────────────────────────────────────────────────────────────────
 
 export interface TabListProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const TabList = ({ children, className }: TabListProps) => {
-  const { variant } = useTabsContext()
+  const { variant } = useTabsContext();
   return (
     <div
       role="tablist"
@@ -64,31 +72,31 @@ export const TabList = ({ children, className }: TabListProps) => {
     >
       {children}
     </div>
-  )
-}
-TabList.displayName = 'TabList'
+  );
+};
+TabList.displayName = 'TabList';
 
 // ─── Tab ──────────────────────────────────────────────────────────────────────
 
 export interface TabProps {
-  value: string
-  disabled?: boolean
-  children: React.ReactNode
-  className?: string
+  value: string;
+  disabled?: boolean;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const Tab = ({ value, disabled = false, children, className }: TabProps) => {
-  const { activeValue, setActiveValue, variant, baseId } = useTabsContext()
-  const isActive = activeValue === value
-  const panelId = `${baseId}-panel-${value}`
-  const tabId = `${baseId}-tab-${value}`
+  const { activeValue, setActiveValue, variant, baseId } = useTabsContext();
+  const isActive = activeValue === value;
+  const panelId = `${baseId}-panel-${value}`;
+  const tabId = `${baseId}-tab-${value}`;
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      if (!disabled) setActiveValue(value)
+      e.preventDefault();
+      if (!disabled) setActiveValue(value);
     }
-  }
+  };
 
   return (
     <button
@@ -107,42 +115,42 @@ export const Tab = ({ value, disabled = false, children, className }: TabProps) 
         variant === 'pills' ? styles.tabPill : styles.tabLine,
         isActive && (variant === 'pills' ? styles.tabPillActive : styles.tabLineActive),
         disabled && styles.tabDisabled,
-        className
+        className,
       )}
     >
       {children}
     </button>
-  )
-}
-Tab.displayName = 'Tab'
+  );
+};
+Tab.displayName = 'Tab';
 
 // ─── TabPanels ────────────────────────────────────────────────────────────────
 
 export interface TabPanelsProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const TabPanels = ({ children, className }: TabPanelsProps) => {
-  return <div className={cn(styles.tabPanels, className)}>{children}</div>
-}
-TabPanels.displayName = 'TabPanels'
+  return <div className={cn(styles.tabPanels, className)}>{children}</div>;
+};
+TabPanels.displayName = 'TabPanels';
 
 // ─── TabPanel ─────────────────────────────────────────────────────────────────
 
 export interface TabPanelProps {
-  value: string
-  children: React.ReactNode
-  className?: string
+  value: string;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const TabPanel = ({ value, children, className }: TabPanelProps) => {
-  const { activeValue, baseId } = useTabsContext()
-  const isActive = activeValue === value
-  const panelId = `${baseId}-panel-${value}`
-  const tabId = `${baseId}-tab-${value}`
+  const { activeValue, baseId } = useTabsContext();
+  const isActive = activeValue === value;
+  const panelId = `${baseId}-panel-${value}`;
+  const tabId = `${baseId}-tab-${value}`;
 
-  if (!isActive) return null
+  if (!isActive) return null;
 
   return (
     <div
@@ -154,6 +162,6 @@ export const TabPanel = ({ value, children, className }: TabPanelProps) => {
     >
       {children}
     </div>
-  )
-}
-TabPanel.displayName = 'TabPanel'
+  );
+};
+TabPanel.displayName = 'TabPanel';

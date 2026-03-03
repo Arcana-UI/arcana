@@ -64,10 +64,7 @@
           "description": "Primitive color palette. Keys are hue names (e.g. 'stone', 'white'). Values are either a color scale object or a single color string.",
           "patternProperties": {
             "^[a-z]+$": {
-              "oneOf": [
-                { "$ref": "#/$defs/colorScale" },
-                { "$ref": "#/$defs/tokenValue" }
-              ]
+              "oneOf": [{ "$ref": "#/$defs/colorScale" }, { "$ref": "#/$defs/tokenValue" }]
             }
           },
           "additionalProperties": false
