@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-03-04
 > **Current phase:** 0 — Foundation Cleanup
-> **Next priority task:** 0.6
+> **Next priority task:** 0.7
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -11,7 +11,7 @@
 - [x] 0.3 — Establish code standards (strict TS, naming, exports)
 - [x] 0.4 — Add build pipeline for tokens (JSON → CSS)
 - [x] 0.5 — Clean up component API surfaces
-- [ ] 0.6 — Set up testing infrastructure (Vitest + Playwright)
+- [x] 0.6 — Set up testing infrastructure (Vitest + Playwright)
 - [ ] 0.7 — Add linting rules (enforce token usage)
 - [ ] 0.8 — Update README, CLAUDE.md, SPEC.md
 - [ ] 0.9 — Set up CI/CD

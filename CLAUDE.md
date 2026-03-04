@@ -480,17 +480,41 @@ Phase 0 — Foundation Cleanup
   - Created `docs/COMPONENT-INVENTORY.md` — full component registry with props, forwardRef status, migration status
   - All 238 tests pass, 0 lint errors, build succeeds
 
+- Task 0.6 — Testing infrastructure set up
+  - **Part A — Vitest + React Testing Library:**
+    - Added coverage config (v8 provider, 70% thresholds for statements/branches/functions/lines)
+    - Enhanced Button tests: 19 tests (ref forwarding, className, userEvent, keyboard Tab/Enter/Space, disabled focus, icons)
+    - Enhanced Input tests: 23 tests (ref, className, label association, error/helper aria-describedby, prefix/suffix, userEvent typing, onFocus/onBlur, disabled)
+    - Enhanced Modal tests: 28 tests (ModalClose ref/className, Modal ref/className, sizes, overlay click, Escape/closeOnEsc, focus trap, aria-labelledby/describedby, body scroll lock)
+    - Total: 274 tests pass (up from 238)
+  - **Part B — Playwright visual regression:**
+    - Installed @playwright/test@1.56.0 (compatible with cached chromium-1194)
+    - Created playwright.config.ts: 3 viewports (320x568 mobile, 768x1024 tablet, 1280x800 desktop), chromium only
+    - Created test helpers (theme switching, page ready wait)
+    - Visual tests: playground default + dark theme + button section, all at 3 breakpoints
+    - Generated 12 baseline screenshots committed to tests/visual/snapshots/
+    - 13 tests pass, 2 correctly skipped
+  - **Part C — Accessibility testing:**
+    - Installed @axe-core/playwright for Playwright a11y tests
+    - Created a11y test: runs axe-core on playground, fails on critical violations, logs serious/moderate as warnings
+    - Excluded known playground-only issues (TokenEditor sliders/selects missing labels)
+    - Zero critical violations, 1 serious (color contrast in playground sidebar — 35 instances, pre-existing)
+    - jest-axe already integrated in component tests (from pre-existing setup)
+  - **Test template:** Created docs/templates/component-test-template.tsx with all 9 test categories
+  - **Scripts added:** test:visual, test:visual:update, test:all
+  - All 274 Vitest tests pass, 13 Playwright tests pass, 0 lint errors (54 pre-existing warnings)
+
 ### Currently Working On
-Ready to begin Phase 0, Task 0.6 — Set up testing infrastructure
+Ready to begin Phase 0, Task 0.7 — Add linting rules (enforce token usage)
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.6 is next
-2. Read `AI_OPS.md` for the Task 0.6 prompt
-3. Set up testing infrastructure (Vitest + Playwright)
-4. Update `PROGRESS.md` to check off 0.6
+1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.7 is next
+2. Read `AI_OPS.md` for the Task 0.7 prompt
+3. Add linting rules to enforce token usage in CSS
+4. Update `PROGRESS.md` to check off 0.7
 
 ### Session History
 
@@ -503,3 +527,4 @@ None
 | 2026-03-04 | Claude (Claude Code) | Task 0.4 — Build pipeline | New build.ts: reads 6 presets, resolves refs, generates CSS with new naming. 195 vars/theme, compat.css with 177 aliases. All builds + tests pass. |
 | 2026-03-04 | Claude (Claude Code) | Task 0.5 — Component API cleanup | Migrated all 20 CSS files from old `--arcana-*` to new token names (511 replacements). Added JSDoc to all props across 48 components. Added forwardRef to 23 components. Renamed Button `danger` → `destructive`. Created docs/COMPONENT-INVENTORY.md. 238 tests pass, 0 lint errors. |
 | 2026-03-04 | Claude (Claude Code) | Playground bugfix | Fixed theme switching and interactive controls. Root cause: playground files referenced old `--arcana-*` token names after Task 0.5 migration. Fix: rewrote presets.ts to use `data-theme` attribute for all 6 themes (removed ~240 lines of inline token overrides), migrated 322 old token references across 6 playground files, fixed 3 `variant="danger"` → `variant="destructive"`. 238 tests pass, 0 lint errors. |
+| 2026-03-04 | Claude (Claude Code) | Task 0.6 — Testing infrastructure | Enhanced Vitest with coverage (70% thresholds). Rewrote Button (19), Input (23), Modal (28) test suites with ref/className/keyboard/a11y coverage. Set up Playwright 1.56 with 3 viewports, 12 baseline screenshots. Added axe-core a11y Playwright test (0 critical violations). Created test template. 274 unit tests + 13 visual tests pass. |
