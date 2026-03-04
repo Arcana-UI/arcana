@@ -459,21 +459,31 @@ Phase 0 — Foundation Cleanup
   - All lint/format violations fixed (zero `any` types, consistent formatting)
   - Husky + lint-staged pre-commit hook installed (runs biome on staged files)
   - 54 a11y warnings documented for future component improvement tasks
+- Task 0.4 — Build pipeline for tokens (JSON → CSS)
+  - Created `packages/tokens/src/build.ts` — new main build script
+  - Reads all 6 preset JSON files from `src/presets/`
+  - Validates each preset against schema (structural + naming pattern checks)
+  - Resolves all `{primitive.*}` and `{semantic.*}` references (with circular reference detection)
+  - Generates CSS with new variable naming per MIGRATION.md (e.g., `--color-bg-page`, `--color-fg-primary`)
+  - Outputs individual theme files: `dist/themes/{light,dark,terminal,retro98,glass,brutalist}.css`
+  - Outputs combined `dist/arcana.css` (all 6 themes + global reset + focus utility + color scheme hints)
+  - Outputs `dist/compat.css` (177 backward-compatible aliases mapping old `--arcana-*` to new names)
+  - Updated `packages/tokens/package.json`: build script → `src/build.ts`, exports for all 6 themes + compat
+  - Reports: 195 variables per theme, 1170 total, unreferenced primitive warnings
+  - All builds pass (tokens + core + docs + playground), 238 tests pass, 0 lint errors
 
 ### Currently Working On
-Ready to begin Phase 0, Task 0.4 — Add build pipeline for tokens (JSON → CSS)
+Ready to begin Phase 0, Task 0.5 — Clean up component API surfaces
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.4 is next
-2. Read `docs/MIGRATION.md` for token name mapping (old → new)
-3. Read the prompt for Task 0.4 in `AI_OPS.md` Part 2
-4. Rewrite `packages/tokens/scripts/build-tokens.ts` to read from `src/presets/*.json` (three-tier format)
-5. Resolve `{primitive.*}` references in semantic tokens to actual values
-6. Generate CSS for all 6 presets (not just light/dark)
-7. Update `PROGRESS.md` to check off 0.4
+1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.5 is next
+2. Read `AI_OPS.md` for the Task 0.5 prompt
+3. Update component CSS to use new token names (replace `--arcana-*` with new names per `docs/MIGRATION.md`)
+4. Include `dist/compat.css` during migration to prevent breaking changes
+5. Update `PROGRESS.md` to check off 0.5
 
 ### Session History
 
@@ -483,3 +493,4 @@ None
 | 2026-03-02 | Claude (Claude Code) | Task 0.1 — Token audit | Scanned 32 CSS files, cataloged ~176 tokens, found 88 hardcoded violations in components, 4 unbuilt themes. Full report at docs/audits/token-audit.md |
 | 2026-03-03 | Claude (Claude Code) | Task 0.2 — Token restructure | Created JSON Schema, migrated 6 presets to three-tier format, validated all against schema, created MIGRATION.md |
 | 2026-03-03 | Claude (Claude Code) | Task 0.3 — Code standards | Strict TS config, biome formatting rules, .editorconfig, husky pre-commit hook, zero `any` types, 238 tests pass |
+| 2026-03-04 | Claude (Claude Code) | Task 0.4 — Build pipeline | New build.ts: reads 6 presets, resolves refs, generates CSS with new naming. 195 vars/theme, compat.css with 177 aliases. All builds + tests pass. |
