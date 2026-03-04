@@ -500,7 +500,7 @@ Phase 0 — Foundation Cleanup
     - Excluded known playground-only issues (TokenEditor sliders/selects missing labels)
     - Zero critical violations, 1 serious (color contrast in playground sidebar — 35 instances, pre-existing)
     - jest-axe already integrated in component tests (from pre-existing setup)
-  - **Test template:** Created docs/templates/component-test-template.tsx with all 9 test categories
+  - **Test template:** Created templates/component-test-template.tsx with all 9 test categories
   - **Scripts added:** test:visual, test:visual:update, test:all
   - All 274 Vitest tests pass, 13 Playwright tests pass, 0 lint errors (54 pre-existing warnings)
 
