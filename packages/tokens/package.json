@@ -6,13 +6,18 @@
   "exports": {
     ".": "./dist/arcana.css",
     "./base": "./dist/arcana.css",
+    "./compat": "./dist/compat.css",
     "./light": "./dist/themes/light.css",
-    "./dark": "./dist/themes/dark.css"
+    "./dark": "./dist/themes/dark.css",
+    "./terminal": "./dist/themes/terminal.css",
+    "./retro98": "./dist/themes/retro98.css",
+    "./glass": "./dist/themes/glass.css",
+    "./brutalist": "./dist/themes/brutalist.css"
   },
   "files": ["dist"],
   "scripts": {
-    "build": "npx tsx scripts/build-tokens.ts",
-    "dev": "npx tsx --watch scripts/build-tokens.ts",
+    "build": "npx tsx src/build.ts",
+    "dev": "npx tsx --watch src/build.ts",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
