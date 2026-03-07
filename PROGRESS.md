@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-03-07
 > **Current phase:** 0 — Foundation Cleanup
-> **Next priority task:** 0.9
+> **Next priority task:** 0.10
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -14,7 +14,7 @@
 - [x] 0.6 — Set up testing infrastructure (Vitest + Playwright)
 - [x] 0.7 — Add linting rules (enforce token usage)
 - [x] 0.8 — Update README, CLAUDE.md, SPEC.md
-- [ ] 0.9 — Set up CI/CD
+- [x] 0.9 — Set up CI/CD
 - [ ] 0.10 — Establish CONTRIBUTING.md
 
 ## Phase 1: Token System Maturity (Weeks 3–5)
