@@ -47,7 +47,6 @@
 | `PROGRESS.md` | Checklist tracker — what's done, what's next | Every session (start + end) |
 | `ROADMAP.md` | Full architecture, token spec, component standards, phased plan | When working on any task |
 | `AI_OPS.md` | Prompt library, tracking system, session management | When you need the specific prompt for a task |
-| `SPEC.md` | Technical specification (legacy — being superseded by ROADMAP.md) | Reference only |
 | `manifest.ai.json` | Machine-readable component/token registry for AI discovery | When updating AI integration |
 
 ---
@@ -91,7 +90,6 @@ arcana-ui/
 ├── ROADMAP.md                      # Full roadmap + architecture
 ├── PROGRESS.md                     # Task tracker
 ├── AI_OPS.md                       # Prompt library + workflow
-├── SPEC.md                         # Legacy spec
 ├── manifest.ai.json                # AI discovery manifest
 ├── biome.json                      # Linter/formatter config
 ├── vitest.workspace.ts             # Test config
@@ -381,6 +379,15 @@ Before opening any PR, verify all of these:
 - [ ] Commit messages follow conventional commits
 - [ ] `PROGRESS.md` updated if a roadmap task was completed
 
+### CI / Branch Protection
+
+GitHub Actions CI runs on every PR and push to `main` (`.github/workflows/ci.yml`). The `main` branch should be configured with these protection rules (requires repo admin):
+
+- **Require status checks to pass:** `Lint`, `Typecheck`, `Test`, `Build`
+- **Require branches to be up to date** before merging
+- **Require at least 1 review** (optional for solo maintainer — can be relaxed)
+- **PR titles must follow conventional commits** (enforced by `.github/workflows/pr-title.yml`)
+
 ---
 
 ## What NOT to Do
@@ -529,17 +536,29 @@ Phase 0 — Foundation Cleanup
   - Verified all supporting docs: ROADMAP.md, AI_OPS.md, docs/COMPONENT-INVENTORY.md, docs/MIGRATION.md all present and accurate
   - All 274 tests pass, 0 lint errors, build succeeds
 
+- Task 0.9 — CI/CD setup
+  - Created `.github/workflows/ci.yml` — 5 jobs: Lint, Typecheck, Test, Build (parallel), Visual Regression (after build)
+  - Lint/typecheck/test/build run in parallel; visual-test is non-blocking (`continue-on-error: true`) due to font rendering differences in CI
+  - pnpm store cached via `pnpm/action-setup` + `actions/setup-node` cache; Playwright browsers cached via `actions/cache`
+  - Concurrency group cancels in-progress runs on same branch
+  - Coverage report uploaded as artifact; screenshot diffs uploaded on visual test failure
+  - Created `.github/workflows/pr-title.yml` — validates PR titles follow conventional commits (feat, fix, refactor, style, docs, test, chore, perf)
+  - Added CI status badge to README.md
+  - Added branch protection recommendation to CLAUDE.md (required status checks: Lint, Typecheck, Test, Build)
+  - Verified Vercel deployment: `vercel.json` configured with `buildCommand: "pnpm build"`, `outputDirectory: "playground/dist"` — Vercel GitHub integration handles deployment automatically
+  - All 274 tests pass, 0 lint errors, build succeeds
+
 ### Currently Working On
-Phase 0 — Foundation Cleanup (nearly complete). Ready to move to Phase 0, Task 0.9 — Set up CI/CD
+Phase 0 — Foundation Cleanup (nearly complete). Ready to move to Phase 0, Task 0.10 — Establish CONTRIBUTING.md
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.9 is next (CI/CD setup)
-2. Read `AI_OPS.md` for the Task 0.9 prompt
-3. Set up GitHub Actions workflows for testing, linting, and building
-4. Update `PROGRESS.md` to check off 0.9
+1. Read `PROGRESS.md` to confirm Phase 0 / Task 0.10 is next (CONTRIBUTING.md)
+2. Read `AI_OPS.md` for the Task 0.10 prompt
+3. Create CONTRIBUTING.md with contribution guidelines
+4. Update `PROGRESS.md` to check off 0.10 and mark Phase 0 complete
 
 ### Session History
 
@@ -555,3 +574,4 @@ None
 | 2026-03-04 | Claude (Claude Code) | Task 0.6 — Testing infrastructure | Enhanced Vitest with coverage (70% thresholds). Rewrote Button (19), Input (23), Modal (28) test suites with ref/className/keyboard/a11y coverage. Set up Playwright 1.56 with 3 viewports, 12 baseline screenshots. Added axe-core a11y Playwright test (0 critical violations). Created test template. 274 unit tests + 13 visual tests pass. |
 | 2026-03-07 | Claude (Claude Code) | Task 0.7 — CSS token linter | Created lint-tokens.ts + config. Fixed 93 hardcoded violations across 16 CSS files using component CSS custom properties. Added --focus-ring-error token to all 6 presets. Integrated into pnpm lint. 274 tests pass, 0 lint errors. |
 | 2026-03-07 | Claude (Claude Code) | Task 0.8 — Documentation update | Updated manifest.ai.json with new token names and destructive variant. Updated CLAUDE.md and PROGRESS.md to mark tasks 0.1-0.8 complete. Created docs/ARCHITECTURE.md. Verified all docs accuracy. |
+| 2026-03-07 | Claude (Claude Code) | Task 0.9 — CI/CD setup | Created ci.yml (5 jobs: lint, typecheck, test, build, visual-test), pr-title.yml (conventional commit validation). Added CI badge to README. Verified Vercel deployment. 274 tests pass, 0 lint errors. |
