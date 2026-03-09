@@ -20,7 +20,7 @@
   background-color: var(--color-bg-elevated);
   border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--elevation-toast);
   pointer-events: auto;
   transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow)
     var(--ease-out);
