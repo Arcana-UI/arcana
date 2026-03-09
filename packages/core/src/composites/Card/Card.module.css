@@ -11,7 +11,7 @@
 /* Variants */
 .default {
   border: var(--border-width-default) solid var(--color-border-default);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--elevation-card);
 }
 
 .outlined {
@@ -31,13 +31,13 @@
 }
 
 .interactive:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--elevation-card-hover);
   transform: translateY(-1px);
 }
 
 .interactive:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--elevation-card);
 }
 
 /* Padding variants */

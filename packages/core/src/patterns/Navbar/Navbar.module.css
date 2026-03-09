@@ -2,6 +2,9 @@
   width: 100%;
   background-color: var(--color-bg-page);
   z-index: var(--z-sticky);
+  box-shadow: var(--elevation-navbar);
+  -webkit-backdrop-filter: blur(var(--navbar-backdrop-blur));
+  backdrop-filter: blur(var(--navbar-backdrop-blur));
 }
 
 .sticky {

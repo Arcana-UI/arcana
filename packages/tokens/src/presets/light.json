@@ -304,13 +304,22 @@
     },
     "shadow": {
       "none": "none",
-      "xs": "0 1px 2px rgba(28, 25, 23, 0.04)",
-      "sm": "0 1px 3px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04)",
-      "md": "0 4px 6px rgba(28, 25, 23, 0.07), 0 2px 4px rgba(28, 25, 23, 0.05)",
-      "lg": "0 10px 15px rgba(28, 25, 23, 0.1), 0 4px 6px rgba(28, 25, 23, 0.06)",
-      "xl": "0 20px 25px rgba(28, 25, 23, 0.12), 0 8px 10px rgba(28, 25, 23, 0.06)",
-      "2xl": "0 25px 50px rgba(28, 25, 23, 0.18)",
-      "inner": "inset 0 2px 4px rgba(28, 25, 23, 0.06)"
+      "xs": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "sm": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+      "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
+      "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
+      "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+      "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+      "inner": "inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)"
+    },
+    "blur": {
+      "none": "0",
+      "sm": "4px",
+      "md": "8px",
+      "lg": "12px",
+      "xl": "16px",
+      "2xl": "24px",
+      "3xl": "40px"
     },
     "motion": {
       "duration": {
@@ -332,10 +341,12 @@
       "raised": "10",
       "dropdown": "100",
       "sticky": "200",
-      "overlay": "300",
-      "modal": "400",
-      "toast": "500",
-      "tooltip": "600"
+      "fixed": "300",
+      "overlay": "400",
+      "modal": "500",
+      "popover": "600",
+      "toast": "700",
+      "tooltip": "800"
     }
   },
 
@@ -485,7 +496,15 @@
       "lg": "{primitive.shadow.lg}",
       "xl": "{primitive.shadow.xl}",
       "2xl": "{primitive.shadow.2xl}",
-      "inner": "{primitive.shadow.inner}"
+      "inner": "{primitive.shadow.inner}",
+      "card": "{primitive.shadow.sm}",
+      "card-hover": "{primitive.shadow.md}",
+      "dropdown": "{primitive.shadow.lg}",
+      "modal": "{primitive.shadow.xl}",
+      "popover": "{primitive.shadow.lg}",
+      "toast": "{primitive.shadow.lg}",
+      "navbar": "{primitive.shadow.sm}",
+      "sidebar": "{primitive.shadow.none}"
     },
     "radius": {
       "none": "{primitive.radius.none}",
@@ -555,7 +574,20 @@
       "border-width": "{semantic.border.width.default}",
       "bg": "{semantic.color.background.surface}",
       "border-color": "{semantic.color.border.default}",
-      "padding": "var(--spacing-lg)"
+      "padding": "var(--spacing-lg)",
+      "shadow": "{semantic.elevation.card}",
+      "shadow-hover": "{semantic.elevation.card-hover}"
+    },
+    "modal": {
+      "shadow": "{semantic.elevation.modal}",
+      "overlay-bg": "{semantic.color.background.overlay}"
+    },
+    "toast": {
+      "shadow": "{semantic.elevation.toast}"
+    },
+    "navbar": {
+      "shadow": "{semantic.elevation.navbar}",
+      "backdrop-blur": "{primitive.blur.none}"
     }
   }
 }

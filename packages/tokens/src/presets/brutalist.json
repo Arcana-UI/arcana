@@ -169,6 +169,15 @@
       "2xl": "12px 12px 0 #000000",
       "inner": "inset 2px 2px 0 rgba(0, 0, 0, 0.2)"
     },
+    "blur": {
+      "none": "0",
+      "sm": "0",
+      "md": "0",
+      "lg": "0",
+      "xl": "0",
+      "2xl": "0",
+      "3xl": "0"
+    },
     "motion": {
       "duration": {
         "instant": "0ms",
@@ -189,10 +198,12 @@
       "raised": "10",
       "dropdown": "100",
       "sticky": "200",
-      "overlay": "300",
-      "modal": "400",
-      "toast": "500",
-      "tooltip": "600"
+      "fixed": "300",
+      "overlay": "400",
+      "modal": "500",
+      "popover": "600",
+      "toast": "700",
+      "tooltip": "800"
     }
   },
 
@@ -342,7 +353,15 @@
       "lg": "{primitive.shadow.lg}",
       "xl": "{primitive.shadow.xl}",
       "2xl": "{primitive.shadow.2xl}",
-      "inner": "{primitive.shadow.inner}"
+      "inner": "{primitive.shadow.inner}",
+      "card": "{primitive.shadow.md}",
+      "card-hover": "{primitive.shadow.lg}",
+      "dropdown": "{primitive.shadow.lg}",
+      "modal": "{primitive.shadow.xl}",
+      "popover": "{primitive.shadow.lg}",
+      "toast": "{primitive.shadow.lg}",
+      "navbar": "{primitive.shadow.none}",
+      "sidebar": "{primitive.shadow.none}"
     },
     "radius": {
       "none": "{primitive.radius.none}",
@@ -412,7 +431,20 @@
       "border-width": "{semantic.border.width.default}",
       "bg": "{semantic.color.background.surface}",
       "border-color": "{semantic.color.border.default}",
-      "padding": "var(--spacing-lg)"
+      "padding": "var(--spacing-lg)",
+      "shadow": "{semantic.elevation.card}",
+      "shadow-hover": "{semantic.elevation.card-hover}"
+    },
+    "modal": {
+      "shadow": "{semantic.elevation.modal}",
+      "overlay-bg": "{semantic.color.background.overlay}"
+    },
+    "toast": {
+      "shadow": "{semantic.elevation.toast}"
+    },
+    "navbar": {
+      "shadow": "{semantic.elevation.navbar}",
+      "backdrop-blur": "{primitive.blur.none}"
     }
   }
 }

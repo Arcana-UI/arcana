@@ -32,6 +32,7 @@ interface PrimitiveTokens {
     letterSpacing: Record<string, string>;
   };
   shadow: Record<string, string>;
+  blur: Record<string, string>;
   motion: {
     duration: Record<string, string>;
     easing: Record<string, string>;
@@ -198,6 +199,11 @@ function generatePrimitiveVars(
     vars.push({ name: `--letter-spacing-${key}`, value: resolveValue(preset, value) });
   }
 
+  // Blur
+  for (const [key, value] of Object.entries(primitive.blur)) {
+    vars.push({ name: `--blur-${key}`, value: resolveValue(preset, value) });
+  }
+
   // Z-index
   for (const [key, value] of Object.entries(primitive.zIndex)) {
     vars.push({ name: `--z-${key}`, value: resolveValue(preset, value) });
@@ -322,9 +328,11 @@ function generateSemanticVars(
     vars.push({ name: `--spacing-${key}`, value: resolveValue(preset, value) });
   }
 
-  // Elevation → shadow
+  // Elevation → --shadow-* (size-based) + --elevation-* (contextual)
+  const SHADOW_SIZE_KEYS = new Set(['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', 'inner']);
   for (const [key, value] of Object.entries(semantic.elevation)) {
-    vars.push({ name: `--shadow-${key}`, value: resolveValue(preset, value) });
+    const prefix = SHADOW_SIZE_KEYS.has(key) ? '--shadow' : '--elevation';
+    vars.push({ name: `${prefix}-${key}`, value: resolveValue(preset, value) });
   }
 
   // Radius
@@ -663,6 +671,8 @@ function generateCompatCSS(): string {
     ['--arcana-z-index-overlay', 'var(--z-overlay)'],
     ['--arcana-z-index-modal', 'var(--z-modal)'],
     ['--arcana-z-index-toast', 'var(--z-toast)'],
+    ['--arcana-z-index-fixed', 'var(--z-fixed)'],
+    ['--arcana-z-index-popover', 'var(--z-popover)'],
     ['--arcana-z-index-tooltip', 'var(--z-tooltip)'],
     // Surface → Background
     ['--arcana-surface-primary', 'var(--color-bg-page)'],
@@ -773,7 +783,16 @@ function validatePreset(data: unknown, filename: string): TokenPreset {
   }
 
   const primitive = obj.primitive as Record<string, unknown>;
-  const primRequired = ['color', 'spacing', 'radius', 'typography', 'shadow', 'motion', 'zIndex'];
+  const primRequired = [
+    'color',
+    'spacing',
+    'radius',
+    'typography',
+    'shadow',
+    'blur',
+    'motion',
+    'zIndex',
+  ];
   for (const field of primRequired) {
     if (!(field in primitive)) {
       throw new Error(`${filename}: Missing primitive.${field}`);

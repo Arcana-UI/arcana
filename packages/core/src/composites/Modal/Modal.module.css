@@ -24,7 +24,7 @@
   z-index: var(--z-modal);
   background-color: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--elevation-modal);
   border: var(--border-width-default) solid var(--color-border-default);
   display: flex;
   flex-direction: column;

@@ -585,17 +585,29 @@ Phase 0 COMPLETE — ready for Phase 1
   - Build output: 1955 total variables across 6 themes, 188 compat aliases
   - All 274 tests pass, 0 lint errors (53 pre-existing warnings), build succeeds
 
+- Task 1.4 — Elevation system (shadows + z-index + backdrop blur)
+  - Added primitive shadow values: light=standard Tailwind shadows, dark=higher opacity (0.2-0.5), terminal=all none, retro98=hard pixel shadows (no blur), glass=diffused soft shadows, brutalist=exaggerated hard shadows (no blur)
+  - Added primitive backdrop blur scale (none through 3xl: 0-40px) to all 6 presets; terminal/retro98/brutalist set all to 0
+  - Updated z-index scale: base(0), raised(10), dropdown(100), sticky(200), fixed(300), overlay(400), modal(500), popover(600), toast(700), tooltip(800)
+  - Added 8 semantic contextual elevation tokens: card, card-hover, dropdown, modal, popover, toast, navbar, sidebar
+  - Per-preset elevation strategies: light/dark=shadow-based depth, terminal=zero shadows (borders only), retro98=hard pixel shadows, glass=subtle shadows + backdrop-blur, brutalist=exaggerated hard shadows
+  - Added component elevation tokens: card (shadow, shadow-hover), modal (shadow, overlay-bg), toast (shadow), navbar (shadow, backdrop-blur)
+  - Updated build.ts: added blur to PrimitiveTokens, --blur-* generation, split elevation naming (size-based → --shadow-*, contextual → --elevation-*), added fixed/popover compat aliases
+  - Updated component CSS: Card uses --elevation-card/--elevation-card-hover, Modal uses --elevation-modal, Toast uses --elevation-toast, Navbar uses --elevation-navbar + backdrop-filter with --navbar-backdrop-blur
+  - Build output: 2099 total variables across 6 themes, 190 compat aliases
+  - All 274 tests pass, 0 token lint violations, build succeeds
+
 ### Active Phase
-Phase 1 — Token System Maturity. Tasks 1.1–1.3 complete, next is Task 1.4 (Elevation system).
+Phase 1 — Token System Maturity. Tasks 1.1–1.4 complete, next is Task 1.5 (Layout tokens).
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 1 / Task 1.4 is next (Elevation system — shadows + z-index)
-2. Read `ROADMAP.md` for elevation token inventory
-3. Read `AI_OPS.md` for the Task 1.4 prompt
-4. Implement the elevation token system
+1. Read `PROGRESS.md` to confirm Phase 1 / Task 1.5 is next (Layout tokens — breakpoints, containers, grid)
+2. Read `ROADMAP.md` for layout token inventory
+3. Read `AI_OPS.md` for the Task 1.5 prompt
+4. Implement the layout token system
 
 ### Session History
 
@@ -616,3 +628,4 @@ None
 | 2026-03-08 | Claude (Claude Code) | Task 1.1 — Full color system | Expanded primitive palettes: light/dark/glass get full 16-hue Tailwind palette (179 primitives), terminal green+gray only, retro98 Win98-authentic, brutalist minimal. Added accent, border-muted, border-success, action-disabled semantic tokens. Added component color tokens. 1703 total vars. 274 tests pass, 0 lint errors. |
 | 2026-03-08 | Claude (Claude Code) | Task 1.2 — Typography system | Added display font family, 6xl/7xl sizes, light/black weights to all 6 presets. Changed loose line height from 2 to 1.75. Added semantic typography: fluid clamp() sizes (lg–7xl) for 5 presets, fixed sizes for retro98. Added semantic weight/lineHeight/letterSpacing aliases (heading, body, strong, ui, caps). Added paragraphSpacing token. Added component typography tokens (button font-size/weight/letter-spacing, input font-size). Preset personalities: glass=lighter weights, brutalist=heavy black headings, terminal=monospace everywhere. Removed Google Fonts import from build.ts. Updated build.ts SemanticTokens type. 1883 total vars. 274 tests pass, 0 lint errors. |
 | 2026-03-08 | Claude (Claude Code) | Task 1.3 — Spacing system | Expanded primitive scale to 29 values (0–48). Added semantic aliases (xs–section-lg). Terminal/retro98 use compact defaults. Three density modes (compact/default/comfortable) via data-density attribute. Component spacing tokens use var() for density adaptation. Fixed resolvePath for dotted keys. 1955 total vars. 274 tests pass, 0 lint errors. |
+| 2026-03-09 | Claude (Claude Code) | Task 1.4 — Elevation system | Added primitive shadows (xs–2xl, inner, none), backdrop blur (none–3xl), updated z-index scale (added fixed/popover, reordered 0–800). Added 8 semantic elevation tokens (card, card-hover, dropdown, modal, popover, toast, navbar, sidebar). Per-preset strategies: light=standard shadows, dark=higher opacity shadows, terminal=zero shadows, retro98=hard pixel shadows, glass=subtle shadows + backdrop-blur, brutalist=exaggerated hard shadows. Added component elevation tokens (card shadow/shadow-hover, modal shadow/overlay-bg, toast shadow, navbar shadow/backdrop-blur). Updated Card/Modal/Toast/Navbar CSS to use elevation tokens. Updated build.ts: blur primitive generation, contextual --elevation-* naming. 2099 total vars. 274 tests pass, 0 lint errors. |

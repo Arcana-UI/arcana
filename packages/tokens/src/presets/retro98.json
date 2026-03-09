@@ -174,13 +174,22 @@
     },
     "shadow": {
       "none": "none",
-      "xs": "1px 1px 0 #808080",
-      "sm": "2px 2px 0 #808080",
-      "md": "2px 2px 0 #000000",
-      "lg": "3px 3px 0 #000000",
+      "xs": "1px 1px 0 rgba(0, 0, 0, 0.5)",
+      "sm": "2px 2px 0 rgba(0, 0, 0, 0.5)",
+      "md": "2px 2px 0 rgba(0, 0, 0, 0.7)",
+      "lg": "3px 3px 0 rgba(0, 0, 0, 0.7)",
       "xl": "4px 4px 0 #000000",
       "2xl": "6px 6px 0 #000000",
       "inner": "inset 1px 1px 0 #808080, inset -1px -1px 0 #ffffff"
+    },
+    "blur": {
+      "none": "0",
+      "sm": "0",
+      "md": "0",
+      "lg": "0",
+      "xl": "0",
+      "2xl": "0",
+      "3xl": "0"
     },
     "motion": {
       "duration": {
@@ -202,10 +211,12 @@
       "raised": "10",
       "dropdown": "100",
       "sticky": "200",
-      "overlay": "300",
-      "modal": "400",
-      "toast": "500",
-      "tooltip": "600"
+      "fixed": "300",
+      "overlay": "400",
+      "modal": "500",
+      "popover": "600",
+      "toast": "700",
+      "tooltip": "800"
     }
   },
 
@@ -355,7 +366,15 @@
       "lg": "{primitive.shadow.lg}",
       "xl": "{primitive.shadow.xl}",
       "2xl": "{primitive.shadow.2xl}",
-      "inner": "{primitive.shadow.inner}"
+      "inner": "{primitive.shadow.inner}",
+      "card": "{primitive.shadow.sm}",
+      "card-hover": "{primitive.shadow.md}",
+      "dropdown": "{primitive.shadow.lg}",
+      "modal": "{primitive.shadow.xl}",
+      "popover": "{primitive.shadow.md}",
+      "toast": "{primitive.shadow.md}",
+      "navbar": "{primitive.shadow.xs}",
+      "sidebar": "{primitive.shadow.none}"
     },
     "radius": {
       "none": "{primitive.radius.none}",
@@ -425,7 +444,20 @@
       "border-width": "{semantic.border.width.default}",
       "bg": "{semantic.color.background.surface}",
       "border-color": "{semantic.color.border.default}",
-      "padding": "var(--spacing-lg)"
+      "padding": "var(--spacing-lg)",
+      "shadow": "{semantic.elevation.card}",
+      "shadow-hover": "{semantic.elevation.card-hover}"
+    },
+    "modal": {
+      "shadow": "{semantic.elevation.modal}",
+      "overlay-bg": "{semantic.color.background.overlay}"
+    },
+    "toast": {
+      "shadow": "{semantic.elevation.toast}"
+    },
+    "navbar": {
+      "shadow": "{semantic.elevation.navbar}",
+      "backdrop-blur": "{primitive.blur.none}"
     }
   }
 }
