@@ -610,17 +610,31 @@ Phase 0 COMPLETE — ready for Phase 1
   - Build output: 2321 total variables across 6 themes
   - All 274 tests pass, 0 lint errors, build succeeds
 
+- Task 1.6 — Motion tokens (durations, easing, transitions, reduced-motion)
+  - Expanded primitive motion to 9 duration values (0–1000ms) and 7 easing curves (linear, default, in, out, in-out, spring, bounce) across all 6 presets
+  - Added semantic duration aliases (instant, fast, normal, slow, slower) with per-preset personalities
+  - Added 5 transition shorthand tokens (transition-colors, transition-shadow, transition-transform, transition-opacity, transition-all)
+  - Per-preset motion personalities: light/dark=standard (fast=100ms, normal=200ms), terminal=instant (fast/normal=0ms, linear easing), retro98=minimal (fast=0ms, normal=75ms, linear), glass=smooth/elegant (fast=150ms, normal=300ms, ease-out default, spring for transforms), brutalist=instant (all 0ms, linear)
+  - Added reduced-motion media query to arcana.css: zeros out ALL duration tokens when prefers-reduced-motion: reduce
+  - Updated 14 component CSS files to use transition shorthand tokens (var(--transition-colors), var(--transition-shadow), etc.)
+  - Fixed hardcoded `linear` in Button spinner → var(--ease-linear)
+  - Created usePrefersReducedMotion hook (SSR-safe, uses useMediaQuery)
+  - Updated token linter to catch hardcoded easing functions (cubic-bezier, ease keywords)
+  - Updated build.ts: primitive motion CSS generation, transition shorthand generation, reduced-motion block
+  - Build output: 2459 total variables across 6 themes
+  - All 274 tests pass, 0 lint errors, 0 token lint violations, build succeeds
+
 ### Active Phase
-Phase 1 — Token System Maturity. Tasks 1.1–1.5 complete, next is Task 1.6 (Motion tokens).
+Phase 1 — Token System Maturity. Tasks 1.1–1.6 complete, next is Task 1.7 (Border & shape tokens).
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 1 / Task 1.6 is next (Motion tokens)
-2. Read `ROADMAP.md` for motion token inventory
-3. Read `AI_OPS.md` for the Task 1.6 prompt
-4. Implement the motion token system
+1. Read `PROGRESS.md` to confirm Phase 1 / Task 1.7 is next (Border & shape tokens)
+2. Read `ROADMAP.md` for border & shape token inventory
+3. Read `AI_OPS.md` for the Task 1.7 prompt
+4. Implement the border & shape token system
 
 ### Session History
 
@@ -643,3 +657,4 @@ None
 | 2026-03-08 | Claude (Claude Code) | Task 1.3 — Spacing system | Expanded primitive scale to 29 values (0–48). Added semantic aliases (xs–section-lg). Terminal/retro98 use compact defaults. Three density modes (compact/default/comfortable) via data-density attribute. Component spacing tokens use var() for density adaptation. Fixed resolvePath for dotted keys. 1955 total vars. 274 tests pass, 0 lint errors. |
 | 2026-03-09 | Claude (Claude Code) | Task 1.4 — Elevation system | Added primitive shadows (xs–2xl, inner, none), backdrop blur (none–3xl), updated z-index scale (added fixed/popover, reordered 0–800). Added 8 semantic elevation tokens (card, card-hover, dropdown, modal, popover, toast, navbar, sidebar). Per-preset strategies: light=standard shadows, dark=higher opacity shadows, terminal=zero shadows, retro98=hard pixel shadows, glass=subtle shadows + backdrop-blur, brutalist=exaggerated hard shadows. Added component elevation tokens (card shadow/shadow-hover, modal shadow/overlay-bg, toast shadow, navbar shadow/backdrop-blur). Updated Card/Modal/Toast/Navbar CSS to use elevation tokens. Updated build.ts: blur primitive generation, contextual --elevation-* naming. 2099 total vars. 274 tests pass, 0 lint errors. |
 | 2026-03-09 | Claude (Claude Code) | Task 1.5 — Layout tokens | Added primitive layout tokens (5 breakpoints, 5 container sizes, 5 content widths, grid-columns) and semantic layout tokens (grid-gutter variants, grid-margin variants) to all 6 presets. Per-preset variations: terminal=narrower content (56rem/72rem) + tighter gutters, brutalist=wider gutters. Updated build.ts with layout generation + validation. Created layout.css utility classes (container, content width, 12-column grid, responsive columns, stack). Created useMediaQuery and useBreakpoint hooks (SSR-safe). Exported hooks from index.ts. 2321 total vars. 274 tests pass, 0 lint errors. |
+| 2026-03-10 | Claude (Claude Code) | Task 1.6 — Motion tokens | Expanded primitive motion to 9 durations × 7 easings. Added semantic aliases + 5 transition shorthands. Per-preset personalities: light/dark=standard, terminal/brutalist=instant, retro98=minimal, glass=smooth/elegant. Added reduced-motion media query zeroing all durations. Updated 14 component CSS files to use shorthand tokens. Created usePrefersReducedMotion hook. Enhanced token linter for hardcoded easing. 2459 total vars. 274 tests pass, 0 lint errors. |

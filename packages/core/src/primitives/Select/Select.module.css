@@ -30,8 +30,7 @@
   background-color: var(--color-bg-page);
   border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-md);
-  transition: border-color var(--duration-normal) var(--ease-default), box-shadow
-    var(--duration-normal) var(--ease-default);
+  transition: var(--transition-colors), var(--transition-shadow);
 }
 
 .selectWrapper:focus-within {

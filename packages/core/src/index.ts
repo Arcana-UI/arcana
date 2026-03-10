@@ -103,6 +103,7 @@ export type {
 export { useMediaQuery } from './hooks/useMediaQuery';
 export { useBreakpoint } from './hooks/useBreakpoint';
 export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint';
+export { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
 export { cn } from './utils/cn';

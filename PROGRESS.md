@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-03-09
 > **Current phase:** 1 — Token System Maturity
-> **Next priority task:** 1.6
+> **Next priority task:** 1.7
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -23,7 +23,7 @@
 - [x] 1.3 — Spacing system
 - [x] 1.4 — Elevation system (shadows + z-index + backdrop blur)
 - [x] 1.5 — Layout tokens (breakpoints, containers, grid)
-- [ ] 1.6 — Motion tokens
+- [x] 1.6 — Motion tokens
 - [ ] 1.7 — Border & shape tokens
 - [ ] 1.8 — Opacity tokens
 - [ ] 1.9 — Token validation CI check

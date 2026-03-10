@@ -4,8 +4,7 @@
   font-family: var(--font-family-body);
   color: var(--color-fg-primary);
   overflow: hidden;
-  transition: box-shadow var(--duration-normal) var(--ease-default), transform
-    var(--duration-normal) var(--ease-default);
+  transition: var(--transition-shadow), var(--transition-transform);
 }
 
 /* Variants */

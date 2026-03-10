@@ -32,8 +32,7 @@
   cursor: pointer;
   border: none;
   background: transparent;
-  transition: color var(--duration-fast) var(--ease-default), background-color var(--duration-fast)
-    var(--ease-default);
+  transition: var(--transition-colors);
   white-space: nowrap;
 }
 

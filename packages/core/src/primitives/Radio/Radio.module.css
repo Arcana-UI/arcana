@@ -55,8 +55,7 @@
   border: var(--border-width-default) solid var(--color-border-strong);
   background-color: var(--color-bg-page);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-default), border-color
-    var(--duration-fast) var(--ease-default);
+  transition: var(--transition-colors);
   margin: 0;
 }
 

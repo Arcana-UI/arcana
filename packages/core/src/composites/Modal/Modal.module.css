@@ -144,8 +144,7 @@
   background: transparent;
   color: var(--color-fg-muted);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-default), color var(--duration-fast)
-    var(--ease-default);
+  transition: var(--transition-colors);
   flex-shrink: 0;
   padding: 0;
 }

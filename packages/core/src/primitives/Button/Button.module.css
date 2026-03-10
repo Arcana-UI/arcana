@@ -13,12 +13,7 @@
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
-  transition:
-    background-color var(--duration-normal) var(--ease-default),
-    border-color var(--duration-normal) var(--ease-default),
-    color var(--duration-normal) var(--ease-default),
-    box-shadow var(--duration-normal) var(--ease-default),
-    opacity var(--duration-normal) var(--ease-default);
+  transition: var(--transition-colors), var(--transition-shadow), var(--transition-opacity);
   user-select: none;
   position: relative;
   overflow: hidden;
@@ -147,7 +142,7 @@
 
 /* Spinner */
 .spinner {
-  animation: spin var(--duration-slow) linear infinite;
+  animation: spin var(--duration-slow) var(--ease-linear) infinite;
   width: var(--button-icon-size, var(--spacing-4));
   height: var(--button-icon-size, var(--spacing-4));
   flex-shrink: 0;
