@@ -102,7 +102,7 @@
   cursor: pointer;
   color: var(--color-fg-muted);
   border-radius: var(--radius-sm);
-  transition: color var(--duration-fast) var(--ease-default);
+  transition: var(--transition-colors);
 }
 
 .dismissButton:hover {

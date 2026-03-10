@@ -341,11 +341,24 @@ function checkDeclaration(
   // ── Motion checks ─────────────────────────────────────────────────────
 
   if (MOTION_PROPS.has(prop)) {
-    // Only flag if there's a hardcoded duration AND the value doesn't use var() for it
+    // Flag hardcoded duration values (e.g., 150ms, 0.2s)
     if (/\b\d+(\.\d+)?(ms|s)\b/.test(val) && !usesVarRef(val)) {
       return {
         reason: 'Hardcoded transition/animation duration',
         suggestion: 'Use motion tokens: var(--duration-*) var(--ease-*)',
+      };
+    }
+    // Flag hardcoded easing functions (cubic-bezier, ease, ease-in, ease-out, ease-in-out, linear)
+    if (/\bcubic-bezier\s*\(/.test(val) && !usesVarRef(val)) {
+      return {
+        reason: 'Hardcoded easing function',
+        suggestion: 'Use easing tokens: var(--ease-*)',
+      };
+    }
+    if (/\b(ease|ease-in|ease-out|ease-in-out|linear)\b/.test(val) && !usesVarRef(val)) {
+      return {
+        reason: 'Hardcoded easing keyword',
+        suggestion: 'Use easing tokens: var(--ease-*) or var(--transition-*)',
       };
     }
   }

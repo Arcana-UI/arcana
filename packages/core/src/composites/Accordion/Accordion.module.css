@@ -37,7 +37,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-normal);
-  transition: background-color var(--duration-fast) var(--ease-default);
+  transition: var(--transition-colors);
 }
 
 .trigger:hover:not(:disabled) {
@@ -61,7 +61,7 @@
   display: flex;
   flex-shrink: 0;
   color: var(--color-fg-muted);
-  transition: transform var(--duration-normal) var(--ease-default);
+  transition: var(--transition-transform);
 }
 
 .chevronOpen {

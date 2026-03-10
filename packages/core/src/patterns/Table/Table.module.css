@@ -24,7 +24,7 @@
 
 .rowHoverable:hover {
   background-color: var(--color-bg-surface);
-  transition: background-color var(--duration-fast) var(--ease-default);
+  transition: var(--transition-colors);
 }
 
 .rowStriped:nth-child(even) {

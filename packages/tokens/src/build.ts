@@ -69,6 +69,7 @@ interface SemanticTokens {
   motion: {
     duration: Record<string, string>;
     easing: Record<string, string>;
+    transition?: Record<string, string>;
   };
 }
 
@@ -204,6 +205,16 @@ function generatePrimitiveVars(
   // Blur
   for (const [key, value] of Object.entries(primitive.blur)) {
     vars.push({ name: `--blur-${key}`, value: resolveValue(preset, value) });
+  }
+
+  // Motion duration (primitives: --duration-0, --duration-75, etc.)
+  for (const [key, value] of Object.entries(primitive.motion.duration)) {
+    vars.push({ name: `--duration-${key}`, value: resolveValue(preset, value) });
+  }
+
+  // Motion easing (primitives: --ease-linear, --ease-default, etc.)
+  for (const [key, value] of Object.entries(primitive.motion.easing)) {
+    vars.push({ name: `--ease-${key}`, value: resolveValue(preset, value) });
   }
 
   // Z-index
@@ -377,6 +388,13 @@ function generateSemanticVars(
   // Motion easing
   for (const [key, value] of Object.entries(semantic.motion.easing)) {
     vars.push({ name: `--ease-${key}`, value: resolveValue(preset, value) });
+  }
+
+  // Motion transition shorthands
+  if (semantic.motion.transition) {
+    for (const [key, value] of Object.entries(semantic.motion.transition)) {
+      vars.push({ name: `--transition-${key}`, value });
+    }
   }
 
   return vars;
@@ -559,6 +577,30 @@ function generateCombinedCSS(presets: TokenPreset[]): string {
     const scheme = COLOR_SCHEMES[themeName] ?? 'light';
     sections.push(`${getThemeSelector(themeName)} { color-scheme: ${scheme}; }`);
   }
+
+  // Reduced-motion: zero out all duration tokens for accessibility
+  sections.push(
+    '',
+    '/* ─── Reduced Motion ─── */',
+    '@media (prefers-reduced-motion: reduce) {',
+    '  :root {',
+    '    --duration-0: 0ms;',
+    '    --duration-75: 0ms;',
+    '    --duration-100: 0ms;',
+    '    --duration-150: 0ms;',
+    '    --duration-200: 0ms;',
+    '    --duration-300: 0ms;',
+    '    --duration-500: 0ms;',
+    '    --duration-700: 0ms;',
+    '    --duration-1000: 0ms;',
+    '    --duration-instant: 0ms;',
+    '    --duration-fast: 0ms;',
+    '    --duration-normal: 0ms;',
+    '    --duration-slow: 0ms;',
+    '    --duration-slower: 0ms;',
+    '  }',
+    '}',
+  );
 
   return `${sections.join('\n')}\n`;
 }

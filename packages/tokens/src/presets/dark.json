@@ -323,17 +323,24 @@
     },
     "motion": {
       "duration": {
-        "instant": "0ms",
-        "fast": "100ms",
-        "normal": "150ms",
-        "slow": "250ms",
-        "slower": "400ms"
+        "0": "0ms",
+        "75": "75ms",
+        "100": "100ms",
+        "150": "150ms",
+        "200": "200ms",
+        "300": "300ms",
+        "500": "500ms",
+        "700": "700ms",
+        "1000": "1000ms"
       },
       "easing": {
+        "linear": "linear",
         "default": "cubic-bezier(0.4, 0, 0.2, 1)",
         "in": "cubic-bezier(0.4, 0, 1, 1)",
         "out": "cubic-bezier(0, 0, 0.2, 1)",
-        "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+        "in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "bounce": "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
       }
     },
     "zIndex": {
@@ -571,17 +578,26 @@
     },
     "motion": {
       "duration": {
-        "instant": "{primitive.motion.duration.instant}",
-        "fast": "{primitive.motion.duration.fast}",
-        "normal": "{primitive.motion.duration.normal}",
-        "slow": "{primitive.motion.duration.slow}",
-        "slower": "{primitive.motion.duration.slower}"
+        "instant": "{primitive.motion.duration.0}",
+        "fast": "{primitive.motion.duration.100}",
+        "normal": "{primitive.motion.duration.200}",
+        "slow": "{primitive.motion.duration.300}",
+        "slower": "{primitive.motion.duration.500}"
       },
       "easing": {
         "default": "{primitive.motion.easing.default}",
         "in": "{primitive.motion.easing.in}",
         "out": "{primitive.motion.easing.out}",
-        "spring": "{primitive.motion.easing.spring}"
+        "in-out": "{primitive.motion.easing.in-out}",
+        "spring": "{primitive.motion.easing.spring}",
+        "bounce": "{primitive.motion.easing.bounce}"
+      },
+      "transition": {
+        "colors": "color var(--duration-fast) var(--ease-default), background-color var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default), text-decoration-color var(--duration-fast) var(--ease-default), fill var(--duration-fast) var(--ease-default), stroke var(--duration-fast) var(--ease-default)",
+        "shadow": "box-shadow var(--duration-fast) var(--ease-default)",
+        "transform": "transform var(--duration-normal) var(--ease-default)",
+        "opacity": "opacity var(--duration-normal) var(--ease-default)",
+        "all": "all var(--duration-normal) var(--ease-default)"
       }
     }
   },

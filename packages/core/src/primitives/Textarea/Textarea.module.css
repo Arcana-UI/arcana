@@ -29,8 +29,7 @@
   line-height: var(--line-height-normal);
   resize: vertical;
   box-sizing: border-box;
-  transition: border-color var(--duration-normal) var(--ease-default), box-shadow
-    var(--duration-normal) var(--ease-default);
+  transition: var(--transition-colors), var(--transition-shadow);
 }
 
 .textarea::placeholder {
