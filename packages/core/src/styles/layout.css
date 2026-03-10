@@ -1,0 +1,151 @@
+/**
+ * Arcana UI — Layout Utilities
+ * Container, grid, content width, and stack utilities.
+ * All values reference design tokens for theme/density adaptation.
+ */
+
+/* ─── Container ─────────────────────────────────────────────────────────────── */
+
+.arcana-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--grid-margin);
+  padding-right: var(--grid-margin);
+  max-width: var(--container-xl);
+}
+
+/* breakpoint-lg: 1024px */
+@media (min-width: 1024px) {
+  .arcana-container {
+    padding-left: var(--grid-margin-lg);
+    padding-right: var(--grid-margin-lg);
+  }
+}
+
+/* Container size variants */
+.arcana-container--sm {
+  max-width: var(--container-sm);
+}
+.arcana-container--md {
+  max-width: var(--container-md);
+}
+.arcana-container--lg {
+  max-width: var(--container-lg);
+}
+.arcana-container--xl {
+  max-width: var(--container-xl);
+}
+.arcana-container--full {
+  max-width: 100%;
+}
+
+/* ─── Content Width ─────────────────────────────────────────────────────────── */
+
+.arcana-content--prose {
+  max-width: var(--content-prose);
+}
+.arcana-content--narrow {
+  max-width: var(--content-narrow);
+}
+.arcana-content--default {
+  max-width: var(--content-default);
+}
+.arcana-content--wide {
+  max-width: var(--content-wide);
+}
+
+/* ─── Grid ──────────────────────────────────────────────────────────────────── */
+
+.arcana-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+}
+
+.arcana-grid--gutter-sm {
+  gap: var(--grid-gutter-sm);
+}
+.arcana-grid--gutter-lg {
+  gap: var(--grid-gutter-lg);
+}
+
+/* Column spans */
+.arcana-col-1 {
+  grid-column: span 1;
+}
+.arcana-col-2 {
+  grid-column: span 2;
+}
+.arcana-col-3 {
+  grid-column: span 3;
+}
+.arcana-col-4 {
+  grid-column: span 4;
+}
+.arcana-col-6 {
+  grid-column: span 6;
+}
+.arcana-col-12 {
+  grid-column: span 12;
+}
+.arcana-col-full {
+  grid-column: 1 / -1;
+}
+
+/* Mobile-first responsive overrides */
+/* Default (mobile): full width */
+.arcana-col-sm-6,
+.arcana-col-sm-4,
+.arcana-col-sm-3 {
+  grid-column: span 12;
+}
+
+/* breakpoint-sm: 640px — enable 2-column layouts */
+@media (min-width: 640px) {
+  .arcana-col-sm-6 {
+    grid-column: span 6;
+  }
+  .arcana-col-sm-4 {
+    grid-column: span 4;
+  }
+  .arcana-col-sm-3 {
+    grid-column: span 3;
+  }
+}
+
+/* breakpoint-lg: 1024px — enable 3 and 4-column layouts */
+.arcana-col-lg-4,
+.arcana-col-lg-3 {
+  grid-column: span 12;
+}
+
+@media (min-width: 1024px) {
+  .arcana-col-lg-4 {
+    grid-column: span 4;
+  }
+  .arcana-col-lg-3 {
+    grid-column: span 3;
+  }
+}
+
+/* ─── Stack ─────────────────────────────────────────────────────────────────── */
+
+.arcana-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-gutter);
+}
+
+.arcana-stack--row {
+  flex-direction: row;
+}
+.arcana-stack--wrap {
+  flex-wrap: wrap;
+}
+.arcana-stack--gap-sm {
+  gap: var(--grid-gutter-sm);
+}
+.arcana-stack--gap-lg {
+  gap: var(--grid-gutter-lg);
+}

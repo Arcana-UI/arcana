@@ -1,3 +1,6 @@
+// ─── Styles ──────────────────────────────────────────────────────────────────
+import './styles/layout.css';
+
 // ─── Primitives ───────────────────────────────────────────────────────────────
 export { Button } from './primitives/Button';
 export type { ButtonProps } from './primitives/Button';
@@ -95,6 +98,11 @@ export type {
   TableHeadProps,
   TableCellProps,
 } from './patterns/Table';
+
+// ─── Hooks ────────────────────────────────────────────────────────────────────
+export { useMediaQuery } from './hooks/useMediaQuery';
+export { useBreakpoint } from './hooks/useBreakpoint';
+export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint';
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
 export { cn } from './utils/cn';
