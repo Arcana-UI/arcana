@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-03-15
 > **Current phase:** 1 — Token System Maturity
-> **Next priority task:** 1.10
+> **Next priority task:** 1.11
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -27,7 +27,7 @@
 - [x] 1.7 — Border & shape tokens
 - [x] 1.8 — Opacity tokens
 - [x] 1.9 — Token validation CI check
-- [ ] 1.10 — Theme switching (data-theme + system pref)
+- [x] 1.10 — Theme switching (data-theme + system pref)
 - [ ] 1.11 — WCAG contrast validation
 
 ## Phase 2: Responsive & Mobile (Weeks 5–7)

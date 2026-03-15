@@ -1,5 +1,6 @@
 // ─── Styles ──────────────────────────────────────────────────────────────────
 import './styles/layout.css';
+import './styles/theme-transition.css';
 
 // ─── Primitives ───────────────────────────────────────────────────────────────
 export { Button } from './primitives/Button';
@@ -104,6 +105,12 @@ export { useMediaQuery } from './hooks/useMediaQuery';
 export { useBreakpoint } from './hooks/useBreakpoint';
 export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint';
 export { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
+export { useTheme } from './hooks/useTheme';
+export type { ThemeId, ThemeSource, UseThemeReturn } from './hooks/useTheme';
+
+// ─── Context ─────────────────────────────────────────────────────────────────
+export { ThemeProvider, useThemeContext } from './context/ThemeProvider';
+export type { ThemeProviderProps } from './context/ThemeProvider';
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
 export { cn } from './utils/cn';
