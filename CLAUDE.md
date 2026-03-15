@@ -648,16 +648,15 @@ Phase 0 COMPLETE — ready for Phase 1
   - All 274 tests pass, 0 lint errors, 0 token lint violations, build succeeds
 
 ### Active Phase
-Phase 1 — Token System Maturity. Tasks 1.1–1.9 complete, next is Task 1.10 (Theme switching).
+Phase 1 COMPLETE — all tasks 1.1–1.12 done. Ready for Phase 2.
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 1 / Task 1.10 is next (Theme switching)
-2. Read `ROADMAP.md` for theme switching requirements
-3. Read `AI_OPS.md` for the Task 1.10 prompt
-4. Implement theme switching (data-theme + system preference)
+1. Read `PROGRESS.md` to confirm Phase 2 / Task 2.1 is next
+2. Read `ROADMAP.md` for Phase 2 (Responsive & Mobile) requirements
+3. Begin Task 2.1 — Responsive behavior matrix
 
 ### Session History
 
@@ -683,3 +682,5 @@ None
 | 2026-03-10 | Claude (Claude Code) | Task 1.6 — Motion tokens | Expanded primitive motion to 9 durations × 7 easings. Added semantic aliases + 5 transition shorthands. Per-preset personalities: light/dark=standard, terminal/brutalist=instant, retro98=minimal, glass=smooth/elegant. Added reduced-motion media query zeroing all durations. Updated 14 component CSS files to use shorthand tokens. Created usePrefersReducedMotion hook. Enhanced token linter for hardcoded easing. 2459 total vars. 274 tests pass, 0 lint errors. |
 | 2026-03-15 | Claude (Claude Code) | Tasks 1.7+1.8 — Border/shape + opacity | Added primitive border widths (0/1/2/4/8), divider (weight/style), 16 opacity values (0–100). Updated primitive radius scale (added 3xl, adjusted sizes for finer granularity). Added semantic border (thin/default/thick/heavy referencing primitives), focus ring (composable ringWidth + ringColor + ring shorthand), divider color, 5 semantic opacity tokens (disabled/placeholder/hover-overlay/overlay/overlay-heavy). Per-preset: terminal/retro98/brutalist=radius-none everywhere; glass=generous radius (0.25–3rem); retro98=chunky 2px borders + solid 1px focus ring; brutalist=3px default borders + 3px solid black focus ring; glass=subtle 25% opacity focus ring. Added component tokens (modal/toast/badge/alert radius). Fixed hardcoded values: Avatar 2px→border-width-thick, Toast 3px→border-width-thick, Tabs 1px/2px→border-width-thin/thick, Radio 5px→border-width-heavy. Replaced hardcoded disabled opacity (0.4–0.6) with var(--opacity-disabled) in 10 components. Updated build.ts: primitive border/opacity generation, semantic opacity/divider/focus-ring-width/focus-ring-color generation, validation. 2681 total vars. 274 tests pass, 0 lint/token-lint errors. |
 | 2026-03-15 | Claude (Claude Code) | Task 1.9 — Token validation CI check | Created validate.ts with 5 checks: structural validation (required fields + naming patterns), reference integrity (broken/circular refs), completeness (all presets match light structure), WCAG AA contrast (11 fg/bg pairs per preset with alpha compositing for rgba backgrounds), value format validation (colors, spacing, durations, opacity, z-index). Created utils/contrast.ts (WCAG 2.1 relative luminance + contrast ratio calculator). Fixed 4 WCAG contrast failures: dark action-primary (indigo-500→600), dark action-destructive (red-500→700), brutalist destructive (red-500→600), terminal destructive (#f85149→#cc0000). Added Validate Tokens CI job. Generated docs/audits/token-validation-report.md. All 6 presets pass, 0 errors. 274 tests pass, 0 lint errors. |
+| 2026-03-15 | Claude (Claude Code) | Task 1.10 — Theme switching | Implemented useTheme hook (useSyncExternalStore, localStorage, system preference detection), ThemeProvider context, theme-transition.css. 16 new tests (290 total). |
+| 2026-03-15 | Claude (Claude Code) | Task 1.12 — Component token layer | Implemented Tier 3 component tokens with density support. Updated build.ts for density-aware DensityValue objects. Expanded component sections in all 6 preset JSONs (19 components × ~5-12 tokens each). Wired all 19 component CSS files to use var(--{component}-{prop}, var(--semantic-fallback)) pattern. Density modes: compact/default/comfortable for button/input/select height, card padding, table cell-padding-y. Created docs/COMPONENT-TOKENS.md reference. 3239+ total vars. 290 tests pass, 0 token lint violations. Phase 1 COMPLETE. |

@@ -219,14 +219,9 @@
     },
     "spacing": {
       "0": "0",
-      "px": "1px",
-      "0.5": "0.125rem",
       "1": "0.25rem",
-      "1.5": "0.375rem",
       "2": "0.5rem",
-      "2.5": "0.625rem",
       "3": "0.75rem",
-      "3.5": "0.875rem",
       "4": "1rem",
       "5": "1.25rem",
       "6": "1.5rem",
@@ -245,7 +240,12 @@
       "36": "9rem",
       "40": "10rem",
       "44": "11rem",
-      "48": "12rem"
+      "48": "12rem",
+      "px": "1px",
+      "0.5": "0.125rem",
+      "1.5": "0.375rem",
+      "2.5": "0.625rem",
+      "3.5": "0.875rem"
     },
     "radius": {
       "none": "0",
@@ -647,55 +647,180 @@
   },
   "component": {
     "button": {
-      "radius": "{semantic.radius.md}",
-      "border-width": "{semantic.border.width.default}",
       "bg": "{semantic.color.action.primary.default}",
+      "bg-hover": "{semantic.color.action.primary.hover}",
       "fg": "{semantic.color.foreground.on-primary}",
-      "border-color": "{semantic.color.border.default}",
+      "border-color": "transparent",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.md}",
+      "shadow": "{primitive.shadow.none}",
+      "padding-x": "var(--spacing-md)",
+      "padding-y": "var(--spacing-sm)",
       "font-size": "{primitive.typography.fontSize.sm}",
       "font-weight": "{primitive.typography.fontWeight.medium}",
       "letter-spacing": "{primitive.typography.letterSpacing.normal}",
-      "padding-x": "var(--spacing-md)",
-      "padding-y": "var(--spacing-sm)"
+      "height": {
+        "compact": "2rem",
+        "default": "2.5rem",
+        "comfortable": "3rem"
+      }
     },
     "input": {
-      "radius": "{semantic.radius.md}",
-      "border-width": "{semantic.border.width.default}",
       "bg": "{semantic.color.background.page}",
       "fg": "{semantic.color.foreground.primary}",
       "border-color": "{semantic.color.border.default}",
       "border-focus": "{semantic.color.border.focus}",
       "border-error": "{semantic.color.border.error}",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.md}",
+      "padding-x": "var(--spacing-sm)",
       "font-size": "{primitive.typography.fontSize.sm}",
-      "padding-x": "var(--spacing-sm)"
+      "placeholder-color": "{semantic.color.foreground.muted}",
+      "height": {
+        "compact": "2rem",
+        "default": "2.5rem",
+        "comfortable": "3rem"
+      }
     },
     "card": {
-      "radius": "{semantic.radius.md}",
-      "border-width": "{semantic.border.width.default}",
       "bg": "{semantic.color.background.surface}",
       "border-color": "{semantic.color.border.default}",
-      "padding": "var(--spacing-lg)",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.md}",
       "shadow": "{semantic.elevation.card}",
-      "shadow-hover": "{semantic.elevation.card-hover}"
+      "shadow-hover": "{semantic.elevation.card-hover}",
+      "padding": {
+        "compact": "var(--spacing-sm)",
+        "default": "var(--spacing-lg)",
+        "comfortable": "var(--spacing-xl)"
+      }
     },
     "modal": {
+      "bg": "{semantic.color.background.elevated}",
+      "border-color": "{semantic.color.border.default}",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.xl}",
       "shadow": "{semantic.elevation.modal}",
+      "padding": "var(--spacing-xl)",
       "overlay-bg": "{semantic.color.background.overlay}",
-      "radius": "{semantic.radius.xl}"
+      "max-width": "35rem"
     },
     "toast": {
+      "bg": "{semantic.color.background.elevated}",
+      "border-color": "{semantic.color.border.default}",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.md}",
       "shadow": "{semantic.elevation.toast}",
-      "radius": "{semantic.radius.md}"
+      "padding": "var(--spacing-md)",
+      "max-width": "23.75rem"
     },
     "navbar": {
+      "bg": "{semantic.color.background.page}",
+      "border-color": "{semantic.color.border.default}",
       "shadow": "{semantic.elevation.navbar}",
-      "backdrop-blur": "{primitive.blur.none}"
+      "backdrop-blur": "{primitive.blur.none}",
+      "height": "var(--spacing-14)",
+      "max-width": "80rem"
     },
     "badge": {
-      "radius": "{semantic.radius.full}"
+      "radius": "{semantic.radius.full}",
+      "padding-x": "var(--spacing-2)",
+      "padding-y": "var(--spacing-0-5)",
+      "font-size": "{primitive.typography.fontSize.xs}",
+      "font-weight": "{primitive.typography.fontWeight.medium}"
     },
     "alert": {
-      "radius": "{semantic.radius.md}"
+      "radius": "{semantic.radius.md}",
+      "padding": "var(--spacing-md)",
+      "border-width": "{semantic.border.width.default}"
+    },
+    "checkbox": {
+      "size": "var(--spacing-4)",
+      "radius": "{semantic.radius.sm}",
+      "border-color": "{semantic.color.border.strong}",
+      "bg": "{semantic.color.background.page}",
+      "checked-bg": "{semantic.color.action.primary.default}",
+      "checked-border": "{semantic.color.action.primary.default}"
+    },
+    "radio": {
+      "size": "var(--spacing-4)",
+      "border-color": "{semantic.color.border.strong}",
+      "bg": "{semantic.color.background.page}",
+      "checked-border": "{semantic.color.action.primary.default}"
+    },
+    "toggle": {
+      "radius": "{semantic.radius.full}",
+      "bg": "{semantic.color.border.strong}",
+      "checked-bg": "{semantic.color.action.primary.default}",
+      "thumb-bg": "{primitive.color.white}"
+    },
+    "select": {
+      "bg": "{semantic.color.background.page}",
+      "border-color": "{semantic.color.border.default}",
+      "border-focus": "{semantic.color.border.focus}",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.md}",
+      "font-size": "{primitive.typography.fontSize.sm}",
+      "padding-x": "var(--spacing-sm)",
+      "height": {
+        "compact": "2rem",
+        "default": "2.5rem",
+        "comfortable": "3rem"
+      }
+    },
+    "textarea": {
+      "bg": "{semantic.color.background.page}",
+      "border-color": "{semantic.color.border.default}",
+      "border-focus": "{semantic.color.border.focus}",
+      "border-width": "{semantic.border.width.default}",
+      "radius": "{semantic.radius.md}",
+      "font-size": "{primitive.typography.fontSize.sm}",
+      "padding-x": "var(--spacing-sm)",
+      "padding-y": "var(--spacing-2)",
+      "min-height": "var(--spacing-20)"
+    },
+    "avatar": {
+      "radius": "{semantic.radius.full}",
+      "border-color": "{semantic.color.background.page}",
+      "border-width": "{semantic.border.width.thick}",
+      "bg": "{semantic.color.background.subtle}"
+    },
+    "tabs": {
+      "border-color": "{semantic.color.border.default}",
+      "font-size": "{primitive.typography.fontSize.sm}",
+      "font-weight": "{primitive.typography.fontWeight.medium}",
+      "padding-x": "var(--spacing-3)",
+      "padding-y": "var(--spacing-2)",
+      "active-color": "{semantic.color.action.primary.default}"
+    },
+    "accordion": {
+      "radius": "{semantic.radius.md}",
+      "border-color": "{semantic.color.border.default}",
+      "border-width": "{semantic.border.width.default}",
+      "padding": "var(--spacing-md)",
+      "font-size": "{primitive.typography.fontSize.sm}"
+    },
+    "table": {
+      "radius": "{semantic.radius.md}",
+      "border-color": "{semantic.color.border.default}",
+      "border-width": "{semantic.border.width.default}",
+      "header-bg": "{semantic.color.background.surface}",
+      "font-size": "{primitive.typography.fontSize.sm}",
+      "cell-padding-x": "var(--spacing-md)",
+      "cell-padding-y": {
+        "compact": "var(--spacing-2)",
+        "default": "var(--spacing-3)",
+        "comfortable": "var(--spacing-4)"
+      }
+    },
+    "form": {
+      "gap": "var(--spacing-md)",
+      "label-font-size": "{primitive.typography.fontSize.sm}",
+      "label-font-weight": "{primitive.typography.fontWeight.medium}"
+    },
+    "emptystate": {
+      "padding": "var(--spacing-xl)",
+      "icon-color": "{semantic.color.foreground.muted}"
     }
   }
 }
