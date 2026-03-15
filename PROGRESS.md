@@ -28,7 +28,8 @@
 - [x] 1.8 — Opacity tokens
 - [x] 1.9 — Token validation CI check
 - [x] 1.10 — Theme switching (data-theme + system pref)
-- [ ] 1.11 — WCAG contrast validation
+- [x] 1.11 — WCAG contrast validation
+- [x] 1.12 — Component token layer (Tier 3) with density support
 
 ## Phase 2: Responsive & Mobile (Weeks 5–7)
 - [ ] 2.1 — Responsive behavior matrix (docs)
