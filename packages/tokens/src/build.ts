@@ -87,12 +87,29 @@ interface TokenPreset {
   description: string;
   primitive: PrimitiveTokens;
   semantic: SemanticTokens;
-  component?: Record<string, Record<string, string>>;
+  component?: Record<string, Record<string, string | DensityValue>>;
+}
+
+/** Density-aware component token value */
+interface DensityValue {
+  compact: string;
+  default: string;
+  comfortable: string;
 }
 
 interface CSSVariable {
   name: string;
   value: string;
+}
+
+/** Component vars split by density context */
+interface ComponentVarsResult {
+  /** Variables for the main theme selector (default density) */
+  defaultVars: CSSVariable[];
+  /** Variables for compact density override */
+  compactVars: CSSVariable[];
+  /** Variables for comfortable density override */
+  comfortableVars: CSSVariable[];
 }
 
 // ─── Reference Resolution ──────────────────────────────────────────────────
@@ -449,20 +466,53 @@ function generateSemanticVars(
 }
 
 /**
+ * Check if a value is a density-aware object (has compact/default/comfortable keys).
+ */
+function isDensityValue(value: unknown): value is DensityValue {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'default' in value &&
+    typeof (value as Record<string, unknown>).default === 'string'
+  );
+}
+
+/**
  * Generate CSS variables for the component tier.
  * component.{name}.{prop} → --{name}-{prop}
+ *
+ * Density-aware values (objects with compact/default/comfortable) produce:
+ *   - Default value in the main theme selector
+ *   - Compact override in [data-theme][data-density="compact"]
+ *   - Comfortable override in [data-theme][data-density="comfortable"]
  */
 function generateComponentVars(
-  component: Record<string, Record<string, string>>,
+  component: Record<string, Record<string, string | DensityValue>>,
   preset: Record<string, unknown>,
-): CSSVariable[] {
-  const vars: CSSVariable[] = [];
+): ComponentVarsResult {
+  const defaultVars: CSSVariable[] = [];
+  const compactVars: CSSVariable[] = [];
+  const comfortableVars: CSSVariable[] = [];
+
   for (const [name, props] of Object.entries(component)) {
     for (const [prop, value] of Object.entries(props)) {
-      vars.push({ name: `--${name}-${prop}`, value: resolveValue(preset, value) });
+      const varName = `--${name}-${prop}`;
+
+      if (isDensityValue(value)) {
+        defaultVars.push({ name: varName, value: resolveValue(preset, value.default) });
+        if (value.compact) {
+          compactVars.push({ name: varName, value: resolveValue(preset, value.compact) });
+        }
+        if (value.comfortable) {
+          comfortableVars.push({ name: varName, value: resolveValue(preset, value.comfortable) });
+        }
+      } else {
+        defaultVars.push({ name: varName, value: resolveValue(preset, value) });
+      }
     }
   }
-  return vars;
+
+  return { defaultVars, compactVars, comfortableVars };
 }
 
 // ─── CSS Formatting ────────────────────────────────────────────────────────
@@ -515,31 +565,62 @@ const COLOR_SCHEMES: Record<string, string> = {
 
 // ─── CSS File Generation ───────────────────────────────────────────────────
 
+/** Result of generating all vars for a preset, including density overrides */
+interface AllVarsResult {
+  vars: CSSVariable[];
+  compactVars: CSSVariable[];
+  comfortableVars: CSSVariable[];
+}
+
 /** Generate all CSS variables for a single preset */
-function generateAllVars(preset: TokenPreset): CSSVariable[] {
+function generateAllVars(preset: TokenPreset): AllVarsResult {
   const presetObj = preset as unknown as Record<string, unknown>;
   const primitiveVars = generatePrimitiveVars(preset.primitive, presetObj);
   const semanticVars = generateSemanticVars(preset.semantic, presetObj);
-  const componentVars = preset.component ? generateComponentVars(preset.component, presetObj) : [];
-  return [...primitiveVars, ...semanticVars, ...componentVars];
+
+  const emptyResult: ComponentVarsResult = {
+    defaultVars: [],
+    compactVars: [],
+    comfortableVars: [],
+  };
+  const componentResult = preset.component
+    ? generateComponentVars(preset.component, presetObj)
+    : emptyResult;
+
+  return {
+    vars: [...primitiveVars, ...semanticVars, ...componentResult.defaultVars],
+    compactVars: componentResult.compactVars,
+    comfortableVars: componentResult.comfortableVars,
+  };
 }
 
 /** Generate individual theme CSS file */
 function generateThemeCSS(preset: TokenPreset): string {
   const themeName = getThemeName(preset);
   const selector = getThemeSelector(themeName);
-  const allVars = generateAllVars(preset);
+  const { vars, compactVars, comfortableVars } = generateAllVars(preset);
 
-  return [
+  const sections: string[] = [
     '/**',
     ` * Arcana UI — ${capitalize(themeName)} Theme`,
     ` * ${preset.description}`,
     ' * Generated from JSON source. Do not edit directly.',
     ' */',
     '',
-    formatCSSBlock(selector, allVars),
+    formatCSSBlock(selector, vars),
     '',
-  ].join('\n');
+  ];
+
+  if (compactVars.length > 0) {
+    sections.push(formatCSSBlock(`${selector}[data-density="compact"]`, compactVars));
+    sections.push('');
+  }
+  if (comfortableVars.length > 0) {
+    sections.push(formatCSSBlock(`${selector}[data-density="comfortable"]`, comfortableVars));
+    sections.push('');
+  }
+
+  return sections.join('\n');
 }
 
 /** Generate combined arcana.css with all themes */
@@ -558,9 +639,20 @@ function generateCombinedCSS(presets: TokenPreset[]): string {
     const themeName = getThemeName(preset);
     const label = capitalize(themeName);
     const isDefault = themeName === 'light' ? ' (default)' : '';
+    const selector = getThemeSelector(themeName);
+    const { vars, compactVars, comfortableVars } = generateAllVars(preset);
     sections.push(`/* ─── ${label} Theme${isDefault} ─── */`);
-    sections.push(formatCSSBlock(getThemeSelector(themeName), generateAllVars(preset)));
+    sections.push(formatCSSBlock(selector, vars));
     sections.push('');
+
+    if (compactVars.length > 0) {
+      sections.push(formatCSSBlock(`${selector}[data-density="compact"]`, compactVars));
+      sections.push('');
+    }
+    if (comfortableVars.length > 0) {
+      sections.push(formatCSSBlock(`${selector}[data-density="comfortable"]`, comfortableVars));
+      sections.push('');
+    }
   }
 
   // Density modes (theme-independent)
@@ -1027,7 +1119,12 @@ function main(): void {
     writeFileSync(join(themesDir, `${themeName}.css`), css, 'utf-8');
     const varCount = (css.match(/ {2}--[\w-]+:/g) ?? []).length;
     totalVars += varCount;
-    console.log(`  ✓ dist/themes/${themeName}.css (${varCount} variables)`);
+    const { compactVars, comfortableVars } = generateAllVars(preset);
+    const densityNote =
+      compactVars.length > 0 || comfortableVars.length > 0
+        ? ` + ${compactVars.length + comfortableVars.length} density overrides`
+        : '';
+    console.log(`  ✓ dist/themes/${themeName}.css (${varCount} variables${densityNote})`);
   }
 
   // Generate combined CSS
