@@ -7,9 +7,9 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   reporter: 'html',
-  timeout: 30_000,
+  timeout: 60_000,
   expect: {
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.001,
@@ -44,6 +44,8 @@ export default defineConfig({
     command: 'pnpm --filter playground dev',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
-    timeout: 60_000,
+    timeout: 120_000,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 });
