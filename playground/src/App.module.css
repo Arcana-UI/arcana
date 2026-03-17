@@ -113,10 +113,10 @@
   border-color: var(--color-action-primary);
 }
 
-.panelToggleActive:hover {
-  background: var(--color-action-primary-hover) !important;
+.panelToggle.panelToggleActive:hover {
+  background: var(--color-action-primary-hover);
   border-color: var(--color-action-primary-hover);
-  color: var(--color-fg-on-primary) !important;
+  color: var(--color-fg-on-primary);
 }
 
 .topbarDivider {

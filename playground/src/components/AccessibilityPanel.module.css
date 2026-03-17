@@ -243,10 +243,10 @@
   color: var(--color-fg-primary);
 }
 
-.cbActive {
-  background: var(--color-action-primary) !important;
-  color: var(--color-fg-on-primary) !important;
-  border-color: var(--color-action-primary) !important;
+.cbBtn.cbActive {
+  background: var(--color-action-primary);
+  color: var(--color-fg-on-primary);
+  border-color: var(--color-action-primary);
 }
 
 /* ─── Fix suggestions ─── */
