@@ -42,7 +42,8 @@
   cursor: pointer;
 }
 
-.interactive:hover {
+.interactive:hover,
+.interactive:focus-visible {
   box-shadow: var(--card-shadow-hover, var(--elevation-card-hover));
   transform: translateY(-1px);
 }

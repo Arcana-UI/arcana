@@ -36,7 +36,8 @@
 .row {
 }
 
-.rowHoverable:hover {
+.rowHoverable:hover,
+.rowHoverable:focus-within {
   background-color: var(--color-bg-surface);
   transition: var(--transition-colors);
 }

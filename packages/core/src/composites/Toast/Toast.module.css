@@ -131,8 +131,14 @@
   }
 }
 
-.actionButton:hover {
+.actionButton:hover,
+.actionButton:focus-visible {
   color: var(--color-action-primary-hover);
+}
+
+.actionButton:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 /* Dismiss button — mobile-first: 44px touch target */

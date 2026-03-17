@@ -78,7 +78,8 @@
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 }
 
-.tabLine:hover:not(.tabDisabled) {
+.tabLine:hover:not(.tabDisabled),
+.tabLine:focus-visible:not(.tabDisabled) {
   color: var(--color-fg-primary);
 }
 
@@ -93,7 +94,8 @@
   border-radius: var(--radius-sm);
 }
 
-.tabPill:hover:not(.tabDisabled) {
+.tabPill:hover:not(.tabDisabled),
+.tabPill:focus-visible:not(.tabDisabled) {
   color: var(--color-fg-primary);
   background-color: var(--color-bg-page);
 }
