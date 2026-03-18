@@ -150,6 +150,7 @@ export type {
 
 export {
   Hero,
+  HeroBadge,
   HeroContent,
   HeroTitle,
   HeroDescription,
@@ -158,6 +159,7 @@ export {
 } from './patterns/Hero';
 export type {
   HeroProps,
+  HeroBadgeProps,
   HeroContentProps,
   HeroTitleProps,
   HeroDescriptionProps,

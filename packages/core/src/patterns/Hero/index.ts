@@ -1,6 +1,15 @@
-export { Hero, HeroContent, HeroTitle, HeroDescription, HeroActions, HeroMedia } from './Hero';
+export {
+  Hero,
+  HeroBadge,
+  HeroContent,
+  HeroTitle,
+  HeroDescription,
+  HeroActions,
+  HeroMedia,
+} from './Hero';
 export type {
   HeroProps,
+  HeroBadgeProps,
   HeroContentProps,
   HeroTitleProps,
   HeroDescriptionProps,

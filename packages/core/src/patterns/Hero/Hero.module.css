@@ -2,47 +2,131 @@
  * Hero — Full-width hero section for landing pages
  *
  * Component tokens:
- *   --hero-padding-y      Vertical padding (fallback: --spacing-section)
- *   --hero-padding-x      Horizontal padding (fallback: --spacing-lg)
- *   --hero-max-width      Max content width (fallback: --content-width-wide)
- *   --hero-gap            Gap between elements (fallback: --spacing-lg)
+ *   --hero-padding-y             Vertical padding (fallback: --spacing-section)
+ *   --hero-headline-size         Headline font size (fallback: --font-size-fluid-5xl)
+ *   --hero-headline-weight       Headline font weight (fallback: --font-weight-bold)
+ *   --hero-headline-line-height  Headline line height (fallback: --line-height-tight)
+ *   --hero-subheadline-size      Subheadline font size (fallback: --font-size-fluid-lg)
+ *   --hero-subheadline-color     Subheadline color (fallback: --color-fg-secondary)
+ *   --hero-max-width             Max content width (fallback: --content-width-wide)
+ *   --hero-badge-bg              Badge background (fallback: --color-bg-subtle)
+ *   --hero-badge-color           Badge text color (fallback: --color-action-primary)
+ *   --hero-badge-radius          Badge border radius (fallback: --radius-full)
  */
 
+/* Base */
 .hero {
+  display: flex;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Inner wrapper — sits above overlay */
+.inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--hero-padding-y, var(--spacing-section)) var(--hero-padding-x, var(--spacing-lg));
-  gap: var(--hero-gap, var(--spacing-lg));
+  padding: var(--hero-padding-y, var(--spacing-section)) var(--spacing-lg);
+  gap: var(--spacing-xl);
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-.alignLeft {
-  text-align: left;
-  align-items: flex-start;
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+
+/* Centered (default) */
+.centered .inner {
+  align-items: center;
+  text-align: center;
 }
 
-.fullHeight {
-  min-height: 100vh;
-}
-
-/* Split layout: stack on mobile, side-by-side on desktop */
-.split {
+/* Split: stack on mobile, side-by-side on desktop */
+.split .inner {
   text-align: left;
   align-items: flex-start;
 }
 
 @media (min-width: 1024px) {
-  .split {
+  .split .inner {
     flex-direction: row;
     align-items: center;
-    text-align: left;
   }
 }
 
-/* Content */
+/* Fullscreen: 100vh, content centered */
+.fullscreen {
+  min-height: 100vh;
+}
+
+.fullscreen .inner {
+  min-height: 100vh;
+}
+
+/* ── Height modifiers ─────────────────────────────────────────────────────── */
+
+.heightViewport {
+  min-height: 100vh;
+}
+
+.heightViewport .inner {
+  min-height: 100vh;
+}
+
+.heightLarge {
+  min-height: 80vh;
+}
+
+.heightLarge .inner {
+  min-height: 80vh;
+}
+
+/* Mobile: reduce fullscreen/viewport height */
+@media (max-width: 639px) {
+  .fullscreen,
+  .fullscreen .inner,
+  .heightViewport,
+  .heightViewport .inner {
+    min-height: 80vh;
+  }
+}
+
+/* ── Alignment ────────────────────────────────────────────────────────────── */
+
+.alignLeft .inner {
+  text-align: left;
+  align-items: flex-start;
+}
+
+/* ── Overlay ──────────────────────────────────────────────────────────────── */
+
+.overlayBg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-bg-overlay);
+  z-index: 0;
+}
+
+/* ── Badge ────────────────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--hero-badge-bg, var(--color-bg-subtle));
+  color: var(--hero-badge-color, var(--color-action-primary));
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--hero-badge-radius, var(--radius-full));
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ── Content ──────────────────────────────────────────────────────────────── */
+
 .content {
   display: flex;
   flex-direction: column;
@@ -51,33 +135,45 @@
   width: 100%;
 }
 
-.split .content {
-  flex: 1;
+.centered .content {
+  align-items: center;
 }
 
-/* Title */
+.alignLeft .content {
+  align-items: flex-start;
+}
+
+.split .content {
+  flex: 1;
+  align-items: flex-start;
+}
+
+/* ── Title ────────────────────────────────────────────────────────────────── */
+
 .title {
   font-family: var(--font-family-display);
-  font-size: var(--font-size-fluid-5xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
+  font-size: var(--hero-headline-size, var(--font-size-fluid-5xl));
+  font-weight: var(--hero-headline-weight, var(--font-weight-bold));
+  line-height: var(--hero-headline-line-height, var(--line-height-tight));
   letter-spacing: var(--letter-spacing-tight);
   color: var(--color-fg-primary);
   margin: 0;
 }
 
-/* Description */
+/* ── Description ──────────────────────────────────────────────────────────── */
+
 .description {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-fluid-lg);
+  font-size: var(--hero-subheadline-size, var(--font-size-fluid-lg));
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-relaxed);
-  color: var(--color-fg-secondary);
+  color: var(--hero-subheadline-color, var(--color-fg-secondary));
   margin: 0;
   max-width: var(--content-width-prose);
 }
 
-/* Actions */
+/* ── Actions ──────────────────────────────────────────────────────────────── */
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -85,7 +181,16 @@
   margin-top: var(--spacing-sm);
 }
 
-/* Media */
+/* Stack CTAs vertically on small mobile */
+@media (max-width: 479px) {
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+/* ── Media ────────────────────────────────────────────────────────────────── */
+
 .media {
   width: 100%;
   max-width: var(--hero-max-width, var(--content-width-wide));

@@ -6,16 +6,26 @@ import styles from './Hero.module.css';
 
 export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
   /** Visual layout variant */
-  variant?: 'centered' | 'split';
+  variant?: 'centered' | 'split' | 'fullscreen';
   /** Alignment of text content */
   align?: 'left' | 'center';
-  /** Whether to use full viewport height */
-  fullHeight?: boolean;
+  /** Height of the hero section */
+  height?: 'viewport' | 'large' | 'auto';
+  /** Whether to apply a dark overlay for text readability over background media */
+  overlay?: boolean;
 }
 
 export const Hero = React.forwardRef<HTMLElement, HeroProps>(
   (
-    { variant = 'centered', align = 'center', fullHeight = false, children, className, ...props },
+    {
+      variant = 'centered',
+      align = 'center',
+      height = 'auto',
+      overlay = false,
+      children,
+      className,
+      ...props
+    },
     ref,
   ) => {
     return (
@@ -23,19 +33,37 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(
         ref={ref}
         className={cn(
           styles.hero,
-          variant === 'split' && styles.split,
+          styles[variant],
           align === 'left' && styles.alignLeft,
-          fullHeight && styles.fullHeight,
+          height === 'viewport' && styles.heightViewport,
+          height === 'large' && styles.heightLarge,
+          overlay && styles.overlay,
           className,
         )}
         {...props}
       >
-        {children}
+        {overlay && <div className={styles.overlayBg} aria-hidden="true" />}
+        <div className={styles.inner}>{children}</div>
       </section>
     );
   },
 );
 Hero.displayName = 'Hero';
+
+// ─── HeroBadge ───────────────────────────────────────────────────────────────
+
+export interface HeroBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {}
+
+export const HeroBadge = React.forwardRef<HTMLSpanElement, HeroBadgeProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <span ref={ref} className={cn(styles.badge, className)} {...props}>
+        {children}
+      </span>
+    );
+  },
+);
+HeroBadge.displayName = 'HeroBadge';
 
 // ─── HeroContent ─────────────────────────────────────────────────────────────
 
