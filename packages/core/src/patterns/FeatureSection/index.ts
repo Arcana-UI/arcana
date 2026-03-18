@@ -1,2 +1,2 @@
-export { FeatureSection, FeatureItem } from './FeatureSection';
-export type { FeatureSectionProps, FeatureItemProps } from './FeatureSection';
+export { FeatureSection } from './FeatureSection';
+export type { FeatureSectionProps, FeatureItemData } from './FeatureSection';

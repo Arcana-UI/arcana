@@ -1,62 +1,119 @@
 /**
  * Testimonial — Customer testimonial / quote card
  *
- * Component tokens:
+ * Component tokens (Tier 3):
  *   --testimonial-bg           Background (fallback: --color-bg-surface)
- *   --testimonial-border-color Border color (fallback: --color-border-default)
  *   --testimonial-radius       Border radius (fallback: --radius-lg)
- *   --testimonial-padding      Padding (fallback: --spacing-lg)
- *   --testimonial-avatar-size  Avatar size (fallback: --spacing-12)
+ *   --testimonial-padding      Padding (fallback: --spacing-xl)
+ *   --testimonial-quote-size   Quote font size (fallback: --font-size-md)
+ *   --testimonial-quote-color  Quote text color (fallback: --color-fg-primary)
+ *   --testimonial-author-size  Author name font size (fallback: --font-size-sm)
+ *   --testimonial-star-color   Star rating color (fallback: --color-status-warning-fg)
  */
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
 
 .testimonial {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  padding: var(--testimonial-padding, var(--spacing-lg));
-  background-color: var(--testimonial-bg, var(--color-bg-surface));
-  border: var(--border-width-default) solid
-    var(--testimonial-border-color, var(--color-border-default));
-  border-radius: var(--testimonial-radius, var(--radius-lg));
   margin: 0;
 }
 
+/* ─── Card variant ─────────────────────────────────────────────────────────── */
+
+.card {
+  padding: var(--testimonial-padding, var(--spacing-xl));
+  background-color: var(--testimonial-bg, var(--color-bg-surface));
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--testimonial-radius, var(--radius-lg));
+}
+
+/* ─── Inline variant ───────────────────────────────────────────────────────── */
+
 .inline {
-  background: none;
-  border: none;
-  padding: 0;
   text-align: center;
   align-items: center;
 }
 
-/* Quote */
-.quote {
-  font-family: var(--font-family-body);
+/* ─── Featured variant ─────────────────────────────────────────────────────── */
+
+.featured {
+  padding: var(--spacing-xl);
+  text-align: center;
+  align-items: center;
+}
+
+.featured .quoteText {
+  font-size: var(--font-size-fluid-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.featured .avatar {
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+}
+
+/* Decorative open quote for featured variant */
+.featured .quote::before {
+  content: "\201C";
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-fluid-5xl);
+  line-height: var(--line-height-none);
+  color: var(--color-action-primary);
+  opacity: var(--opacity-placeholder);
+}
+
+/* ─── Stars ────────────────────────────────────────────────────────────────── */
+
+.stars {
+  display: flex;
+  gap: var(--spacing-0-5);
+}
+
+.star {
   font-size: var(--font-size-md);
+  color: var(--color-fg-muted);
+  line-height: 1;
+}
+
+.starFilled {
+  color: var(--testimonial-star-color, var(--color-status-warning-fg));
+}
+
+/* ─── Quote ────────────────────────────────────────────────────────────────── */
+
+.quote {
+  margin: 0;
+  padding: 0;
+}
+
+.quoteText {
+  font-family: var(--font-family-body);
+  font-size: var(--testimonial-quote-size, var(--font-size-md));
   font-style: italic;
   line-height: var(--line-height-relaxed);
-  color: var(--color-fg-primary);
+  color: var(--testimonial-quote-color, var(--color-fg-primary));
   margin: 0;
 }
 
-.inline .quote {
-  font-size: var(--font-size-fluid-xl);
-}
+/* ─── Attribution ──────────────────────────────────────────────────────────── */
 
-/* Author */
-.author {
+.attribution {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
 }
 
-.inline .author {
+.inline .attribution,
+.featured .attribution {
   justify-content: center;
 }
 
 .avatar {
-  width: var(--testimonial-avatar-size, var(--spacing-12));
-  height: var(--testimonial-avatar-size, var(--spacing-12));
+  width: var(--spacing-12);
+  height: var(--spacing-12);
   border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
@@ -69,12 +126,13 @@
 
 .authorName {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-sm);
+  font-size: var(--testimonial-author-size, var(--font-size-sm));
   font-weight: var(--font-weight-semibold);
+  font-style: normal;
   color: var(--color-fg-primary);
 }
 
-.authorTitle {
+.authorRole {
   font-family: var(--font-family-body);
   font-size: var(--font-size-xs);
   color: var(--color-fg-muted);

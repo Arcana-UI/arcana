@@ -9,6 +9,7 @@ import {
   Badge,
   BottomSheet,
   Button,
+  CTA,
   Card,
   CardBody,
   CardFooter,
@@ -17,6 +18,7 @@ import {
   Container,
   DrawerNav,
   EmptyState,
+  FeatureSection,
   Form,
   FormErrorMessage,
   FormField,
@@ -24,13 +26,17 @@ import {
   FormLabel,
   Grid,
   HStack,
+  Hero,
   Input,
+  LogoCloud,
   MobileNav,
   Modal,
+  PricingCard,
   Radio,
   RadioGroup,
   Select,
   Stack,
+  StatsBar,
   Tab,
   TabList,
   TabPanel,
@@ -42,7 +48,9 @@ import {
   TableHeader,
   TableRow,
   Tabs,
+  Testimonial,
   Textarea,
+  Timeline,
   ToastProvider,
   Toggle,
   useToast,
@@ -1098,9 +1106,338 @@ function MobilePatternsSection() {
   );
 }
 
+// ─── Marketing Section ───────────────────────────────────────────────────────
+
+function MarketingSection() {
+  return (
+    <div>
+      <h2 className={styles.sectionTitle}>Marketing Components</h2>
+      <p className={styles.sectionDesc}>
+        Content and marketing components for landing pages, product sites, and campaigns.
+      </p>
+
+      <Stack gap="xl">
+        {/* Hero */}
+        <div>
+          <h3 className={styles.groupTitle}>Hero</h3>
+          <Stack gap="lg">
+            <Hero
+              headline="Build faster with Nimbus"
+              subheadline="The all-in-one platform for modern teams. Ship products your customers love, without the complexity."
+              primaryCTA={{ label: 'Start Free Trial', href: '#' }}
+              secondaryCTA={{ label: 'Watch Demo', href: '#' }}
+              badge="Now in beta"
+            />
+            <Hero
+              headline="Ship products 10x faster"
+              subheadline="Nimbus gives your team superpowers. From prototype to production in record time."
+              primaryCTA={{ label: 'Get Started', href: '#' }}
+              media={
+                <div
+                  style={{
+                    background: 'var(--color-bg-subtle)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-xl)',
+                    textAlign: 'center',
+                    color: 'var(--color-fg-muted)',
+                  }}
+                >
+                  Product Screenshot Placeholder
+                </div>
+              }
+              variant="split"
+            />
+          </Stack>
+        </div>
+
+        {/* Feature Section */}
+        <div>
+          <h3 className={styles.groupTitle}>Feature Section</h3>
+          <FeatureSection
+            title="Everything you need"
+            subtitle="Powerful features to help your team succeed from day one."
+            features={[
+              {
+                icon: (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                ),
+                title: 'Lightning Fast',
+                description: 'Built for speed with edge computing and smart caching.',
+              },
+              {
+                icon: (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                  </svg>
+                ),
+                title: 'Enterprise Security',
+                description: 'SOC 2 compliant with end-to-end encryption and SSO.',
+              },
+              {
+                icon: (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                  </svg>
+                ),
+                title: 'Team Collaboration',
+                description: 'Real-time editing, comments, and shared workspaces.',
+              },
+              {
+                icon: (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                ),
+                title: 'Analytics Dashboard',
+                description: 'Track engagement, conversions, and revenue in real time.',
+              },
+              {
+                icon: (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                  </svg>
+                ),
+                title: 'Global CDN',
+                description: 'Content delivered from 200+ edge locations worldwide.',
+              },
+              {
+                icon: (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                ),
+                title: '99.99% Uptime',
+                description: 'Multi-region redundancy with automatic failover.',
+              },
+            ]}
+            columns={3}
+          />
+        </div>
+
+        {/* Testimonials */}
+        <div>
+          <h3 className={styles.groupTitle}>Testimonials</h3>
+          <HStack gap="lg" style={{ flexWrap: 'wrap' }}>
+            <Testimonial
+              quote="Nimbus cut our development time in half. We shipped our v2 in just 6 weeks."
+              author="Sarah Chen"
+              jobTitle="CTO"
+              company="TechFlow"
+              rating={5}
+              style={{ flex: '1 1 250px' }}
+            />
+            <Testimonial
+              quote="The best developer experience I've seen. Our whole team adopted it in days."
+              author="Marcus Johnson"
+              jobTitle="Engineering Lead"
+              company="Datawise"
+              rating={4}
+              style={{ flex: '1 1 250px' }}
+            />
+            <Testimonial
+              quote="Finally, a platform that scales with us. From 10 users to 10,000 without breaking a sweat."
+              author="Elena Rodriguez"
+              jobTitle="VP of Engineering"
+              company="ScaleUp Inc"
+              rating={5}
+              style={{ flex: '1 1 250px' }}
+            />
+          </HStack>
+        </div>
+
+        {/* Pricing */}
+        <div>
+          <h3 className={styles.groupTitle}>Pricing Cards</h3>
+          <HStack gap="lg" style={{ flexWrap: 'wrap', alignItems: 'stretch' }}>
+            <PricingCard
+              name="Starter"
+              price="Free"
+              period=""
+              description="For individuals and small projects"
+              features={[
+                { label: '3 projects', included: true },
+                { label: '1 GB storage', included: true },
+                { label: 'Community support', included: true },
+                { label: 'Custom domain', included: false },
+                { label: 'Analytics', included: false },
+              ]}
+              cta={{ label: 'Get Started', href: '#' }}
+              style={{ flex: '1 1 250px' }}
+            />
+            <PricingCard
+              name="Pro"
+              price={29}
+              period="/month"
+              description="For growing teams and businesses"
+              features={[
+                { label: 'Unlimited projects', included: true },
+                { label: '100 GB storage', included: true },
+                { label: 'Priority support', included: true },
+                { label: 'Custom domain', included: true },
+                { label: 'Advanced analytics', included: true },
+              ]}
+              cta={{ label: 'Start Free Trial', href: '#' }}
+              popular
+              style={{ flex: '1 1 250px' }}
+            />
+            <PricingCard
+              name="Enterprise"
+              price={99}
+              period="/month"
+              description="For large organizations with custom needs"
+              features={[
+                { label: 'Everything in Pro', included: true },
+                { label: 'Unlimited storage', included: true },
+                { label: 'Dedicated support', included: true },
+                { label: 'SSO & SAML', included: true },
+                { label: 'SLA guarantee', included: true },
+              ]}
+              cta={{ label: 'Contact Sales', href: '#' }}
+              style={{ flex: '1 1 250px' }}
+            />
+          </HStack>
+        </div>
+
+        {/* CTA Section */}
+        <div>
+          <h3 className={styles.groupTitle}>CTA Section</h3>
+          <CTA
+            headline="Ready to transform your workflow?"
+            description="Join 10,000+ teams already building better products with Nimbus. Start your free trial today."
+            primaryCTA={{ label: 'Start Free Trial', href: '#' }}
+            secondaryCTA={{ label: 'Talk to Sales', href: '#' }}
+            variant="banner"
+          />
+        </div>
+
+        {/* Stats Bar */}
+        <div>
+          <h3 className={styles.groupTitle}>Stats Bar</h3>
+          <StatsBar
+            stats={[
+              { value: 10000, label: 'Active Teams', suffix: '+', trend: 'up' },
+              { value: '99.9', label: 'Uptime', suffix: '%' },
+              { value: 50, label: 'Countries', trend: 'up' },
+              { value: 4.9, label: 'User Rating', suffix: '/5' },
+            ]}
+          />
+        </div>
+
+        {/* Timeline */}
+        <div>
+          <h3 className={styles.groupTitle}>Timeline</h3>
+          <Timeline
+            items={[
+              {
+                title: 'Company Founded',
+                description: 'Started with a mission to simplify developer workflows.',
+                date: 'January 2024',
+                status: 'complete',
+              },
+              {
+                title: 'Public Beta Launch',
+                description:
+                  'Opened to 1,000 early adopters. Received overwhelmingly positive feedback.',
+                date: 'June 2024',
+                status: 'complete',
+              },
+              {
+                title: 'Series A Funding',
+                description: 'Raised $15M led by Acme Ventures to expand the platform.',
+                date: 'January 2025',
+                status: 'complete',
+              },
+              {
+                title: 'Enterprise Launch',
+                description: 'Launching SSO, SAML, and dedicated support for enterprise customers.',
+                date: 'March 2026',
+                status: 'active',
+              },
+              {
+                title: 'Global Expansion',
+                description: 'Opening data centers in Europe and Asia-Pacific regions.',
+                date: 'Q3 2026',
+                status: 'pending',
+              },
+            ]}
+          />
+        </div>
+
+        {/* Logo Cloud */}
+        <div>
+          <h3 className={styles.groupTitle}>Logo Cloud</h3>
+          <LogoCloud
+            title="Trusted by innovative teams"
+            logos={[
+              { src: 'https://placehold.co/120x40/e2e8f0/64748b?text=Acme', alt: 'Acme Corp' },
+              { src: 'https://placehold.co/120x40/e2e8f0/64748b?text=Globex', alt: 'Globex' },
+              { src: 'https://placehold.co/120x40/e2e8f0/64748b?text=Initech', alt: 'Initech' },
+              {
+                src: 'https://placehold.co/120x40/e2e8f0/64748b?text=Hooli',
+                alt: 'Hooli',
+                href: '#',
+              },
+              {
+                src: 'https://placehold.co/120x40/e2e8f0/64748b?text=Stark',
+                alt: 'Stark Industries',
+              },
+              {
+                src: 'https://placehold.co/120x40/e2e8f0/64748b?text=Wayne',
+                alt: 'Wayne Enterprises',
+              },
+            ]}
+          />
+        </div>
+      </Stack>
+    </div>
+  );
+}
+
 // ─── Main Kitchen Sink ────────────────────────────────────────────────────────
 
-type SectionId = 'overview' | 'components' | 'forms' | 'data' | 'layout' | 'mobile';
+type SectionId = 'overview' | 'components' | 'forms' | 'data' | 'layout' | 'mobile' | 'marketing';
 
 const SECTIONS: Array<{ id: SectionId; label: string }> = [
   { id: 'overview', label: 'Overview' },
@@ -1109,6 +1446,7 @@ const SECTIONS: Array<{ id: SectionId; label: string }> = [
   { id: 'data', label: 'Data & Tables' },
   { id: 'layout', label: 'Layout' },
   { id: 'mobile', label: 'Mobile Patterns' },
+  { id: 'marketing', label: 'Marketing' },
 ];
 
 function KitchenSink() {
@@ -1137,6 +1475,7 @@ function KitchenSink() {
         {activeSection === 'data' && <DataSection />}
         {activeSection === 'layout' && <LayoutSection />}
         {activeSection === 'mobile' && <MobilePatternsSection />}
+        {activeSection === 'marketing' && <MarketingSection />}
       </div>
     </div>
   );

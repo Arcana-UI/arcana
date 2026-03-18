@@ -1,2 +1,2 @@
-export { StatsBar, StatItem } from './StatsBar';
-export type { StatsBarProps, StatItemProps } from './StatsBar';
+export { StatsBar } from './StatsBar';
+export type { StatsBarProps, StatItemData } from './StatsBar';

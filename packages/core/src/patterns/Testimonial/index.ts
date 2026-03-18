@@ -1,6 +1,2 @@
-export { Testimonial, TestimonialQuote, TestimonialAuthor } from './Testimonial';
-export type {
-  TestimonialProps,
-  TestimonialQuoteProps,
-  TestimonialAuthorProps,
-} from './Testimonial';
+export { Testimonial } from './Testimonial';
+export type { TestimonialProps } from './Testimonial';

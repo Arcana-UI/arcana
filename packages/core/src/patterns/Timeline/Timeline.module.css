@@ -1,26 +1,36 @@
 /**
  * Timeline — Vertical timeline with dots and connecting lines
  *
- * Component tokens:
- *   --timeline-line-color   Line color (fallback: --color-border-default)
- *   --timeline-line-width   Line width (fallback: --border-width-default)
- *   --timeline-dot-size     Dot size (fallback: --spacing-3)
- *   --timeline-dot-color    Dot background (fallback: --color-action-primary)
- *   --timeline-gap          Gap between items (fallback: --spacing-lg)
+ * Component tokens (Tier 3):
+ *   --timeline-line-color          Line color (fallback: --color-border-default)
+ *   --timeline-line-width          Line width (fallback: --border-width-default)
+ *   --timeline-dot-size            Dot size (fallback: --spacing-3)
+ *   --timeline-dot-complete-color  Complete dot color (fallback: --color-action-primary)
+ *   --timeline-dot-active-color    Active dot color (fallback: --color-action-primary)
+ *   --timeline-dot-pending-color   Pending dot color (fallback: --color-border-default)
+ *   --timeline-content-padding     Content left padding (fallback: --spacing-md)
  */
 
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+
 .timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  position: relative;
+  width: 100%;
 }
 
-/* Timeline item */
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ─── Item ─────────────────────────────────────────────────────────────────── */
+
 .item {
   display: flex;
-  gap: var(--spacing-md);
-  padding-bottom: var(--timeline-gap, var(--spacing-lg));
+  gap: var(--timeline-content-padding, var(--spacing-md));
+  padding-bottom: var(--spacing-lg);
   position: relative;
 }
 
@@ -28,11 +38,8 @@
   padding-bottom: 0;
 }
 
-.item:last-child .line {
-  display: none;
-}
+/* ─── Indicator (dot + line) ───────────────────────────────────────────────── */
 
-/* Indicator column */
 .indicator {
   display: flex;
   flex-direction: column;
@@ -41,7 +48,8 @@
   position: relative;
 }
 
-/* Dot */
+/* ─── Dot ──────────────────────────────────────────────────────────────────── */
+
 .dot {
   display: flex;
   align-items: center;
@@ -49,22 +57,47 @@
   width: var(--timeline-dot-size, var(--spacing-3));
   height: var(--timeline-dot-size, var(--spacing-3));
   border-radius: var(--radius-full);
-  background-color: var(--timeline-dot-color, var(--color-action-primary));
   flex-shrink: 0;
   z-index: 1;
-}
-
-.dot:empty {
-  min-width: var(--timeline-dot-size, var(--spacing-3));
-}
-
-.dot svg {
-  width: var(--spacing-3);
-  height: var(--spacing-3);
+  font-size: var(--font-size-xs);
+  line-height: 1;
   color: var(--color-fg-on-primary);
 }
 
-/* Connecting line */
+.dotComplete {
+  background-color: var(--timeline-dot-complete-color, var(--color-action-primary));
+}
+
+.dotActive {
+  background-color: var(--timeline-dot-active-color, var(--color-action-primary));
+  box-shadow: 0 0 0 var(--spacing-1) var(--color-bg-page), 0 0 0 var(--spacing-1-5)
+    var(--timeline-dot-active-color, var(--color-action-primary));
+  animation: pulse var(--duration-slow, 500ms) var(--ease-in-out) infinite alternate;
+}
+
+.dotPending {
+  background-color: transparent;
+  border: var(--border-width-thick) solid
+    var(--timeline-dot-pending-color, var(--color-border-default));
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: var(--opacity-placeholder);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dotActive {
+    animation: none;
+  }
+}
+
+/* ─── Line ─────────────────────────────────────────────────────────────────── */
+
 .line {
   width: var(--timeline-line-width, var(--border-width-default));
   flex: 1;
@@ -72,7 +105,8 @@
   margin-top: var(--spacing-1);
 }
 
-/* Content */
+/* ─── Content ──────────────────────────────────────────────────────────────── */
+
 .content {
   display: flex;
   flex-direction: column;
@@ -89,28 +123,57 @@
   color: var(--color-fg-muted);
 }
 
-.body {
+.title {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  color: var(--color-fg-primary);
+  margin: 0;
+}
+
+.description {
   font-family: var(--font-family-body);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-relaxed);
-  color: var(--color-fg-primary);
+  color: var(--color-fg-secondary);
+  margin: 0;
 }
 
-/* Alternate layout — desktop only */
+/* ─── Compact variant ──────────────────────────────────────────────────────── */
+
+.compact .item {
+  padding-bottom: var(--spacing-md);
+}
+
+.compact .title {
+  font-size: var(--font-size-sm);
+}
+
+.compact .description {
+  font-size: var(--font-size-xs);
+}
+
+/* ─── Alternating variant — desktop only ───────────────────────────────────── */
+
 @media (min-width: 1024px) {
-  .alternate .item {
+  .alternating .list {
+    position: relative;
+  }
+
+  .alternating .item {
     width: 50%;
     margin-left: 50%;
   }
 
-  .alternate .item:nth-child(even) {
+  .alternating .altReverse {
     flex-direction: row-reverse;
     margin-left: 0;
     margin-right: 50%;
     text-align: right;
   }
 
-  .alternate .item:nth-child(even) .content {
+  .alternating .altReverse .content {
     align-items: flex-end;
   }
 }
