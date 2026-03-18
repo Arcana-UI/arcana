@@ -62,3 +62,8 @@
   color: var(--color-fg-primary);
   font-weight: var(--font-weight-medium);
 }
+
+.truncated {
+  color: var(--color-fg-muted);
+  padding: 0 var(--spacing-1);
+}

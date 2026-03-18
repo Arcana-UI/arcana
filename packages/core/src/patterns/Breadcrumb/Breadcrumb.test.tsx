@@ -89,4 +89,20 @@ describe('Breadcrumb', () => {
     );
     expect(container.querySelector('nav')?.classList.contains('custom')).toBe(true);
   });
+
+  it('truncates middle items when maxItems is set', () => {
+    render(
+      <Breadcrumb maxItems={3}>
+        <BreadcrumbItem href="/">Home</BreadcrumbItem>
+        <BreadcrumbItem href="/a">A</BreadcrumbItem>
+        <BreadcrumbItem href="/b">B</BreadcrumbItem>
+        <BreadcrumbItem href="/c">C</BreadcrumbItem>
+        <BreadcrumbItem current>D</BreadcrumbItem>
+      </Breadcrumb>,
+    );
+    // Should show Home, ..., C, D (first + last 2)
+    expect(screen.getByText('Home')).toBeTruthy();
+    expect(screen.getByText('...')).toBeTruthy();
+    expect(screen.getByText('D')).toBeTruthy();
+  });
 });

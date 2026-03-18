@@ -87,6 +87,15 @@
   }
 }
 
+/* Compact label */
+.compactLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-primary);
+  white-space: nowrap;
+  padding: 0 var(--spacing-2);
+}
+
 /* Ellipsis */
 .ellipsis {
   display: inline-flex;

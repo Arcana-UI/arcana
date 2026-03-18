@@ -71,6 +71,31 @@
   border-radius: var(--radius-sm);
 }
 
+.externalIcon {
+  display: inline-flex;
+  margin-left: var(--spacing-1);
+  vertical-align: middle;
+}
+
+/* Minimal variant */
+.minimal {
+  padding: var(--spacing-4) 0;
+}
+
+.innerMinimal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .innerMinimal {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
 /* Bottom bar */
 .bottom {
   grid-column: 1 / -1;

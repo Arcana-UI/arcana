@@ -97,10 +97,12 @@ export interface SidebarItemProps extends React.HTMLAttributes<HTMLButtonElement
   disabled?: boolean;
   /** Render as an anchor element instead of button */
   href?: string;
+  /** Badge count or text displayed on the right */
+  badge?: string | number;
 }
 
 export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>(
-  ({ icon, active = false, disabled = false, href, children, className, ...props }, ref) => {
+  ({ icon, active = false, disabled = false, href, badge, children, className, ...props }, ref) => {
     const { collapsed } = useContext(SidebarContext);
 
     const content = (
@@ -111,6 +113,7 @@ export const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>
           </span>
         )}
         {!collapsed && <span className={styles.itemLabel}>{children}</span>}
+        {badge !== undefined && !collapsed && <span className={styles.itemBadge}>{badge}</span>}
       </>
     );
 

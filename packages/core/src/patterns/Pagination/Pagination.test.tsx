@@ -79,4 +79,15 @@ describe('Pagination', () => {
     );
     expect(container.querySelector('nav')?.classList.contains('custom')).toBe(true);
   });
+
+  it('renders compact variant with page label', () => {
+    render(<Pagination page={3} totalPages={10} onPageChange={vi.fn()} variant="compact" />);
+    expect(screen.getByText('Page 3 of 10')).toBeTruthy();
+  });
+
+  it('compact variant still has prev/next buttons', () => {
+    render(<Pagination page={3} totalPages={10} onPageChange={vi.fn()} variant="compact" />);
+    expect(screen.getByLabelText('Go to previous page')).toBeTruthy();
+    expect(screen.getByLabelText('Go to next page')).toBeTruthy();
+  });
 });

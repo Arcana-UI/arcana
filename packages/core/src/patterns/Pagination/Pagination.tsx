@@ -13,6 +13,8 @@ export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
   siblingCount?: number;
   /** Whether to show first/last page buttons */
   showEdges?: boolean;
+  /** Display variant — "default" shows page buttons, "compact" shows "Page X of Y" */
+  variant?: 'default' | 'compact';
 }
 
 function getPageRange(
@@ -57,10 +59,84 @@ function getPageRange(
 
 export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
   (
-    { page, totalPages, onPageChange, siblingCount = 1, showEdges = true, className, ...props },
+    {
+      page,
+      totalPages,
+      onPageChange,
+      siblingCount = 1,
+      showEdges = true,
+      variant = 'default',
+      className,
+      ...props
+    },
     ref,
   ) => {
     const pages = getPageRange(page, totalPages, siblingCount);
+
+    const prevButton = (
+      <button
+        type="button"
+        className={cn(styles.button, styles.nav)}
+        onClick={() => onPageChange(page - 1)}
+        disabled={page === 1}
+        aria-label="Go to previous page"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+    );
+
+    const nextButton = (
+      <button
+        type="button"
+        className={cn(styles.button, styles.nav)}
+        onClick={() => onPageChange(page + 1)}
+        disabled={page === totalPages}
+        aria-label="Go to next page"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+    );
+
+    if (variant === 'compact') {
+      return (
+        <nav
+          ref={ref}
+          aria-label="Pagination"
+          className={cn(styles.pagination, className)}
+          {...props}
+        >
+          {prevButton}
+          <span className={styles.compactLabel} aria-live="polite">
+            Page {page} of {totalPages}
+          </span>
+          {nextButton}
+        </nav>
+      );
+    }
 
     return (
       <nav
@@ -94,27 +170,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
           </button>
         )}
 
-        <button
-          type="button"
-          className={cn(styles.button, styles.nav)}
-          onClick={() => onPageChange(page - 1)}
-          disabled={page === 1}
-          aria-label="Go to previous page"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
+        {prevButton}
 
         <div className={styles.pages}>
           {pages.map((p, i) =>
@@ -137,27 +193,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
           )}
         </div>
 
-        <button
-          type="button"
-          className={cn(styles.button, styles.nav)}
-          onClick={() => onPageChange(page + 1)}
-          disabled={page === totalPages}
-          aria-label="Go to next page"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
+        {nextButton}
 
         {showEdges && (
           <button

@@ -109,4 +109,22 @@ describe('Sidebar', () => {
     );
     expect(screen.getByTestId('icon')).toBeTruthy();
   });
+
+  it('renders badge on SidebarItem', () => {
+    render(
+      <Sidebar>
+        <SidebarItem badge={5}>Inbox</SidebarItem>
+      </Sidebar>,
+    );
+    expect(screen.getByText('5')).toBeTruthy();
+  });
+
+  it('hides badge when collapsed', () => {
+    render(
+      <Sidebar collapsed>
+        <SidebarItem badge={3}>Inbox</SidebarItem>
+      </Sidebar>,
+    );
+    expect(screen.queryByText('3')).toBeNull();
+  });
 });

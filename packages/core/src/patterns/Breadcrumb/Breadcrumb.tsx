@@ -7,11 +7,26 @@ import styles from './Breadcrumb.module.css';
 export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   /** Custom separator element between items */
   separator?: React.ReactNode;
+  /** Maximum items to display before truncating with ellipsis */
+  maxItems?: number;
 }
 
 export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ separator, children, className, ...props }, ref) => {
-    const items = React.Children.toArray(children);
+  ({ separator, maxItems, children, className, ...props }, ref) => {
+    let items = React.Children.toArray(children);
+
+    // Truncate middle items if maxItems is set
+    if (maxItems && items.length > maxItems && maxItems >= 2) {
+      const firstItems = items.slice(0, 1);
+      const lastItems = items.slice(-(maxItems - 1));
+      items = [
+        ...firstItems,
+        <span key="breadcrumb-ellipsis" className={styles.truncated}>
+          ...
+        </span>,
+        ...lastItems,
+      ];
+    }
     const defaultSeparator = (
       <svg
         width="16"

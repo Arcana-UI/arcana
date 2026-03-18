@@ -89,4 +89,22 @@ describe('Footer', () => {
     );
     expect(ref).toHaveBeenCalled();
   });
+
+  it('external FooterLink has target and rel', () => {
+    render(
+      <Footer>
+        <FooterLink href="https://example.com" external>
+          External
+        </FooterLink>
+      </Footer>,
+    );
+    const link = screen.getByRole('link', { name: /External/ });
+    expect(link.getAttribute('target')).toBe('_blank');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  it('renders minimal variant', () => {
+    const { container } = render(<Footer variant="minimal">Content</Footer>);
+    expect(container.querySelector('footer')).toBeTruthy();
+  });
 });
