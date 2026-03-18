@@ -667,6 +667,161 @@
       "examples": [
         "<Footer><FooterSection title=\"Product\"><FooterLink href=\"/features\">Features</FooterLink></FooterSection><FooterBottom>© 2026 Company</FooterBottom></Footer>"
       ]
+    },
+    {
+      "name": "Hero",
+      "import": "import { Hero } from '@arcana-ui/core'",
+      "description": "Full-width hero section for landing pages with headline, CTA, and media support",
+      "props": {
+        "headline": {
+          "type": "string",
+          "required": true,
+          "description": "Main headline (rendered as h1)"
+        },
+        "subheadline": { "type": "string", "description": "Supporting text" },
+        "primaryCTA": {
+          "type": "{ label: string; href?: string; onClick?: () => void }",
+          "description": "Primary call-to-action"
+        },
+        "secondaryCTA": {
+          "type": "{ label: string; href?: string; onClick?: () => void }",
+          "description": "Secondary call-to-action"
+        },
+        "media": { "type": "ReactNode", "description": "Image, video, or illustration" },
+        "variant": { "type": "'centered' | 'split' | 'fullscreen'", "default": "centered" },
+        "height": { "type": "'viewport' | 'large' | 'auto'", "default": "auto" },
+        "overlay": {
+          "type": "boolean",
+          "default": false,
+          "description": "Dark overlay for text readability"
+        },
+        "badge": { "type": "string", "description": "Announcement pill above headline" }
+      },
+      "examples": [
+        "<Hero headline=\"Build faster\" subheadline=\"Ship products your customers love.\" primaryCTA={{ label: 'Get Started', href: '/signup' }} badge=\"Now in beta\" />"
+      ]
+    },
+    {
+      "name": "FeatureSection",
+      "import": "import { FeatureSection } from '@arcana-ui/core'",
+      "description": "Grid of feature highlights with icons, titles, and descriptions",
+      "props": {
+        "title": { "type": "string", "description": "Section heading" },
+        "subtitle": { "type": "string", "description": "Section description" },
+        "features": {
+          "type": "FeatureItemData[]",
+          "required": true,
+          "description": "Array of { icon?, title, description, link? }"
+        },
+        "columns": { "type": "2 | 3 | 4", "default": 3 },
+        "variant": { "type": "'grid' | 'list' | 'alternating'", "default": "grid" }
+      },
+      "examples": [
+        "<FeatureSection title=\"Features\" features={[{ title: 'Fast', description: 'Built for speed.' }]} />"
+      ]
+    },
+    {
+      "name": "Testimonial",
+      "import": "import { Testimonial } from '@arcana-ui/core'",
+      "description": "Customer testimonial card with quote, author, and optional star rating",
+      "props": {
+        "quote": { "type": "string", "required": true },
+        "author": { "type": "string", "required": true },
+        "jobTitle": { "type": "string" },
+        "company": { "type": "string" },
+        "avatar": { "type": "string", "description": "Avatar image URL" },
+        "variant": { "type": "'card' | 'inline' | 'featured'", "default": "card" },
+        "rating": { "type": "number", "description": "1-5 star rating" }
+      },
+      "examples": [
+        "<Testimonial quote=\"Amazing product!\" author=\"Jane Doe\" role=\"CEO\" company=\"Acme\" rating={5} />"
+      ]
+    },
+    {
+      "name": "PricingCard",
+      "import": "import { PricingCard } from '@arcana-ui/core'",
+      "description": "Pricing tier card with plan name, price, features list, and CTA",
+      "props": {
+        "name": { "type": "string", "required": true, "description": "Plan name" },
+        "price": { "type": "string | number", "required": true },
+        "period": { "type": "string", "description": "e.g. '/month'" },
+        "description": { "type": "string" },
+        "features": { "type": "PricingFeature[]", "description": "Array of { label, included }" },
+        "cta": { "type": "{ label: string; href?: string; onClick?: () => void }" },
+        "popular": {
+          "type": "boolean",
+          "default": false,
+          "description": "Highlights as recommended tier"
+        },
+        "variant": { "type": "'default' | 'compact'", "default": "default" }
+      },
+      "examples": [
+        "<PricingCard name=\"Pro\" price={29} period=\"/month\" features={[{ label: 'Unlimited', included: true }]} cta={{ label: 'Subscribe' }} popular />"
+      ]
+    },
+    {
+      "name": "CTA",
+      "import": "import { CTA } from '@arcana-ui/core'",
+      "description": "Call-to-action section with headline, description, and action buttons",
+      "props": {
+        "headline": { "type": "string", "required": true },
+        "description": { "type": "string" },
+        "primaryCTA": { "type": "{ label: string; href?: string; onClick?: () => void }" },
+        "secondaryCTA": { "type": "{ label: string; href?: string; onClick?: () => void }" },
+        "variant": { "type": "'banner' | 'card' | 'minimal'", "default": "banner" }
+      },
+      "examples": [
+        "<CTA headline=\"Ready to start?\" primaryCTA={{ label: 'Sign Up', href: '/signup' }} variant=\"banner\" />"
+      ]
+    },
+    {
+      "name": "StatsBar",
+      "import": "import { StatsBar } from '@arcana-ui/core'",
+      "description": "Row of key metrics with animated number counting and trend indicators",
+      "props": {
+        "stats": {
+          "type": "StatItemData[]",
+          "required": true,
+          "description": "Array of { value, label, prefix?, suffix?, trend? }"
+        },
+        "variant": { "type": "'inline' | 'card'", "default": "inline" }
+      },
+      "examples": [
+        "<StatsBar stats={[{ value: 10000, label: 'Users', suffix: '+', trend: 'up' }]} />"
+      ]
+    },
+    {
+      "name": "Timeline",
+      "import": "import { Timeline } from '@arcana-ui/core'",
+      "description": "Vertical timeline with status dots, connecting lines, and content",
+      "props": {
+        "items": {
+          "type": "TimelineItemData[]",
+          "required": true,
+          "description": "Array of { title, description, date?, icon?, status? }"
+        },
+        "variant": { "type": "'standard' | 'compact' | 'alternating'", "default": "standard" }
+      },
+      "examples": [
+        "<Timeline items={[{ title: 'Launch', description: 'Product shipped.', status: 'complete' }]} />"
+      ]
+    },
+    {
+      "name": "LogoCloud",
+      "import": "import { LogoCloud } from '@arcana-ui/core'",
+      "description": "Grid or scrolling strip of partner/client logos with grayscale-to-color hover effect",
+      "props": {
+        "logos": {
+          "type": "LogoItem[]",
+          "required": true,
+          "description": "Array of { src, alt, href? }"
+        },
+        "title": { "type": "string", "description": "Section title (e.g. 'Trusted by')" },
+        "variant": { "type": "'grid' | 'marquee' | 'fade'", "default": "grid" }
+      },
+      "examples": [
+        "<LogoCloud title=\"Trusted by\" logos={[{ src: '/logos/acme.svg', alt: 'Acme' }]} />"
+      ]
     }
   ],
   "design": {

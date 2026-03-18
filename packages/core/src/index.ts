@@ -148,58 +148,29 @@ export type {
   FooterBottomProps,
 } from './patterns/Footer';
 
-export {
-  Hero,
-  HeroContent,
-  HeroTitle,
-  HeroDescription,
-  HeroActions,
-  HeroMedia,
-} from './patterns/Hero';
-export type {
-  HeroProps,
-  HeroContentProps,
-  HeroTitleProps,
-  HeroDescriptionProps,
-  HeroActionsProps,
-  HeroMediaProps,
-} from './patterns/Hero';
+export { Hero } from './patterns/Hero';
+export type { HeroProps, HeroCTAAction } from './patterns/Hero';
 
-export { FeatureSection, FeatureItem } from './patterns/FeatureSection';
-export type { FeatureSectionProps, FeatureItemProps } from './patterns/FeatureSection';
+export { FeatureSection } from './patterns/FeatureSection';
+export type { FeatureSectionProps, FeatureItemData } from './patterns/FeatureSection';
 
-export { Testimonial, TestimonialQuote, TestimonialAuthor } from './patterns/Testimonial';
-export type {
-  TestimonialProps,
-  TestimonialQuoteProps,
-  TestimonialAuthorProps,
-} from './patterns/Testimonial';
+export { Testimonial } from './patterns/Testimonial';
+export type { TestimonialProps } from './patterns/Testimonial';
 
-export {
-  PricingCard,
-  PricingCardHeader,
-  PricingCardPrice,
-  PricingCardFeatures,
-  PricingCardFeature,
-  PricingCardAction,
-} from './patterns/PricingCard';
-export type {
-  PricingCardProps,
-  PricingCardHeaderProps,
-  PricingCardPriceProps,
-  PricingCardFeaturesProps,
-  PricingCardFeatureProps,
-  PricingCardActionProps,
-} from './patterns/PricingCard';
+export { PricingCard } from './patterns/PricingCard';
+export type { PricingCardProps, PricingFeature, PricingCTAAction } from './patterns/PricingCard';
 
-export { CTA, CTATitle, CTADescription, CTAActions } from './patterns/CTA';
-export type { CTAProps, CTATitleProps, CTADescriptionProps, CTAActionsProps } from './patterns/CTA';
+export { CTA } from './patterns/CTA';
+export type { CTAProps, CTAAction } from './patterns/CTA';
 
-export { StatsBar, StatItem } from './patterns/StatsBar';
-export type { StatsBarProps, StatItemProps } from './patterns/StatsBar';
+export { StatsBar } from './patterns/StatsBar';
+export type { StatsBarProps, StatItemData } from './patterns/StatsBar';
 
-export { Timeline, TimelineItem } from './patterns/Timeline';
-export type { TimelineProps, TimelineItemProps } from './patterns/Timeline';
+export { Timeline } from './patterns/Timeline';
+export type { TimelineProps, TimelineItemData } from './patterns/Timeline';
+
+export { LogoCloud } from './patterns/LogoCloud';
+export type { LogoCloudProps, LogoItem } from './patterns/LogoCloud';
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
 export { useMediaQuery } from './hooks/useMediaQuery';

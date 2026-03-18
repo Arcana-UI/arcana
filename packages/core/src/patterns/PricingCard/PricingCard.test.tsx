@@ -1,109 +1,148 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
+import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import {
-  PricingCard,
-  PricingCardAction,
-  PricingCardFeature,
-  PricingCardFeatures,
-  PricingCardHeader,
-  PricingCardPrice,
-} from './PricingCard';
+import { PricingCard } from './PricingCard';
+
+const defaultProps = {
+  name: 'Pro',
+  price: 29,
+  period: '/month',
+  description: 'For growing teams',
+  features: [
+    { label: 'Unlimited projects', included: true },
+    { label: 'Priority support', included: true },
+    { label: 'Custom domain', included: false },
+  ],
+  cta: { label: 'Get Started', href: '/signup' },
+};
 
 describe('PricingCard', () => {
-  it('renders as div', () => {
-    const { container } = render(<PricingCard>Content</PricingCard>);
-    expect(container.firstElementChild).toBeTruthy();
+  // --- Smoke test
+  it('renders plan name', () => {
+    render(<PricingCard {...defaultProps} />);
+    expect(screen.getByRole('heading', { name: 'Pro' })).toBeInTheDocument();
   });
 
+  it('renders as article with aria-label', () => {
+    render(<PricingCard {...defaultProps} />);
+    expect(screen.getByRole('article', { name: 'Pro pricing plan' })).toBeInTheDocument();
+  });
+
+  // --- Ref forwarding
   it('forwards ref', () => {
-    const ref = vi.fn();
-    render(<PricingCard ref={ref}>Content</PricingCard>);
-    expect(ref).toHaveBeenCalled();
+    const ref = React.createRef<HTMLElement>();
+    render(<PricingCard ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
+  // --- className
   it('accepts className', () => {
-    const { container } = render(<PricingCard className="custom">Content</PricingCard>);
+    const { container } = render(<PricingCard {...defaultProps} className="custom" />);
     expect(container.firstElementChild?.classList.contains('custom')).toBe(true);
   });
 
-  it('renders featured variant', () => {
-    const { container } = render(<PricingCard featured>Content</PricingCard>);
-    expect(container.firstElementChild?.className).toContain('featured');
+  // --- Price display
+  it('displays numeric price with dollar sign', () => {
+    render(<PricingCard {...defaultProps} price={29} />);
+    expect(screen.getByText('$29')).toBeInTheDocument();
   });
 
-  it('renders plan name in header', () => {
-    render(
-      <PricingCard>
-        <PricingCardHeader plan="Pro" />
-      </PricingCard>,
-    );
-    expect(screen.getByRole('heading', { name: 'Pro' })).toBeTruthy();
+  it('displays string price as-is', () => {
+    render(<PricingCard {...defaultProps} price="Free" />);
+    expect(screen.getByText('Free')).toBeInTheDocument();
   });
 
-  it('renders plan description', () => {
-    render(
-      <PricingCard>
-        <PricingCardHeader plan="Pro" description="For teams" />
-      </PricingCard>,
-    );
-    expect(screen.getByText('For teams')).toBeTruthy();
+  it('displays period', () => {
+    render(<PricingCard {...defaultProps} />);
+    expect(screen.getByText('/month')).toBeInTheDocument();
   });
 
-  it('renders price with period', () => {
-    render(
-      <PricingCard>
-        <PricingCardPrice amount="$29" period="/month" />
-      </PricingCard>,
-    );
-    expect(screen.getByText('$29')).toBeTruthy();
-    expect(screen.getByText('/month')).toBeTruthy();
+  // --- Description
+  it('renders description', () => {
+    render(<PricingCard {...defaultProps} />);
+    expect(screen.getByText('For growing teams')).toBeInTheDocument();
   });
 
+  // --- Features
   it('renders feature list', () => {
-    render(
-      <PricingCard>
-        <PricingCardFeatures>
-          <PricingCardFeature>10 users</PricingCardFeature>
-          <PricingCardFeature>API access</PricingCardFeature>
-          <PricingCardFeature included={false}>Priority support</PricingCardFeature>
-        </PricingCardFeatures>
-      </PricingCard>,
-    );
-    expect(screen.getByText('10 users')).toBeTruthy();
-    expect(screen.getByText('API access')).toBeTruthy();
-    expect(screen.getByText('Priority support')).toBeTruthy();
+    render(<PricingCard {...defaultProps} />);
+    expect(screen.getByText('Unlimited projects')).toBeInTheDocument();
+    expect(screen.getByText('Priority support')).toBeInTheDocument();
+    expect(screen.getByText('Custom domain')).toBeInTheDocument();
   });
 
-  it('renders excluded feature with strikethrough', () => {
-    const { container } = render(
-      <PricingCard>
-        <PricingCardFeatures>
-          <PricingCardFeature included={false}>Priority support</PricingCardFeature>
-        </PricingCardFeatures>
-      </PricingCard>,
-    );
-    const item = container.querySelector('li');
-    expect(item?.className).toContain('featureExcluded');
+  it('renders included features with checkmark', () => {
+    const { container } = render(<PricingCard {...defaultProps} />);
+    const features = container.querySelectorAll('li');
+    expect(features[0]?.textContent).toContain('\u2713');
   });
 
-  it('renders action slot', () => {
-    render(
-      <PricingCard>
-        <PricingCardAction>
-          <button type="button">Subscribe</button>
-        </PricingCardAction>
-      </PricingCard>,
-    );
-    expect(screen.getByRole('button', { name: 'Subscribe' })).toBeTruthy();
+  it('renders excluded features with X mark and line-through', () => {
+    const { container } = render(<PricingCard {...defaultProps} />);
+    const excluded = container.querySelector('[class*="featureExcluded"]');
+    expect(excluded).toBeTruthy();
+    expect(excluded?.textContent).toContain('\u2715');
   });
 
-  it('PricingCardHeader forwards ref', () => {
-    const ref = vi.fn();
+  // --- CTA
+  it('renders CTA as link when href provided', () => {
+    render(<PricingCard {...defaultProps} />);
+    const link = screen.getByRole('link', { name: 'Get Started' });
+    expect(link).toHaveAttribute('href', '/signup');
+  });
+
+  it('renders CTA as button when onClick provided', () => {
+    const onClick = vi.fn();
+    render(<PricingCard {...defaultProps} cta={{ label: 'Subscribe', onClick }} />);
+    expect(screen.getByRole('button', { name: 'Subscribe' })).toBeInTheDocument();
+  });
+
+  it('fires onClick on CTA click', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(<PricingCard {...defaultProps} cta={{ label: 'Subscribe', onClick }} />);
+    await user.click(screen.getByRole('button', { name: 'Subscribe' }));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  // --- Popular
+  it('renders popular badge', () => {
+    render(<PricingCard {...defaultProps} popular />);
+    expect(screen.getByText('Most Popular')).toBeInTheDocument();
+  });
+
+  it('applies popular styling class', () => {
+    const { container } = render(<PricingCard {...defaultProps} popular />);
+    expect(container.querySelector('[class*="popular"]')).toBeTruthy();
+  });
+
+  it('popular badge has aria-label', () => {
+    render(<PricingCard {...defaultProps} popular />);
+    expect(screen.getByLabelText('Most popular plan')).toBeInTheDocument();
+  });
+
+  // --- Compact variant
+  it('applies compact variant class', () => {
+    const { container } = render(<PricingCard {...defaultProps} variant="compact" />);
+    expect(container.querySelector('[class*="compact"]')).toBeTruthy();
+  });
+
+  // --- Children
+  it('renders children', () => {
     render(
-      <PricingCard>
-        <PricingCardHeader ref={ref} plan="Pro" />
+      <PricingCard {...defaultProps}>
+        <div data-testid="extra">Extra content</div>
       </PricingCard>,
     );
-    expect(ref).toHaveBeenCalled();
+    expect(screen.getByTestId('extra')).toBeInTheDocument();
+  });
+
+  // --- Accessibility
+  it('has no accessibility violations', async () => {
+    const { container } = render(<PricingCard {...defaultProps} popular />);
+    const results = await axe(container);
+    expect(results.violations).toHaveLength(0);
   });
 });

@@ -1,116 +1,118 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { cn } from '../../utils/cn';
 import styles from './Hero.module.css';
 
-// ─── Hero ────────────────────────────────────────────────────────────────────
+// ─── Types ──────────────────────────────────────────────────────────────────
+
+export interface HeroCTAAction {
+  /** Button/link label text */
+  label: string;
+  /** URL for link-based CTA */
+  href?: string;
+  /** Click handler for button-based CTA */
+  onClick?: () => void;
+}
 
 export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
-  /** Visual layout variant */
-  variant?: 'centered' | 'split';
-  /** Alignment of text content */
+  /** Main headline text (rendered as h1) */
+  headline: string;
+  /** Supporting text below the headline */
+  subheadline?: string;
+  /** Primary call-to-action button/link */
+  primaryCTA?: HeroCTAAction;
+  /** Secondary call-to-action button/link */
+  secondaryCTA?: HeroCTAAction;
+  /** Media element (image, video, or illustration) for split/fullscreen variants */
+  media?: React.ReactNode;
+  /** Layout variant */
+  variant?: 'centered' | 'split' | 'fullscreen';
+  /** Text alignment (only applies to centered variant) */
   align?: 'left' | 'center';
-  /** Whether to use full viewport height */
-  fullHeight?: boolean;
+  /** Height behavior */
+  height?: 'viewport' | 'large' | 'auto';
+  /** Adds a semi-transparent dark overlay for text readability over media */
+  overlay?: boolean;
+  /** Small announcement badge displayed above the headline */
+  badge?: string;
 }
+
+// ─── Hero ───────────────────────────────────────────────────────────────────
 
 export const Hero = React.forwardRef<HTMLElement, HeroProps>(
   (
-    { variant = 'centered', align = 'center', fullHeight = false, children, className, ...props },
+    {
+      headline,
+      subheadline,
+      primaryCTA,
+      secondaryCTA,
+      media,
+      variant = 'centered',
+      align = 'center',
+      height = 'auto',
+      overlay = false,
+      badge,
+      children,
+      className,
+      ...props
+    },
     ref,
   ) => {
+    const id = useId();
+    const headlineId = `${id}-headline`;
+
+    const renderCTA = (cta: HeroCTAAction, isPrimary: boolean): React.ReactNode => {
+      const ctaClass = isPrimary ? styles.ctaPrimary : styles.ctaSecondary;
+      if (cta.href) {
+        return (
+          <a key={cta.label} href={cta.href} className={ctaClass}>
+            {cta.label}
+          </a>
+        );
+      }
+      return (
+        <button key={cta.label} type="button" onClick={cta.onClick} className={ctaClass}>
+          {cta.label}
+        </button>
+      );
+    };
+
+    const hasActions = primaryCTA || secondaryCTA;
+
     return (
       <section
         ref={ref}
+        aria-labelledby={headlineId}
         className={cn(
           styles.hero,
-          variant === 'split' && styles.split,
+          styles[variant],
           align === 'left' && styles.alignLeft,
-          fullHeight && styles.fullHeight,
+          height === 'viewport' && styles.heightViewport,
+          height === 'large' && styles.heightLarge,
+          overlay && styles.overlay,
           className,
         )}
         {...props}
       >
-        {children}
+        {overlay && variant === 'fullscreen' && (
+          <div className={styles.overlayBg} aria-hidden="true" />
+        )}
+        <div className={styles.content}>
+          {badge && <span className={styles.badge}>{badge}</span>}
+          <h1 id={headlineId} className={styles.headline}>
+            {headline}
+          </h1>
+          {subheadline && <p className={styles.subheadline}>{subheadline}</p>}
+          {hasActions && (
+            <div className={styles.actions}>
+              {primaryCTA && renderCTA(primaryCTA, true)}
+              {secondaryCTA && renderCTA(secondaryCTA, false)}
+            </div>
+          )}
+          {children}
+        </div>
+        {media && <div className={styles.media}>{media}</div>}
       </section>
     );
   },
 );
 Hero.displayName = 'Hero';
-
-// ─── HeroContent ─────────────────────────────────────────────────────────────
-
-export interface HeroContentProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export const HeroContent = React.forwardRef<HTMLDivElement, HeroContentProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn(styles.content, className)} {...props}>
-        {children}
-      </div>
-    );
-  },
-);
-HeroContent.displayName = 'HeroContent';
-
-// ─── HeroTitle ───────────────────────────────────────────────────────────────
-
-export interface HeroTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  /** Heading level */
-  as?: 'h1' | 'h2' | 'h3';
-}
-
-export const HeroTitle = React.forwardRef<HTMLHeadingElement, HeroTitleProps>(
-  ({ as: Tag = 'h1', children, className, ...props }, ref) => {
-    return (
-      <Tag ref={ref} className={cn(styles.title, className)} {...props}>
-        {children}
-      </Tag>
-    );
-  },
-);
-HeroTitle.displayName = 'HeroTitle';
-
-// ─── HeroDescription ────────────────────────────────────────────────────────
-
-export interface HeroDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
-
-export const HeroDescription = React.forwardRef<HTMLParagraphElement, HeroDescriptionProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <p ref={ref} className={cn(styles.description, className)} {...props}>
-        {children}
-      </p>
-    );
-  },
-);
-HeroDescription.displayName = 'HeroDescription';
-
-// ─── HeroActions ─────────────────────────────────────────────────────────────
-
-export interface HeroActionsProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export const HeroActions = React.forwardRef<HTMLDivElement, HeroActionsProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn(styles.actions, className)} {...props}>
-        {children}
-      </div>
-    );
-  },
-);
-HeroActions.displayName = 'HeroActions';
-
-// ─── HeroMedia ───────────────────────────────────────────────────────────────
-
-export interface HeroMediaProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export const HeroMedia = React.forwardRef<HTMLDivElement, HeroMediaProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn(styles.media, className)} {...props}>
-        {children}
-      </div>
-    );
-  },
-);
-HeroMedia.displayName = 'HeroMedia';

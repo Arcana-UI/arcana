@@ -1,41 +1,45 @@
 /**
  * StatsBar — Row of key metrics / statistics
  *
- * Component tokens:
- *   --stats-padding     Section padding (fallback: --spacing-xl)
- *   --stats-gap         Gap between items (fallback: --spacing-lg)
- *   --stats-value-size  Value font size (fallback: --font-size-fluid-3xl)
+ * Component tokens (Tier 3):
+ *   --stats-value-size         Value font size (fallback: --font-size-fluid-3xl)
+ *   --stats-value-weight       Value font weight (fallback: --font-weight-bold)
+ *   --stats-label-size         Label font size (fallback: --font-size-sm)
+ *   --stats-label-color        Label text color (fallback: --color-fg-secondary)
+ *   --stats-trend-up-color     Trend up color (fallback: --color-status-success-fg)
+ *   --stats-trend-down-color   Trend down color (fallback: --color-status-error-fg)
+ *   --stats-divider-color      Divider color (fallback: --color-border-muted)
  */
 
-.bar {
-  display: grid;
-  gap: var(--stats-gap, var(--spacing-lg));
-  padding: var(--stats-padding, var(--spacing-xl)) 0;
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+
+.statsBar {
+  padding: var(--spacing-xl) 0;
   width: 100%;
 }
 
-/* Default: 2 columns on mobile, expand at breakpoints */
-.bar {
-  grid-template-columns: repeat(2, 1fr);
+.list {
+  display: grid;
+  gap: var(--spacing-lg);
+  margin: 0;
+  padding: 0;
+  grid-template-columns: 1fr;
 }
 
 @media (min-width: 640px) {
-  .cols3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .cols4 {
+  .list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .cols4 {
+  .list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Stat item */
+/* ─── Item ─────────────────────────────────────────────────────────────────── */
+
 .item {
   display: flex;
   flex-direction: column;
@@ -44,16 +48,73 @@
   gap: var(--spacing-xs);
 }
 
+/* ─── Inline variant — dividers ────────────────────────────────────────────── */
+
+.inline .item {
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .inline .item:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: var(--spacing-10);
+    width: var(--border-width-thin);
+    background-color: var(--stats-divider-color, var(--color-border-muted));
+  }
+}
+
+/* ─── Card variant ─────────────────────────────────────────────────────────── */
+
+.itemCard {
+  padding: var(--spacing-lg);
+  background-color: var(--color-bg-surface);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+/* ─── Value ────────────────────────────────────────────────────────────────── */
+
 .value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
   font-family: var(--font-family-display);
   font-size: var(--stats-value-size, var(--font-size-fluid-3xl));
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--stats-value-weight, var(--font-weight-bold));
   line-height: var(--line-height-none);
   color: var(--color-fg-primary);
+  margin: 0;
 }
+
+.prefix,
+.suffix {
+  font-size: var(--font-size-lg);
+}
+
+/* ─── Trend ────────────────────────────────────────────────────────────────── */
+
+.trend {
+  font-size: var(--font-size-sm);
+  margin-left: var(--spacing-1);
+}
+
+.trendUp {
+  color: var(--stats-trend-up-color, var(--color-status-success-fg));
+}
+
+.trendDown {
+  color: var(--stats-trend-down-color, var(--color-status-error-fg));
+}
+
+/* ─── Label ────────────────────────────────────────────────────────────────── */
 
 .label {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-sm);
-  color: var(--color-fg-secondary);
+  font-size: var(--stats-label-size, var(--font-size-sm));
+  color: var(--stats-label-color, var(--color-fg-secondary));
+  margin: 0;
 }

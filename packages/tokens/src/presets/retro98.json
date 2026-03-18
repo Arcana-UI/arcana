@@ -2,7 +2,7 @@
   "$schema": "../schema/tokens.schema.json",
   "name": "arcana-retro98",
   "version": "0.1.0",
-  "description": "Windows 98 nostalgia — silver chrome, navy blue, hard edges",
+  "description": "Windows 98 nostalgia \u2014 silver chrome, navy blue, hard edges",
   "primitive": {
     "color": {
       "white": "#ffffff",
@@ -691,6 +691,80 @@
     "emptystate": {
       "padding": "var(--spacing-xl)",
       "icon-color": "{semantic.color.foreground.muted}"
+    },
+    "hero": {
+      "padding-y": "var(--spacing-section)",
+      "headline-size": "var(--font-size-fluid-5xl)",
+      "headline-weight": "{primitive.typography.fontWeight.bold}",
+      "headline-line-height": "{semantic.typography.lineHeight.heading}",
+      "subheadline-size": "var(--font-size-fluid-lg)",
+      "subheadline-color": "{semantic.color.foreground.secondary}",
+      "max-width": "var(--content-width-wide)",
+      "badge-bg": "{primitive.color.blue.500}",
+      "badge-color": "{semantic.color.foreground.primary}",
+      "badge-radius": "{semantic.radius.none}"
+    },
+    "pricing": {
+      "bg": "{semantic.color.background.surface}",
+      "radius": "{semantic.radius.none}",
+      "shadow": "{primitive.shadow.none}",
+      "padding": "var(--spacing-xl)",
+      "popular-border": "{semantic.color.action.primary.default}",
+      "popular-shadow": "{primitive.shadow.none}",
+      "popular-bg": "{semantic.color.background.elevated}",
+      "price-size": "var(--font-size-fluid-4xl)",
+      "price-weight": "{primitive.typography.fontWeight.bold}",
+      "feature-included-color": "{semantic.color.status.success.fg}",
+      "feature-excluded-color": "{semantic.color.foreground.muted}"
+    },
+    "feature": {
+      "card-padding": "var(--spacing-lg)",
+      "card-radius": "{semantic.radius.none}",
+      "card-bg": "transparent",
+      "icon-size": "var(--spacing-12)",
+      "icon-color": "{semantic.color.action.primary.default}",
+      "title-size": "{primitive.typography.fontSize.lg}",
+      "title-weight": "{primitive.typography.fontWeight.semibold}"
+    },
+    "testimonial": {
+      "bg": "{semantic.color.background.surface}",
+      "radius": "{semantic.radius.none}",
+      "padding": "var(--spacing-xl)",
+      "quote-size": "{primitive.typography.fontSize.md}",
+      "quote-color": "{semantic.color.foreground.primary}",
+      "author-size": "{primitive.typography.fontSize.sm}",
+      "star-color": "{semantic.color.status.warning.fg}"
+    },
+    "cta": {
+      "bg": "{semantic.color.action.primary.default}",
+      "fg": "{semantic.color.foreground.on-primary}",
+      "padding-y": "var(--spacing-section)",
+      "radius": "{semantic.radius.none}",
+      "headline-size": "var(--font-size-fluid-3xl)"
+    },
+    "stats": {
+      "value-size": "var(--font-size-fluid-3xl)",
+      "value-weight": "{primitive.typography.fontWeight.bold}",
+      "label-size": "{primitive.typography.fontSize.sm}",
+      "label-color": "{semantic.color.foreground.secondary}",
+      "trend-up-color": "{semantic.color.status.success.fg}",
+      "trend-down-color": "{semantic.color.status.error.fg}",
+      "divider-color": "{semantic.color.border.muted}"
+    },
+    "timeline": {
+      "line-color": "{semantic.color.border.default}",
+      "line-width": "{semantic.border.width.default}",
+      "dot-size": "var(--spacing-3)",
+      "dot-complete-color": "{semantic.color.action.primary.default}",
+      "dot-active-color": "{semantic.color.action.primary.default}",
+      "dot-pending-color": "{semantic.color.border.default}",
+      "content-padding": "var(--spacing-md)"
+    },
+    "logocloud": {
+      "item-height": "var(--spacing-10)",
+      "gap": "var(--spacing-xl)",
+      "opacity": "0.8",
+      "hover-opacity": "1"
     }
   }
 }

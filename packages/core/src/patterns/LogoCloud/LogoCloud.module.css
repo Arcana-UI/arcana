@@ -1,0 +1,150 @@
+/**
+ * LogoCloud — Grid or scrolling strip of partner/client logos
+ *
+ * Component tokens (Tier 3):
+ *   --logocloud-item-height     Logo height (fallback: --spacing-10)
+ *   --logocloud-gap             Gap between logos (fallback: --spacing-xl)
+ *   --logocloud-opacity         Default logo opacity (fallback: 0.6)
+ *   --logocloud-hover-opacity   Hover logo opacity (fallback: 1)
+ */
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+
+.logoCloud {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  width: 100%;
+  text-align: center;
+}
+
+/* ─── Title ────────────────────────────────────────────────────────────────── */
+
+.title {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin: 0 0 var(--spacing-lg);
+}
+
+/* ─── Shared logo styles ───────────────────────────────────────────────────── */
+
+.logoImage {
+  height: var(--logocloud-item-height, var(--spacing-10));
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: var(--logocloud-opacity, 0.6);
+  transition: var(--transition-opacity), filter var(--duration-fast) var(--ease-default);
+}
+
+.logoItem,
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoLink {
+  text-decoration: none;
+}
+
+.logoItem:hover .logoImage,
+.logoLink:hover .logoImage,
+.logoItem:focus-within .logoImage,
+.logoLink:focus-visible .logoImage {
+  filter: grayscale(0);
+  opacity: var(--logocloud-hover-opacity, 1);
+}
+
+.logoLink:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Grid variant ─────────────────────────────────────────────────────────── */
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--logocloud-gap, var(--spacing-xl));
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+}
+
+/* ─── Marquee variant ──────────────────────────────────────────────────────── */
+
+.marqueeContainer {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: var(--logocloud-gap, var(--spacing-xl));
+  width: max-content;
+  animation-name: marquee;
+  animation-duration: var(--duration-slower);
+  animation-timing-function: var(--ease-linear);
+  animation-iteration-count: infinite;
+}
+
+.marqueeContainer:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+/* ─── Fade variant ─────────────────────────────────────────────────────────── */
+
+.fadeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--logocloud-gap, var(--spacing-xl));
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+}
+
+.fadeItem {
+  animation-name: fadeInOut;
+  animation-duration: var(--duration-slower);
+  animation-timing-function: var(--ease-in-out);
+  animation-iteration-count: infinite;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: var(--logocloud-opacity, 0.6);
+  }
+  50% {
+    opacity: var(--logocloud-hover-opacity, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeItem {
+    animation: none;
+  }
+}

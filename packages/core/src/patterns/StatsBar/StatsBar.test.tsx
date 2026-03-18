@@ -1,78 +1,140 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import { StatItem, StatsBar } from './StatsBar';
+import { axe } from 'jest-axe';
+import React from 'react';
+import { describe, expect, it } from 'vitest';
+import { StatsBar } from './StatsBar';
+
+const stats = [
+  { value: 10000, label: 'Active Users', prefix: '', suffix: '+', trend: 'up' as const },
+  { value: '99.9', label: 'Uptime', suffix: '%' },
+  { value: 50, label: 'Countries' },
+  { value: 4.9, label: 'Rating', prefix: '', suffix: '/5', trend: 'up' as const },
+];
+
+// Mock IntersectionObserver
+beforeEach(() => {
+  const mockObserver = {
+    observe: (_el: Element) => {
+      // Immediately trigger callback with isIntersecting: true
+    },
+    disconnect: () => {},
+    unobserve: () => {},
+  };
+
+  global.IntersectionObserver = class {
+    callback: IntersectionObserverCallback;
+    constructor(callback: IntersectionObserverCallback) {
+      this.callback = callback;
+    }
+    observe(el: Element) {
+      // Trigger as visible immediately
+      this.callback(
+        [{ isIntersecting: true, target: el } as IntersectionObserverEntry],
+        this as unknown as IntersectionObserver,
+      );
+    }
+    disconnect() {}
+    unobserve() {}
+    takeRecords() {
+      return [];
+    }
+    root = null;
+    rootMargin = '';
+    thresholds = [];
+  } as unknown as typeof IntersectionObserver;
+});
 
 describe('StatsBar', () => {
-  it('renders as div', () => {
-    const { container } = render(
-      <StatsBar>
-        <StatItem value="100+" label="Users" />
-      </StatsBar>,
-    );
-    expect(container.firstElementChild).toBeTruthy();
+  // --- Smoke
+  it('renders as section element', () => {
+    const { container } = render(<StatsBar stats={stats} />);
+    expect(container.querySelector('section')).toBeTruthy();
   });
 
+  // --- Ref
   it('forwards ref', () => {
-    const ref = vi.fn();
-    render(
-      <StatsBar ref={ref}>
-        <StatItem value="100+" label="Users" />
-      </StatsBar>,
-    );
-    expect(ref).toHaveBeenCalled();
+    const ref = React.createRef<HTMLElement>();
+    render(<StatsBar ref={ref} stats={stats} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
+  // --- className
   it('accepts className', () => {
+    const { container } = render(<StatsBar stats={stats} className="custom" />);
+    expect(container.querySelector('section')?.classList.contains('custom')).toBe(true);
+  });
+
+  // --- dl/dt/dd structure
+  it('uses dl/dt/dd semantic structure', () => {
+    const { container } = render(<StatsBar stats={stats} />);
+    expect(container.querySelector('dl')).toBeTruthy();
+    expect(container.querySelectorAll('dt')).toHaveLength(4);
+    expect(container.querySelectorAll('dd')).toHaveLength(4);
+  });
+
+  // --- Stats display
+  it('renders stat labels', () => {
+    render(<StatsBar stats={stats} />);
+    expect(screen.getByText('Active Users')).toBeInTheDocument();
+    expect(screen.getByText('Uptime')).toBeInTheDocument();
+    expect(screen.getByText('Countries')).toBeInTheDocument();
+  });
+
+  it('renders prefix and suffix', () => {
+    render(<StatsBar stats={[{ value: 100, label: 'Revenue', prefix: '$', suffix: 'M' }]} />);
+    expect(screen.getByText('$')).toBeInTheDocument();
+    expect(screen.getByText('M')).toBeInTheDocument();
+  });
+
+  // --- Trends
+  it('renders trend up indicator', () => {
+    render(<StatsBar stats={[{ value: 100, label: 'Growth', trend: 'up' }]} />);
+    expect(screen.getByLabelText('trending up')).toBeInTheDocument();
+  });
+
+  it('renders trend down indicator', () => {
+    render(<StatsBar stats={[{ value: 100, label: 'Churn', trend: 'down' }]} />);
+    expect(screen.getByLabelText('trending down')).toBeInTheDocument();
+  });
+
+  it('does not render trend for neutral', () => {
     const { container } = render(
-      <StatsBar className="custom">
-        <StatItem value="100+" label="Users" />
-      </StatsBar>,
+      <StatsBar stats={[{ value: 100, label: 'Stable', trend: 'neutral' }]} />,
     );
-    expect(container.firstElementChild?.classList.contains('custom')).toBe(true);
+    expect(container.querySelector('[class*="trend"]')).toBeNull();
   });
 
-  it('renders stat value and label', () => {
+  // --- Variants
+  it('applies inline variant by default', () => {
+    const { container } = render(<StatsBar stats={stats} />);
+    expect(container.querySelector('[class*="inline"]')).toBeTruthy();
+  });
+
+  it('applies card variant', () => {
+    const { container } = render(<StatsBar stats={stats} variant="card" />);
+    expect(container.querySelector('[class*="card"]')).toBeTruthy();
+  });
+
+  // --- String values
+  it('renders string values without animation', () => {
+    render(<StatsBar stats={[{ value: '24/7', label: 'Support' }]} />);
+    expect(screen.getByText('24/7')).toBeInTheDocument();
+  });
+
+  // --- Children
+  it('renders children', () => {
     render(
-      <StatsBar>
-        <StatItem value="10K+" label="Active Users" />
+      <StatsBar stats={stats}>
+        <span data-testid="extra">Extra</span>
       </StatsBar>,
     );
-    expect(screen.getByText('10K+')).toBeTruthy();
-    expect(screen.getByText('Active Users')).toBeTruthy();
+    expect(screen.getByTestId('extra')).toBeInTheDocument();
   });
 
-  it('renders multiple stats', () => {
-    render(
-      <StatsBar>
-        <StatItem value="10K+" label="Users" />
-        <StatItem value="99.9%" label="Uptime" />
-        <StatItem value="24/7" label="Support" />
-      </StatsBar>,
-    );
-    expect(screen.getByText('10K+')).toBeTruthy();
-    expect(screen.getByText('99.9%')).toBeTruthy();
-    expect(screen.getByText('24/7')).toBeTruthy();
-  });
-
-  it('StatItem forwards ref', () => {
-    const ref = vi.fn();
-    render(
-      <StatsBar>
-        <StatItem ref={ref} value="100" label="Items" />
-      </StatsBar>,
-    );
-    expect(ref).toHaveBeenCalled();
-  });
-
-  it('renders with custom column count', () => {
-    const { container } = render(
-      <StatsBar columns={4}>
-        <StatItem value="1" label="A" />
-        <StatItem value="2" label="B" />
-        <StatItem value="3" label="C" />
-        <StatItem value="4" label="D" />
-      </StatsBar>,
-    );
-    expect(container.firstElementChild?.className).toContain('cols4');
+  // --- Accessibility
+  it('has no accessibility violations', async () => {
+    const { container } = render(<StatsBar stats={stats} />);
+    const results = await axe(container);
+    expect(results.violations).toHaveLength(0);
   });
 });

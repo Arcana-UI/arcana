@@ -648,15 +648,15 @@ Phase 2 COMPLETE — ready for Phase 3
   - All 274 tests pass, 0 lint errors, 0 token lint violations, build succeeds
 
 ### Active Phase
-Phase 3 IN PROGRESS — Task 3.1 complete
+Phase 3 IN PROGRESS — Tasks 3.1, 3.2, 3.3 complete
 
 ### Blockers
 None
 
 ### What the Next Agent Should Do
-1. Read `PROGRESS.md` to confirm Phase 3 / Task 3.2 is next
+1. Read `PROGRESS.md` to confirm Phase 3 / Task 3.4 is next
 2. Read `ROADMAP.md` for Phase 3 (Expanded Component Library) requirements
-3. Begin Task 3.2 — Build navigation components (Sidebar, Breadcrumb, Pagination, Footer)
+3. Begin Task 3.4 — Build data display components (DataTable, StatCard, ProgressBar, KPICard)
 
 ### Session History
 
@@ -688,3 +688,4 @@ None
 | 2026-03-17 | Claude (Claude Code) | Playground bugfix + restoration | Audited playground for broken features. Found: no density switching, brutalist wildcard !important breaking all transitions/shadows, 8 !important declarations, hardcoded box-shadow. Fixes: (1) Added density toggle (compact/default/comfortable) to Token Editor spacing section, (2) Removed brutalist `* { box-shadow: none !important; transition: none !important; }` — theme tokens already handle this, (3) Replaced all !important with proper specificity via double class selectors, (4) Replaced hardcoded font picker dropdown shadow with var(--shadow-lg). All 359 tests pass, 58 Playwright visual tests pass, 0 lint errors. |
 | 2026-03-18 | Claude (Claude Code) | Playground bugfix + Phase 2 demos | Fixed border radius not cascading to components (build.ts now outputs var() references for component tokens instead of static values). Added referenceToVar() mapper for semantic/primitive→CSS var names. Added Scale slider (50-200%) via CSS zoom on preview area. Fixed refreshValues to sync all editor state (display font, line-height, base size, spacing, scale, density) on preset switch. Fixed handleReset to clear body/mono fonts. Removed !important from preset globalCSS. Added Mobile Patterns section with BottomSheet, DrawerNav, MobileNav, and Container demos. Updated 57 visual regression baselines. 359 tests pass, 58 Playwright visual tests pass, 0 lint errors. |
 | 2026-03-18 | Claude (Claude Code) | Task 3.1 — Refine existing components | Button: added iconOnly prop (square icon buttons). Card: added keyboard handling (Enter/Space) and tabIndex/role for interactive cards. Input: added size prop (sm/md/lg), required indicator with asterisk. Modal: replaced Math.random() IDs with useId() for stable/SSR-safe IDs. Table: added size prop (sm/md/lg) and bordered prop with cell borders. Badge: added size prop (sm/md/lg). Alert: extended HTMLAttributes for full prop spreading. Avatar: replaced hardcoded hex colors with token-based CSS classes (8 color variants using semantic tokens). Toggle: added description prop with aria-describedby. Tabs: added arrow key navigation (Left/Right/Up/Down/Home/End) in TabList per WAI-ARIA. Accordion: wired up controlled value/onChange props. 359 tests pass, 0 token lint violations, build succeeds. |
+| 2026-03-18 | Claude (Claude Code) | Task 3.3 — Marketing components | Rewrote 7 existing components from composition-based to prop-driven APIs: Hero (3 variants: centered/split/fullscreen, overlay, badge, height), PricingCard (popular treatment with badge/elevated shadow, compact variant, feature checklist), FeatureSection (grid/list/alternating variants, section title+subtitle, feature links), Testimonial (card/inline/featured variants, star rating, decorative quote marks, cite element), CTA (banner/card/minimal variants, contrasting bg), StatsBar (animated number counting on scroll via IntersectionObserver, trend up/down indicators, dl/dt/dd semantic structure), Timeline (complete/active/pending status dots, pulsing animation, ol structure, compact/alternating variants). Created LogoCloud from scratch (grid/marquee/fade variants, grayscale-to-color hover, reduced-motion respecting). Added 8 component token sections to all 6 presets (hero, pricing, feature, testimonial, cta, stats, timeline, logocloud). Added Marketing section to playground with realistic demos. Updated manifest.ai.json with all 8 components. 3587 total token vars (up from ~3239). 543 tests pass, 0 token lint violations, build succeeds. |

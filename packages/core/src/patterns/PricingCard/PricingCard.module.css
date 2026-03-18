@@ -1,13 +1,21 @@
 /**
  * PricingCard — Pricing tier card with plan, price, features, and CTA
  *
- * Component tokens:
- *   --pricing-bg             Background (fallback: --color-bg-surface)
- *   --pricing-border-color   Border color (fallback: --color-border-default)
- *   --pricing-radius         Border radius (fallback: --radius-xl)
- *   --pricing-padding        Padding (fallback: --spacing-xl)
- *   --pricing-featured-border  Featured border color (fallback: --color-action-primary)
+ * Component tokens (Tier 3):
+ *   --pricing-bg                   Background (fallback: --color-bg-surface)
+ *   --pricing-radius               Border radius (fallback: --radius-xl)
+ *   --pricing-shadow               Box shadow (fallback: --elevation-card)
+ *   --pricing-padding              Padding (fallback: --spacing-xl)
+ *   --pricing-popular-border       Popular border color (fallback: --color-action-primary)
+ *   --pricing-popular-shadow       Popular shadow (fallback: --elevation-card-hover)
+ *   --pricing-popular-bg           Popular background (fallback: --color-bg-elevated)
+ *   --pricing-price-size           Price font size (fallback: --font-size-fluid-4xl)
+ *   --pricing-price-weight         Price font weight (fallback: --font-weight-bold)
+ *   --pricing-feature-included-color  Included icon color (fallback: --color-status-success-fg)
+ *   --pricing-feature-excluded-color  Excluded icon color (fallback: --color-fg-muted)
  */
+
+/* ─── Card ─────────────────────────────────────────────────────────────────── */
 
 .card {
   display: flex;
@@ -15,24 +23,62 @@
   gap: var(--spacing-lg);
   padding: var(--pricing-padding, var(--spacing-xl));
   background-color: var(--pricing-bg, var(--color-bg-surface));
-  border: var(--border-width-default) solid var(--pricing-border-color, var(--color-border-default));
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--pricing-radius, var(--radius-xl));
-}
-
-.featured {
-  border-color: var(--pricing-featured-border, var(--color-action-primary));
-  border-width: var(--border-width-thick);
+  box-shadow: var(--pricing-shadow, var(--elevation-card));
   position: relative;
 }
 
-/* Header */
+/* ─── Popular treatment ────────────────────────────────────────────────────── */
+
+.popular {
+  border-color: var(--pricing-popular-border, var(--color-action-primary));
+  border-width: var(--border-width-thick);
+  background-color: var(--pricing-popular-bg, var(--color-bg-elevated));
+  box-shadow: var(--pricing-popular-shadow, var(--elevation-card-hover));
+}
+
+.popularBadge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--color-action-primary);
+  color: var(--color-fg-on-primary);
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+/* ─── Compact variant ──────────────────────────────────────────────────────── */
+
+.compact {
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+
+.compact .priceValue {
+  font-size: var(--font-size-fluid-3xl);
+}
+
+.compact .features {
+  gap: var(--spacing-xs);
+}
+
+/* ─── Header ───────────────────────────────────────────────────────────────── */
+
 .header {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
 
-.plan {
+.name {
   font-family: var(--font-family-body);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
@@ -40,24 +86,26 @@
   margin: 0;
 }
 
-.planDescription {
+.description {
   font-family: var(--font-family-body);
   font-size: var(--font-size-sm);
   color: var(--color-fg-secondary);
+  line-height: var(--line-height-relaxed);
   margin: 0;
 }
 
-/* Price */
-.price {
+/* ─── Price ─────────────────────────────────────────────────────────────────── */
+
+.priceSection {
   display: flex;
   align-items: baseline;
   gap: var(--spacing-xs);
 }
 
-.amount {
+.priceValue {
   font-family: var(--font-family-display);
-  font-size: var(--font-size-fluid-4xl);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--pricing-price-size, var(--font-size-fluid-4xl));
+  font-weight: var(--pricing-price-weight, var(--font-weight-bold));
   line-height: var(--line-height-none);
   color: var(--color-fg-primary);
 }
@@ -68,7 +116,8 @@
   color: var(--color-fg-muted);
 }
 
-/* Features list */
+/* ─── Features ─────────────────────────────────────────────────────────────── */
+
 .features {
   display: flex;
   flex-direction: column;
@@ -86,6 +135,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-sm);
   color: var(--color-fg-secondary);
+  line-height: var(--line-height-normal);
 }
 
 .featureExcluded {
@@ -93,16 +143,58 @@
   text-decoration: line-through;
 }
 
-.featureCheck {
+.featureIcon {
   flex-shrink: 0;
-  color: var(--color-status-success-fg);
+  line-height: var(--line-height-normal);
+  color: var(--pricing-feature-included-color, var(--color-status-success-fg));
 }
 
-.featureExcluded .featureCheck {
-  color: var(--color-fg-muted);
+.featureExcluded .featureIcon {
+  color: var(--pricing-feature-excluded-color, var(--color-fg-muted));
 }
 
-/* Action */
+/* ─── CTA Action ───────────────────────────────────────────────────────────── */
+
 .action {
   margin-top: auto;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-colors);
+  min-height: var(--spacing-11);
+  background-color: transparent;
+  color: var(--color-fg-primary);
+  border: var(--border-width-default) solid var(--color-border-default);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background-color: var(--color-bg-subtle);
+}
+
+.cta:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ctaPopular {
+  background-color: var(--color-action-primary);
+  color: var(--color-fg-on-primary);
+  border-color: transparent;
+}
+
+.ctaPopular:hover,
+.ctaPopular:focus-visible {
+  background-color: var(--color-action-primary-hover);
 }

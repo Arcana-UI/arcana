@@ -1,80 +1,90 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { cn } from '../../utils/cn';
 import styles from './CTA.module.css';
 
-// ─── CTA ─────────────────────────────────────────────────────────────────────
+// ─── Types ──────────────────────────────────────────────────────────────────
 
-export interface CTAProps extends React.HTMLAttributes<HTMLElement> {
-  /** Visual variant */
-  variant?: 'default' | 'filled';
-  /** Text alignment */
-  align?: 'left' | 'center';
+export interface CTAAction {
+  /** Button/link label text */
+  label: string;
+  /** URL for link-based CTA */
+  href?: string;
+  /** Click handler for button-based CTA */
+  onClick?: () => void;
 }
 
+export interface CTAProps extends React.HTMLAttributes<HTMLElement> {
+  /** Main headline text */
+  headline: string;
+  /** Supporting description text */
+  description?: string;
+  /** Primary call-to-action button/link */
+  primaryCTA?: CTAAction;
+  /** Secondary call-to-action button/link */
+  secondaryCTA?: CTAAction;
+  /** Visual variant */
+  variant?: 'banner' | 'card' | 'minimal';
+}
+
+// ─── CTA ────────────────────────────────────────────────────────────────────
+
 export const CTA = React.forwardRef<HTMLElement, CTAProps>(
-  ({ variant = 'default', align = 'center', children, className, ...props }, ref) => {
+  (
+    {
+      headline,
+      description,
+      primaryCTA,
+      secondaryCTA,
+      variant = 'banner',
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const id = useId();
+    const headlineId = `${id}-headline`;
+
+    const renderAction = (action: CTAAction, isPrimary: boolean): React.ReactNode => {
+      const actionClass = isPrimary ? styles.ctaPrimary : styles.ctaSecondary;
+      if (action.href) {
+        return (
+          <a key={action.label} href={action.href} className={actionClass}>
+            {action.label}
+          </a>
+        );
+      }
+      return (
+        <button key={action.label} type="button" onClick={action.onClick} className={actionClass}>
+          {action.label}
+        </button>
+      );
+    };
+
+    const hasActions = primaryCTA || secondaryCTA;
+
     return (
       <section
         ref={ref}
-        className={cn(
-          styles.cta,
-          variant === 'filled' && styles.filled,
-          align === 'left' && styles.alignLeft,
-          className,
-        )}
+        className={cn(styles.cta, styles[variant], className)}
+        aria-label={headline}
         {...props}
       >
-        <div className={styles.inner}>{children}</div>
+        <div className={styles.inner}>
+          <h2 id={headlineId} className={styles.headline}>
+            {headline}
+          </h2>
+          {description && <p className={styles.description}>{description}</p>}
+          {hasActions && (
+            <div className={styles.actions}>
+              {primaryCTA && renderAction(primaryCTA, true)}
+              {secondaryCTA && renderAction(secondaryCTA, false)}
+            </div>
+          )}
+          {children}
+        </div>
       </section>
     );
   },
 );
 CTA.displayName = 'CTA';
-
-// ─── CTATitle ────────────────────────────────────────────────────────────────
-
-export interface CTATitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  /** Heading level */
-  as?: 'h2' | 'h3' | 'h4';
-}
-
-export const CTATitle = React.forwardRef<HTMLHeadingElement, CTATitleProps>(
-  ({ as: Tag = 'h2', children, className, ...props }, ref) => {
-    return (
-      <Tag ref={ref} className={cn(styles.title, className)} {...props}>
-        {children}
-      </Tag>
-    );
-  },
-);
-CTATitle.displayName = 'CTATitle';
-
-// ─── CTADescription ──────────────────────────────────────────────────────────
-
-export interface CTADescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
-
-export const CTADescription = React.forwardRef<HTMLParagraphElement, CTADescriptionProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <p ref={ref} className={cn(styles.description, className)} {...props}>
-        {children}
-      </p>
-    );
-  },
-);
-CTADescription.displayName = 'CTADescription';
-
-// ─── CTAActions ──────────────────────────────────────────────────────────────
-
-export interface CTAActionsProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export const CTAActions = React.forwardRef<HTMLDivElement, CTAActionsProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn(styles.actions, className)} {...props}>
-        {children}
-      </div>
-    );
-  },
-);
-CTAActions.displayName = 'CTAActions';

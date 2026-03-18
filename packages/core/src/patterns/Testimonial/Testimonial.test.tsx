@@ -1,103 +1,119 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import { Testimonial, TestimonialAuthor, TestimonialQuote } from './Testimonial';
+import { axe } from 'jest-axe';
+import React from 'react';
+import { describe, expect, it } from 'vitest';
+import { Testimonial } from './Testimonial';
+
+const defaultProps = {
+  quote: 'This product completely transformed our workflow.',
+  author: 'Jane Doe',
+  jobTitle: 'CEO',
+  company: 'Acme Corp',
+};
 
 describe('Testimonial', () => {
+  // --- Smoke
   it('renders as figure element', () => {
-    const { container } = render(
-      <Testimonial>
-        <TestimonialQuote>Great product!</TestimonialQuote>
-      </Testimonial>,
-    );
+    const { container } = render(<Testimonial {...defaultProps} />);
     expect(container.querySelector('figure')).toBeTruthy();
   });
 
-  it('forwards ref', () => {
-    const ref = vi.fn();
-    render(
-      <Testimonial ref={ref}>
-        <TestimonialQuote>Great!</TestimonialQuote>
-      </Testimonial>,
-    );
-    expect(ref).toHaveBeenCalled();
+  it('renders quote in blockquote', () => {
+    const { container } = render(<Testimonial {...defaultProps} />);
+    expect(container.querySelector('blockquote')).toBeTruthy();
+    expect(screen.getByText(defaultProps.quote)).toBeInTheDocument();
   });
 
+  // --- Ref
+  it('forwards ref', () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<Testimonial ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
+  // --- className
   it('accepts className', () => {
-    const { container } = render(
-      <Testimonial className="custom">
-        <TestimonialQuote>Great!</TestimonialQuote>
-      </Testimonial>,
-    );
+    const { container } = render(<Testimonial {...defaultProps} className="custom" />);
     expect(container.querySelector('figure')?.classList.contains('custom')).toBe(true);
   });
 
-  it('renders quote text', () => {
-    render(
-      <Testimonial>
-        <TestimonialQuote>This changed my workflow</TestimonialQuote>
-      </Testimonial>,
-    );
-    expect(screen.getByText('This changed my workflow')).toBeTruthy();
+  // --- Author
+  it('renders author name in cite element', () => {
+    const { container } = render(<Testimonial {...defaultProps} />);
+    const cite = container.querySelector('cite');
+    expect(cite?.textContent).toBe('Jane Doe');
   });
 
-  it('renders author name', () => {
-    render(
-      <Testimonial>
-        <TestimonialQuote>Great!</TestimonialQuote>
-        <TestimonialAuthor name="Jane Doe" />
-      </Testimonial>,
-    );
-    expect(screen.getByText('Jane Doe')).toBeTruthy();
+  it('renders role and company', () => {
+    render(<Testimonial {...defaultProps} />);
+    expect(screen.getByText('CEO, Acme Corp')).toBeInTheDocument();
   });
 
-  it('renders author with title', () => {
-    render(
-      <Testimonial>
-        <TestimonialQuote>Great!</TestimonialQuote>
-        <TestimonialAuthor name="Jane Doe" title="CEO at Acme" />
-      </Testimonial>,
-    );
-    expect(screen.getByText('CEO at Acme')).toBeTruthy();
+  it('renders only jobTitle when company is absent', () => {
+    render(<Testimonial {...defaultProps} company={undefined} />);
+    expect(screen.getByText('CEO')).toBeInTheDocument();
   });
 
-  it('renders author avatar', () => {
-    const { container } = render(
-      <Testimonial>
-        <TestimonialQuote>Great!</TestimonialQuote>
-        <TestimonialAuthor name="Jane Doe" avatar="/avatar.png" />
-      </Testimonial>,
-    );
+  // --- Avatar
+  it('renders avatar image', () => {
+    const { container } = render(<Testimonial {...defaultProps} avatar="/avatar.png" />);
     const img = container.querySelector('img');
     expect(img).toBeTruthy();
     expect(img?.getAttribute('src')).toBe('/avatar.png');
   });
 
-  it('renders inline variant', () => {
-    const { container } = render(
-      <Testimonial variant="inline">
-        <TestimonialQuote>Great!</TestimonialQuote>
-      </Testimonial>,
-    );
-    expect(container.querySelector('figure')?.className).toContain('inline');
+  it('does not render avatar when not provided', () => {
+    const { container } = render(<Testimonial {...defaultProps} />);
+    expect(container.querySelector('img')).toBeNull();
   });
 
-  it('TestimonialQuote forwards ref', () => {
-    const ref = vi.fn();
-    render(
-      <Testimonial>
-        <TestimonialQuote ref={ref}>Great!</TestimonialQuote>
-      </Testimonial>,
-    );
-    expect(ref).toHaveBeenCalled();
+  // --- Variants
+  it('applies card variant by default', () => {
+    const { container } = render(<Testimonial {...defaultProps} />);
+    expect(container.querySelector('[class*="card"]')).toBeTruthy();
   });
 
-  it('TestimonialAuthor forwards ref', () => {
-    const ref = vi.fn();
+  it('applies inline variant', () => {
+    const { container } = render(<Testimonial {...defaultProps} variant="inline" />);
+    expect(container.querySelector('[class*="inline"]')).toBeTruthy();
+  });
+
+  it('applies featured variant', () => {
+    const { container } = render(<Testimonial {...defaultProps} variant="featured" />);
+    expect(container.querySelector('[class*="featured"]')).toBeTruthy();
+  });
+
+  // --- Rating
+  it('renders star rating', () => {
+    render(<Testimonial {...defaultProps} rating={4} />);
+    expect(screen.getByRole('img', { name: 'Rated 4 out of 5 stars' })).toBeInTheDocument();
+  });
+
+  it('renders 5 stars with correct filled count', () => {
+    const { container } = render(<Testimonial {...defaultProps} rating={3} />);
+    const filled = container.querySelectorAll('[class*="starFilled"]');
+    expect(filled).toHaveLength(3);
+  });
+
+  it('does not render stars when rating is not provided', () => {
+    const { container } = render(<Testimonial {...defaultProps} />);
+    expect(container.querySelector('[class*="stars"]')).toBeNull();
+  });
+
+  // --- Children
+  it('renders children', () => {
     render(
-      <Testimonial>
-        <TestimonialAuthor ref={ref} name="Jane" />
+      <Testimonial {...defaultProps}>
+        <span data-testid="extra">Extra</span>
       </Testimonial>,
     );
-    expect(ref).toHaveBeenCalled();
+    expect(screen.getByTestId('extra')).toBeInTheDocument();
+  });
+
+  // --- Accessibility
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Testimonial {...defaultProps} avatar="/avatar.png" rating={5} />);
+    const results = await axe(container);
+    expect(results.violations).toHaveLength(0);
   });
 });
