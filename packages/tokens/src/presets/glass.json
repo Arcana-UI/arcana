@@ -953,6 +953,30 @@
       "sparkline-height": "3rem",
       "sparkline-stroke-width": "2",
       "target-line-color": "{semantic.color.foreground.muted}"
+    },
+    "datepicker": {
+      "bg": "{semantic.color.background.page}",
+      "border": "{semantic.color.border.default}",
+      "radius": "{semantic.radius.xl}",
+      "calendar-bg": "{semantic.color.background.page}",
+      "calendar-shadow": "{primitive.shadow.lg}",
+      "day-size": "var(--spacing-9)",
+      "day-radius": "{semantic.radius.lg}",
+      "day-hover-bg": "{semantic.color.background.surface}",
+      "day-selected-bg": "{semantic.color.action.primary}",
+      "day-selected-color": "{semantic.color.foreground.onPrimary}",
+      "day-today-border": "{semantic.color.action.primary}",
+      "day-disabled-color": "{semantic.color.foreground.muted}"
+    },
+    "fileupload": {
+      "border": "{semantic.color.border.default}",
+      "border-active": "{semantic.color.action.primary}",
+      "bg": "{semantic.color.background.page}",
+      "bg-active": "{semantic.color.background.surface}",
+      "radius": "{semantic.radius.xl}",
+      "padding": "var(--spacing-xl)",
+      "icon-color": "{semantic.color.foreground.muted}",
+      "text-color": "{semantic.color.foreground.secondary}"
     }
   }
 }

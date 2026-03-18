@@ -15,8 +15,8 @@ export type { TextareaProps } from './primitives/Textarea';
 export { Select } from './primitives/Select';
 export type { SelectProps, SelectOption } from './primitives/Select';
 
-export { Checkbox } from './primitives/Checkbox';
-export type { CheckboxProps } from './primitives/Checkbox';
+export { Checkbox, CheckboxGroup } from './primitives/Checkbox';
+export type { CheckboxProps, CheckboxGroupProps, CheckboxGroupOption } from './primitives/Checkbox';
 
 export { Radio, RadioGroup } from './primitives/Radio';
 export type { RadioProps, RadioGroupProps, RadioOption } from './primitives/Radio';
@@ -183,6 +183,12 @@ export type { ProgressBarProps } from './patterns/ProgressBar';
 
 export { KPICard } from './patterns/KPICard';
 export type { KPICardProps, KPITrend, KPITarget } from './patterns/KPICard';
+
+export { DatePicker } from './patterns/DatePicker';
+export type { DatePickerProps } from './patterns/DatePicker';
+
+export { FileUpload } from './patterns/FileUpload';
+export type { FileUploadProps } from './patterns/FileUpload';
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
 export { useMediaQuery } from './hooks/useMediaQuery';
