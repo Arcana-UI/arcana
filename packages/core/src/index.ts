@@ -170,10 +170,16 @@ export type {
 export { FeatureSection, FeatureItem } from './patterns/FeatureSection';
 export type { FeatureSectionProps, FeatureItemProps } from './patterns/FeatureSection';
 
-export { Testimonial, TestimonialQuote, TestimonialAuthor } from './patterns/Testimonial';
+export {
+  Testimonial,
+  TestimonialQuote,
+  TestimonialRating,
+  TestimonialAuthor,
+} from './patterns/Testimonial';
 export type {
   TestimonialProps,
   TestimonialQuoteProps,
+  TestimonialRatingProps,
   TestimonialAuthorProps,
 } from './patterns/Testimonial';
 
