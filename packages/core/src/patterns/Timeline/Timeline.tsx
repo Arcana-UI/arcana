@@ -4,22 +4,26 @@ import styles from './Timeline.module.css';
 
 // ─── Timeline ────────────────────────────────────────────────────────────────
 
-export interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Position of the line relative to content */
-  position?: 'left' | 'alternate';
+export interface TimelineProps extends React.HTMLAttributes<HTMLOListElement> {
+  /** Layout variant */
+  variant?: 'standard' | 'compact' | 'alternating';
 }
 
-export const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(
-  ({ position = 'left', children, className, ...props }, ref) => {
+export const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
+  ({ variant = 'standard', children, className, ...props }, ref) => {
     return (
-      <div
+      <ol
         ref={ref}
-        className={cn(styles.timeline, position === 'alternate' && styles.alternate, className)}
-        role="list"
+        className={cn(
+          styles.timeline,
+          variant === 'compact' && styles.compact,
+          variant === 'alternating' && styles.alternating,
+          className,
+        )}
         {...props}
       >
         {children}
-      </div>
+      </ol>
     );
   },
 );
@@ -27,26 +31,39 @@ Timeline.displayName = 'Timeline';
 
 // ─── TimelineItem ────────────────────────────────────────────────────────────
 
-export interface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Icon or indicator for the timeline dot */
-  icon?: React.ReactNode;
+export interface TimelineItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  /** Title of the timeline entry */
+  title?: string;
   /** Date or time label */
   date?: string;
+  /** Icon to display in the dot */
+  icon?: React.ReactNode;
+  /** Status of this timeline entry */
+  status?: 'complete' | 'active' | 'pending';
 }
 
-export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
-  ({ icon, date, children, className, ...props }, ref) => {
+export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
+  ({ title, date, icon, status = 'complete', children, className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn(styles.item, className)} role="listitem" {...props}>
+      <li ref={ref} className={cn(styles.item, className)} {...props}>
         <div className={styles.indicator}>
-          <div className={styles.dot}>{icon}</div>
+          <div
+            className={cn(
+              styles.dot,
+              styles[`dot${status.charAt(0).toUpperCase()}${status.slice(1)}`],
+            )}
+            aria-hidden="true"
+          >
+            {icon || (status === 'complete' && <span className={styles.checkIcon}>&#10003;</span>)}
+          </div>
           <div className={styles.line} aria-hidden="true" />
         </div>
         <div className={styles.content}>
           {date && <time className={styles.date}>{date}</time>}
-          <div className={styles.body}>{children}</div>
+          {title && <h3 className={styles.itemTitle}>{title}</h3>}
+          {children && <div className={styles.body}>{children}</div>}
         </div>
-      </div>
+      </li>
     );
   },
 );
