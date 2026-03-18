@@ -124,3 +124,32 @@
   font-size: var(--font-size-xs);
   color: var(--color-status-error);
 }
+
+/* CheckboxGroup */
+.checkboxGroup {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.groupLabel {
+  display: block;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.groupOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.groupHorizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}

@@ -340,6 +340,36 @@ Some tokens support density modes (`compact`, `default`, `comfortable`) via the 
 | sparkline-stroke-width | `--kpicard-sparkline-stroke-width` | `2` | |
 | target-line-color | `--kpicard-target-line-color` | `--color-fg-muted` | |
 
+### DatePicker
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| bg | `--datepicker-bg` | `--color-bg-page` | |
+| border | `--datepicker-border` | `--color-border-default` | |
+| radius | `--datepicker-radius` | `--radius-md` | |
+| calendar-bg | `--datepicker-calendar-bg` | `--color-bg-page` | |
+| calendar-shadow | `--datepicker-calendar-shadow` | `--shadow-lg` | |
+| day-size | `--datepicker-day-size` | `--spacing-9` | |
+| day-radius | `--datepicker-day-radius` | `--radius-md` | |
+| day-hover-bg | `--datepicker-day-hover-bg` | `--color-bg-surface` | |
+| day-selected-bg | `--datepicker-day-selected-bg` | `--color-action-primary` | |
+| day-selected-color | `--datepicker-day-selected-color` | `--color-fg-on-primary` | |
+| day-today-border | `--datepicker-day-today-border` | `--color-action-primary` | |
+| day-disabled-color | `--datepicker-day-disabled-color` | `--color-fg-muted` | |
+
+### FileUpload
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| border | `--fileupload-border` | `--color-border-default` | |
+| border-active | `--fileupload-border-active` | `--color-action-primary` | |
+| bg | `--fileupload-bg` | `--color-bg-page` | |
+| bg-active | `--fileupload-bg-active` | `--color-bg-surface` | |
+| radius | `--fileupload-radius` | `--radius-lg` | |
+| padding | `--fileupload-padding` | `--spacing-xl` | |
+| icon-color | `--fileupload-icon-color` | `--color-fg-muted` | |
+| text-color | `--fileupload-text-color` | `--color-fg-secondary` | |
+
 ---
 
 ## Per-Preset Overrides

@@ -76,29 +76,99 @@ export interface RadioGroupProps {
   onChange?: (value: string) => void;
   /** Array of radio options to render */
   options: RadioOption[];
+  /** Layout direction */
+  orientation?: 'vertical' | 'horizontal';
+  /** Visual variant — "card" renders each option as a selectable card */
+  variant?: 'default' | 'card';
+  /** Error message */
+  error?: string;
   /** Additional CSS class name */
   className?: string;
 }
 
 export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(
-  ({ name, label, value, onChange, options, className }, ref) => {
+  (
+    {
+      name,
+      label,
+      value,
+      onChange,
+      options,
+      orientation = 'vertical',
+      variant = 'default',
+      error,
+      className,
+    },
+    ref,
+  ) => {
     const groupId = React.useId();
+    const errorId = `${groupId}-error`;
+    const isCard = variant === 'card';
 
     return (
       <fieldset
         ref={ref}
         className={cn(styles.group, className)}
         aria-labelledby={label ? `${groupId}-label` : undefined}
+        aria-describedby={error ? errorId : undefined}
       >
         {label && (
           <legend id={`${groupId}-label`} className={styles.groupLabel}>
             {label}
           </legend>
         )}
-        <div className={styles.options}>
+        <div
+          className={cn(
+            styles.options,
+            orientation === 'horizontal' && styles.optionsHorizontal,
+            isCard && styles.optionsCard,
+          )}
+        >
           {options.map((opt) => {
             const optId = `${groupId}-${opt.value}`;
             const descId = `${optId}-desc`;
+            const isSelected = value === opt.value;
+
+            if (isCard) {
+              return (
+                <label
+                  key={opt.value}
+                  htmlFor={optId}
+                  className={cn(
+                    styles.cardOption,
+                    isSelected && styles.cardSelected,
+                    opt.disabled && styles.cardDisabled,
+                  )}
+                >
+                  <input
+                    type="radio"
+                    id={optId}
+                    name={name}
+                    value={opt.value}
+                    checked={isSelected}
+                    disabled={opt.disabled}
+                    onChange={() => {
+                      if (!opt.disabled) onChange?.(opt.value);
+                    }}
+                    className={styles.cardInput}
+                    aria-describedby={opt.description ? descId : undefined}
+                  />
+                  <div className={styles.cardContent}>
+                    <span className={styles.cardLabel}>{opt.label}</span>
+                    {opt.description && (
+                      <span id={descId} className={styles.cardDescription}>
+                        {opt.description}
+                      </span>
+                    )}
+                  </div>
+                  <span
+                    className={cn(styles.cardRadio, isSelected && styles.cardRadioSelected)}
+                    aria-hidden="true"
+                  />
+                </label>
+              );
+            }
+
             return (
               <div
                 key={opt.value}
@@ -111,7 +181,7 @@ export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>
                       id={optId}
                       name={name}
                       value={opt.value}
-                      checked={value === opt.value}
+                      checked={isSelected}
                       disabled={opt.disabled}
                       onChange={() => {
                         if (!opt.disabled) onChange?.(opt.value);
@@ -136,6 +206,11 @@ export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>
             );
           })}
         </div>
+        {error && (
+          <span id={errorId} className={styles.errorText} role="alert">
+            {error}
+          </span>
+        )}
       </fieldset>
     );
   },

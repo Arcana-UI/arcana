@@ -976,6 +976,82 @@
         "<KPICard value=\"$142,580\" label=\"Revenue\" trend={{ value: 12.3, direction: 'up' }} data={[95, 102, 98, 115, 120, 130, 142]} period=\"Last 30 days\" />"
       ],
       "accessibility": "dl/dt/dd semantics. Sparkline is aria-hidden (decorative). Trend conveyed via text."
+    },
+    {
+      "name": "DatePicker",
+      "import": "import { DatePicker } from '@arcana-ui/core'",
+      "description": "Date input with calendar dropdown. Supports min/max date constraints, clearable, and keyboard navigation.",
+      "whenToUse": "Forms requiring date input — event dates, booking, scheduling, filters",
+      "props": {
+        "value": { "type": "Date | null", "description": "Controlled selected date" },
+        "onChange": {
+          "type": "(date: Date | null) => void",
+          "description": "Called when date changes"
+        },
+        "label": { "type": "string", "description": "Label text" },
+        "placeholder": { "type": "string", "default": "MM/DD/YYYY" },
+        "min": { "type": "Date", "description": "Earliest selectable date" },
+        "max": { "type": "Date", "description": "Latest selectable date" },
+        "clearable": { "type": "boolean", "default": "true" },
+        "error": { "type": "string | boolean", "description": "Error message" },
+        "disabled": { "type": "boolean", "default": "false" }
+      },
+      "examples": ["<DatePicker label=\"Start date\" value={date} onChange={setDate} clearable />"],
+      "accessibility": "role=combobox on input, calendar dialog with aria-label, day buttons with aria-pressed, keyboard Escape to close"
+    },
+    {
+      "name": "FileUpload",
+      "import": "import { FileUpload } from '@arcana-ui/core'",
+      "description": "File upload with drag-and-drop dropzone or button variant. Validates file size and type. Shows file list with remove.",
+      "whenToUse": "File attachments, avatar uploads, document submission, media uploads",
+      "props": {
+        "accept": { "type": "string", "description": "File type filter (e.g., 'image/*,.pdf')" },
+        "multiple": { "type": "boolean", "default": "false" },
+        "maxSize": { "type": "number", "description": "Max file size in bytes" },
+        "onChange": {
+          "type": "(files: File[]) => void",
+          "description": "Called with selected files"
+        },
+        "onError": {
+          "type": "(error: string) => void",
+          "description": "Called on validation errors"
+        },
+        "label": { "type": "string", "description": "Label text" },
+        "description": {
+          "type": "string",
+          "description": "Help text (e.g., 'PNG, JPG up to 10MB')"
+        },
+        "variant": { "type": "'dropzone' | 'button'", "default": "dropzone" },
+        "disabled": { "type": "boolean", "default": "false" }
+      },
+      "examples": [
+        "<FileUpload label=\"Attachments\" accept=\"image/*,.pdf\" multiple maxSize={10485760} description=\"PNG, JPG, PDF up to 10MB\" />"
+      ],
+      "accessibility": "Hidden file input with label, dropzone has role=button with keyboard activation, file list announced to screen readers"
+    },
+    {
+      "name": "CheckboxGroup",
+      "import": "import { CheckboxGroup } from '@arcana-ui/core'",
+      "description": "Group of checkboxes with shared state management. Renders multiple checkboxes with fieldset/legend semantics.",
+      "whenToUse": "Multi-select forms — notification preferences, feature toggles, filter panels",
+      "props": {
+        "options": {
+          "type": "{ value: string, label: string, description?: string, disabled?: boolean }[]",
+          "required": true
+        },
+        "value": { "type": "string[]", "description": "Currently selected values" },
+        "onChange": {
+          "type": "(values: string[]) => void",
+          "description": "Called when selection changes"
+        },
+        "orientation": { "type": "'vertical' | 'horizontal'", "default": "vertical" },
+        "label": { "type": "string", "description": "Group label" },
+        "error": { "type": "string", "description": "Error message" }
+      },
+      "examples": [
+        "<CheckboxGroup label=\"Notifications\" options={[{ value: 'email', label: 'Email' }, { value: 'sms', label: 'SMS' }]} value={selected} onChange={setSelected} />"
+      ],
+      "accessibility": "fieldset/legend semantics, aria-labelledby on group, individual checkboxes with labels"
     }
   ],
   "design": {

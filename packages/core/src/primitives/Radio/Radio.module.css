@@ -121,3 +121,108 @@
   color: var(--color-fg-secondary);
   line-height: var(--line-height-normal);
 }
+
+/* Horizontal layout */
+.optionsHorizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+/* Card variant layout */
+.optionsCard {
+  gap: var(--spacing-3);
+}
+
+.optionsHorizontal.optionsCard {
+  flex-direction: row;
+}
+
+/* Card option */
+.cardOption {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-md);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-colors), var(--transition-shadow);
+  background: var(--color-bg-page);
+  min-height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .cardOption {
+    min-height: auto;
+  }
+}
+
+.cardOption:hover:not(.cardDisabled) {
+  border-color: var(--color-action-primary);
+  background: var(--color-bg-surface);
+}
+
+.cardOption:focus-within {
+  box-shadow: var(--focus-ring);
+}
+
+.cardSelected {
+  border-color: var(--color-action-primary);
+  background: color-mix(in srgb, var(--color-action-primary) 5%, var(--color-bg-page));
+}
+
+.cardDisabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.cardInput {
+  position: absolute;
+  width: var(--spacing-px);
+  height: var(--spacing-px);
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.cardLabel {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-primary);
+}
+
+.cardDescription {
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-secondary);
+}
+
+.cardRadio {
+  flex-shrink: 0;
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-radius: var(--radius-full);
+  border: var(--border-width-default) solid var(--color-border-strong);
+  transition: var(--transition-colors);
+}
+
+.cardRadioSelected {
+  border-color: var(--color-action-primary);
+  border-width: var(--border-width-heavy);
+}
+
+.errorText {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-status-error);
+  margin-top: var(--spacing-1);
+}

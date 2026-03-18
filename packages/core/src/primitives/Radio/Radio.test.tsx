@@ -88,4 +88,54 @@ describe('RadioGroup', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it('renders card variant', () => {
+    render(
+      <RadioGroup
+        name="plan"
+        variant="card"
+        options={options}
+        value="a"
+        onChange={() => {}}
+        label="Choose plan"
+      />,
+    );
+    expect(screen.getByRole('radio', { name: 'Option A' })).toBeChecked();
+  });
+
+  it('selects card option on click', () => {
+    const onChange = vi.fn();
+    render(
+      <RadioGroup name="plan" variant="card" options={options} onChange={onChange} label="Plan" />,
+    );
+    fireEvent.click(screen.getByText('Option B'));
+    expect(onChange).toHaveBeenCalledWith('b');
+  });
+
+  it('renders horizontal orientation', () => {
+    const { container } = render(
+      <RadioGroup name="test" orientation="horizontal" options={options} label="Choose" />,
+    );
+    expect(container.querySelector('[class*="optionsHorizontal"]')).toBeInTheDocument();
+  });
+
+  it('renders error message', () => {
+    render(<RadioGroup name="test" options={options} error="Please select" label="Choose" />);
+    expect(screen.getByText('Please select')).toBeInTheDocument();
+  });
+
+  it('passes axe checks with card variant', async () => {
+    const { container } = render(
+      <RadioGroup
+        name="plan"
+        variant="card"
+        options={options}
+        value="a"
+        onChange={() => {}}
+        label="Plan"
+      />,
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });

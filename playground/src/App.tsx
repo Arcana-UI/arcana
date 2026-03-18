@@ -15,11 +15,14 @@ import {
   CardFooter,
   CardHeader,
   Checkbox,
+  CheckboxGroup,
   Container,
   DataTable,
+  DatePicker,
   DrawerNav,
   EmptyState,
   FeatureSection,
+  FileUpload,
   Form,
   FormErrorMessage,
   FormField,
@@ -562,8 +565,16 @@ function ComponentsSection() {
 function FormsSection() {
   const [inputValue, setInputValue] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState<string | string[]>('');
+  const [multiSelect, setMultiSelect] = useState<string[]>([]);
   const [agreed, setAgreed] = useState(false);
+  const [checkboxValues, setCheckboxValues] = useState<string[]>(['email']);
+  const [radioValue, setRadioValue] = useState('starter');
+  const [cardRadio, setCardRadio] = useState('monthly');
+  const [toggleA, setToggleA] = useState(true);
+  const [toggleB, setToggleB] = useState(false);
+  const [date, setDate] = useState<Date | null>(null);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   return (
     <div>
@@ -589,17 +600,18 @@ function FormsSection() {
                   <FormErrorMessage>Please enter a valid work email address.</FormErrorMessage>
                 </FormField>
                 <FormField>
-                  <FormLabel>Team size</FormLabel>
                   <Select
+                    label="Team size"
                     placeholder="How many engineers?"
                     value={selectValue}
-                    onChange={(e) => setSelectValue(e.target.value)}
+                    onChange={setSelectValue}
                     options={[
                       { value: '1', label: 'Just me' },
                       { value: '2-5', label: '2–5' },
                       { value: '6-20', label: '6–20' },
                       { value: '21+', label: '21+' },
                     ]}
+                    fullWidth
                   />
                 </FormField>
                 <FormField>
@@ -633,63 +645,139 @@ function FormsSection() {
           </CardBody>
         </Card>
 
-        {/* Input showcase */}
+        {/* Enhanced Form Controls */}
         <Stack gap={4}>
           <Card>
-            <CardHeader title="Input Variants" />
+            <CardHeader title="Select Variants" description="Single, multi, searchable, grouped" />
             <CardBody>
               <Stack gap={4}>
-                <Input label="Default" placeholder="Enter text..." />
-                <Input
-                  label="With search icon"
-                  placeholder="Search projects..."
-                  type="search"
-                  prefix={
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--color-fg-muted)">
-                      <path d="M6.5 1a5.5 5.5 0 104.223 9.02l3.129 3.128a.75.75 0 001.06-1.06l-3.129-3.13A5.5 5.5 0 006.5 1zM2.5 6.5a4 4 0 118 0 4 4 0 01-8 0z" />
-                    </svg>
-                  }
+                <Select
+                  label="Searchable"
+                  placeholder="Search countries..."
+                  searchable
+                  clearable
+                  options={[
+                    { value: 'us', label: 'United States', group: 'Americas' },
+                    { value: 'ca', label: 'Canada', group: 'Americas' },
+                    { value: 'mx', label: 'Mexico', group: 'Americas' },
+                    { value: 'uk', label: 'United Kingdom', group: 'Europe' },
+                    { value: 'de', label: 'Germany', group: 'Europe' },
+                    { value: 'fr', label: 'France', group: 'Europe' },
+                    { value: 'jp', label: 'Japan', group: 'Asia' },
+                    { value: 'kr', label: 'South Korea', group: 'Asia' },
+                  ]}
+                  fullWidth
                 />
-                <Input
-                  label="With error"
-                  placeholder="you@email.com"
-                  type="email"
-                  error="Invalid email format."
+                <Select
+                  label="Multi-select"
+                  placeholder="Select skills..."
+                  multiple
+                  value={multiSelect}
+                  onChange={(v) => setMultiSelect(v as string[])}
+                  options={[
+                    { value: 'react', label: 'React' },
+                    { value: 'ts', label: 'TypeScript' },
+                    { value: 'node', label: 'Node.js' },
+                    { value: 'python', label: 'Python' },
+                    { value: 'go', label: 'Go' },
+                  ]}
+                  fullWidth
                 />
-                <Input label="Disabled" value="Read-only value" disabled />
               </Stack>
             </CardBody>
           </Card>
 
           <Card>
-            <CardHeader title="Cards" description="Surface containers" />
+            <CardHeader title="Checkbox & Radio" />
             <CardBody>
-              <div className={styles.threeCol} style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-                <Card>
-                  <CardBody>
-                    <p style={{ margin: 0, fontSize: '13px', color: 'var(--color-fg-secondary)' }}>
-                      Default
-                    </p>
-                  </CardBody>
-                </Card>
-                <Card variant="outlined">
-                  <CardBody>
-                    <p style={{ margin: 0, fontSize: '13px', color: 'var(--color-fg-secondary)' }}>
-                      Outlined
-                    </p>
-                  </CardBody>
-                </Card>
-                <Card variant="elevated" interactive>
-                  <CardBody>
-                    <p style={{ margin: 0, fontSize: '13px', color: 'var(--color-fg-secondary)' }}>
-                      Elevated
-                    </p>
-                  </CardBody>
-                </Card>
-              </div>
+              <Stack gap={4}>
+                <CheckboxGroup
+                  label="Notifications"
+                  options={[
+                    { value: 'email', label: 'Email', description: 'Get notified by email' },
+                    { value: 'sms', label: 'SMS', description: 'Text message alerts' },
+                    { value: 'push', label: 'Push', description: 'Browser notifications' },
+                  ]}
+                  value={checkboxValues}
+                  onChange={setCheckboxValues}
+                />
+                <RadioGroup
+                  name="plan"
+                  label="Select plan"
+                  variant="card"
+                  options={[
+                    { value: 'monthly', label: 'Monthly', description: '$9/month' },
+                    { value: 'yearly', label: 'Yearly', description: '$89/year (save 18%)' },
+                  ]}
+                  value={cardRadio}
+                  onChange={setCardRadio}
+                />
+              </Stack>
             </CardBody>
           </Card>
         </Stack>
+      </div>
+
+      {/* Second row */}
+      <div className={styles.twoCol} style={{ marginTop: 'var(--spacing-lg)' }}>
+        <Card>
+          <CardHeader title="Toggle, Date & File" />
+          <CardBody>
+            <Stack gap={4}>
+              <Toggle label="Dark mode" checked={toggleA} onChange={setToggleA} />
+              <Toggle
+                label="Notifications"
+                description="Receive weekly digest"
+                checked={toggleB}
+                onChange={setToggleB}
+              />
+              <DatePicker
+                label="Start date"
+                value={date}
+                onChange={setDate}
+                clearable
+                helperText="When should the project begin?"
+              />
+              <FileUpload
+                label="Attachments"
+                description="PNG, JPG, PDF up to 10MB"
+                accept="image/*,.pdf"
+                multiple
+                maxSize={10 * 1024 * 1024}
+                onChange={setUploadedFiles}
+              />
+            </Stack>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardHeader title="Input Variants" />
+          <CardBody>
+            <Stack gap={4}>
+              <Input label="Default" placeholder="Enter text..." />
+              <Input
+                label="With error"
+                placeholder="you@email.com"
+                type="email"
+                error="Invalid email format."
+              />
+              <Input label="Disabled" value="Read-only value" disabled />
+              <RadioGroup
+                name="size"
+                label="Team size"
+                orientation="horizontal"
+                options={[
+                  { value: 'starter', label: '1–5' },
+                  { value: 'growth', label: '6–20' },
+                  { value: 'scale', label: '21–100' },
+                  { value: 'enterprise', label: '100+' },
+                ]}
+                value={radioValue}
+                onChange={setRadioValue}
+              />
+            </Stack>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

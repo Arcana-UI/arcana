@@ -1,0 +1,271 @@
+/**
+ * Component tokens (overridable via preset JSON):
+ *   --datepicker-bg            Input background (fallback: --color-bg-page)
+ *   --datepicker-border        Border color (fallback: --color-border-default)
+ *   --datepicker-radius        Border radius (fallback: --radius-md)
+ *   --datepicker-calendar-bg   Calendar bg (fallback: --color-bg-page)
+ *   --datepicker-calendar-shadow Calendar shadow (fallback: --shadow-lg)
+ *   --datepicker-day-size      Day cell size (fallback: --spacing-9)
+ *   --datepicker-day-radius    Day border radius (fallback: --radius-md)
+ *   --datepicker-day-hover-bg  Day hover bg (fallback: --color-bg-surface)
+ *   --datepicker-day-selected-bg Selected day bg (fallback: --color-action-primary)
+ *   --datepicker-day-selected-color Selected day text (fallback: --color-fg-on-primary)
+ *   --datepicker-day-today-border Today border (fallback: --color-action-primary)
+ *   --datepicker-day-disabled-color Disabled day text (fallback: --color-fg-muted)
+ */
+
+.datepicker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.label {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-primary);
+  line-height: var(--line-height-tight);
+}
+
+.controlArea {
+  position: relative;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: var(--datepicker-bg, var(--color-bg-page));
+  border: var(--border-width-default) solid var(--datepicker-border, var(--color-border-default));
+  border-radius: var(--datepicker-radius, var(--radius-md));
+  transition: var(--transition-colors), var(--transition-shadow);
+}
+
+.inputWrapper:focus-within,
+.inputWrapper.open {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+.inputWrapper.hasError {
+  border-color: var(--color-border-error);
+}
+
+.inputWrapper.hasError:focus-within {
+  box-shadow: var(--focus-ring-error);
+}
+
+.inputWrapper.disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0 var(--spacing-2) 0 var(--spacing-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-fg-primary);
+  font-family: var(--font-family-body);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .input {
+    min-height: auto;
+    height: var(--input-height, 2.5rem);
+    font-size: var(--font-size-sm);
+  }
+}
+
+.input::placeholder {
+  color: var(--color-fg-muted);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-0-5);
+  padding-right: var(--spacing-2);
+}
+
+.clearBtn,
+.calendarBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-fg-muted);
+  padding: var(--spacing-1);
+  border-radius: var(--radius-sm);
+}
+
+.clearBtn:hover,
+.calendarBtn:hover {
+  color: var(--color-fg-primary);
+  background: var(--color-bg-surface);
+}
+
+.clearBtn:disabled,
+.calendarBtn:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+/* Calendar dropdown */
+.calendar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: var(--z-dropdown);
+  margin-top: var(--spacing-1);
+  background: var(--datepicker-calendar-bg, var(--color-bg-page));
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--datepicker-radius, var(--radius-md));
+  box-shadow: var(--datepicker-calendar-shadow, var(--shadow-lg));
+  padding: var(--spacing-3);
+  width: max-content;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-2);
+}
+
+.calendarTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-primary);
+}
+
+.calendarNavBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-fg-secondary);
+  padding: var(--spacing-1);
+  border-radius: var(--radius-sm);
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .calendarNavBtn {
+    min-width: auto;
+    min-height: auto;
+  }
+}
+
+.calendarNavBtn:hover {
+  background: var(--color-bg-surface);
+  color: var(--color-fg-primary);
+}
+
+.calendarNavBtn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.calendarGrid {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-0-5);
+  margin-bottom: var(--spacing-1);
+}
+
+.calendarWeekday {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-muted);
+  padding: var(--spacing-1);
+}
+
+.calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-0-5);
+}
+
+.calendarEmpty {
+  aspect-ratio: 1;
+}
+
+.calendarDay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  width: var(--datepicker-day-size, var(--spacing-9));
+  border: var(--border-width-default) solid transparent;
+  border-radius: var(--datepicker-day-radius, var(--radius-md));
+  background: none;
+  color: var(--color-fg-primary);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+
+.calendarDay:hover:not(:disabled) {
+  background: var(--datepicker-day-hover-bg, var(--color-bg-surface));
+}
+
+.calendarDay:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.calendarDayToday {
+  border-color: var(--datepicker-day-today-border, var(--color-action-primary));
+  font-weight: var(--font-weight-semibold);
+}
+
+.calendarDaySelected {
+  background: var(--datepicker-day-selected-bg, var(--color-action-primary));
+  color: var(--datepicker-day-selected-color, var(--color-fg-on-primary));
+  font-weight: var(--font-weight-semibold);
+}
+
+.calendarDaySelected:hover:not(:disabled) {
+  background: var(--datepicker-day-selected-bg, var(--color-action-primary));
+}
+
+.calendarDayDisabled {
+  color: var(--datepicker-day-disabled-color, var(--color-fg-muted));
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+/* Helper / Error text */
+.helperText {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-secondary);
+}
+
+.errorText {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-status-error-fg);
+}

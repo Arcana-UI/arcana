@@ -100,3 +100,83 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 );
 
 Checkbox.displayName = 'Checkbox';
+
+// ─── CheckboxGroup ───────────────────────────────────────────────────────────
+
+export interface CheckboxGroupOption {
+  /** Option value */
+  value: string;
+  /** Display label */
+  label: string;
+  /** Description text below the label */
+  description?: string;
+  /** Whether this option is disabled */
+  disabled?: boolean;
+}
+
+export interface CheckboxGroupProps {
+  /** Array of checkbox options */
+  options: CheckboxGroupOption[];
+  /** Currently selected values */
+  value?: string[];
+  /** Callback fired when selection changes */
+  onChange?: (values: string[]) => void;
+  /** Layout direction */
+  orientation?: 'vertical' | 'horizontal';
+  /** Group label */
+  label?: string;
+  /** Error message */
+  error?: string;
+  /** Additional CSS class */
+  className?: string;
+}
+
+export const CheckboxGroup = React.forwardRef<HTMLFieldSetElement, CheckboxGroupProps>(
+  ({ options, value = [], onChange, orientation = 'vertical', label, error, className }, ref) => {
+    const groupId = React.useId();
+    const errorId = `${groupId}-error`;
+
+    const handleChange = (optValue: string, checked: boolean) => {
+      const next = checked ? [...value, optValue] : value.filter((v) => v !== optValue);
+      onChange?.(next);
+    };
+
+    return (
+      <fieldset
+        ref={ref}
+        className={cn(styles.checkboxGroup, className)}
+        aria-labelledby={label ? `${groupId}-label` : undefined}
+        aria-describedby={error ? errorId : undefined}
+      >
+        {label && (
+          <legend id={`${groupId}-label`} className={styles.groupLabel}>
+            {label}
+          </legend>
+        )}
+        <div
+          className={cn(
+            styles.groupOptions,
+            orientation === 'horizontal' && styles.groupHorizontal,
+          )}
+        >
+          {options.map((opt) => (
+            <Checkbox
+              key={opt.value}
+              label={opt.label}
+              description={opt.description}
+              checked={value.includes(opt.value)}
+              disabled={opt.disabled}
+              onChange={(e) => handleChange(opt.value, e.target.checked)}
+            />
+          ))}
+        </div>
+        {error && (
+          <span id={errorId} className={styles.errorText} role="alert">
+            {error}
+          </span>
+        )}
+      </fieldset>
+    );
+  },
+);
+CheckboxGroup.displayName = 'CheckboxGroup';
