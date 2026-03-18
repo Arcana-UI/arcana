@@ -26,9 +26,20 @@ describe('PricingCard', () => {
     expect(container.firstElementChild?.classList.contains('custom')).toBe(true);
   });
 
-  it('renders featured variant', () => {
-    const { container } = render(<PricingCard featured>Content</PricingCard>);
-    expect(container.firstElementChild?.className).toContain('featured');
+  it('renders popular variant with badge', () => {
+    const { container } = render(<PricingCard popular>Content</PricingCard>);
+    expect(container.firstElementChild?.className).toContain('popular');
+    expect(screen.getByText('Most Popular')).toBeTruthy();
+  });
+
+  it('popular badge has aria-label', () => {
+    render(<PricingCard popular>Content</PricingCard>);
+    expect(screen.getByLabelText('Most popular plan')).toBeTruthy();
+  });
+
+  it('renders compact variant', () => {
+    const { container } = render(<PricingCard variant="compact">Content</PricingCard>);
+    expect(container.firstElementChild?.className).toContain('compact');
   });
 
   it('renders plan name in header', () => {
@@ -43,10 +54,10 @@ describe('PricingCard', () => {
   it('renders plan description', () => {
     render(
       <PricingCard>
-        <PricingCardHeader plan="Pro" description="For teams" />
+        <PricingCardHeader plan="Pro" description="For growing teams" />
       </PricingCard>,
     );
-    expect(screen.getByText('For teams')).toBeTruthy();
+    expect(screen.getByText('For growing teams')).toBeTruthy();
   });
 
   it('renders price with period', () => {
@@ -59,22 +70,20 @@ describe('PricingCard', () => {
     expect(screen.getByText('/month')).toBeTruthy();
   });
 
-  it('renders feature list', () => {
-    render(
+  it('renders included features with check icon', () => {
+    const { container } = render(
       <PricingCard>
         <PricingCardFeatures>
           <PricingCardFeature>10 users</PricingCardFeature>
-          <PricingCardFeature>API access</PricingCardFeature>
-          <PricingCardFeature included={false}>Priority support</PricingCardFeature>
         </PricingCardFeatures>
       </PricingCard>,
     );
     expect(screen.getByText('10 users')).toBeTruthy();
-    expect(screen.getByText('API access')).toBeTruthy();
-    expect(screen.getByText('Priority support')).toBeTruthy();
+    const icon = container.querySelector('[aria-hidden="true"]');
+    expect(icon?.textContent).toBe('\u2713');
   });
 
-  it('renders excluded feature with strikethrough', () => {
+  it('renders excluded features with cross icon', () => {
     const { container } = render(
       <PricingCard>
         <PricingCardFeatures>
@@ -82,11 +91,13 @@ describe('PricingCard', () => {
         </PricingCardFeatures>
       </PricingCard>,
     );
-    const item = container.querySelector('li');
-    expect(item?.className).toContain('featureExcluded');
+    const li = container.querySelector('li');
+    expect(li?.className).toContain('featureExcluded');
+    const icon = container.querySelector('[aria-hidden="true"]');
+    expect(icon?.textContent).toBe('\u2717');
   });
 
-  it('renders action slot', () => {
+  it('renders action slot with full-width button', () => {
     render(
       <PricingCard>
         <PricingCardAction>
@@ -97,6 +108,17 @@ describe('PricingCard', () => {
     expect(screen.getByRole('button', { name: 'Subscribe' })).toBeTruthy();
   });
 
+  it('features list has role="list"', () => {
+    render(
+      <PricingCard>
+        <PricingCardFeatures>
+          <PricingCardFeature>Feature</PricingCardFeature>
+        </PricingCardFeatures>
+      </PricingCard>,
+    );
+    expect(screen.getByRole('list')).toBeTruthy();
+  });
+
   it('PricingCardHeader forwards ref', () => {
     const ref = vi.fn();
     render(
@@ -105,5 +127,27 @@ describe('PricingCard', () => {
       </PricingCard>,
     );
     expect(ref).toHaveBeenCalled();
+  });
+
+  it('composes full pricing card', () => {
+    render(
+      <PricingCard popular>
+        <PricingCardHeader plan="Pro" description="Best value" />
+        <PricingCardPrice amount="$49" period="/month" />
+        <PricingCardFeatures>
+          <PricingCardFeature>Unlimited users</PricingCardFeature>
+          <PricingCardFeature>API access</PricingCardFeature>
+          <PricingCardFeature included={false}>White label</PricingCardFeature>
+        </PricingCardFeatures>
+        <PricingCardAction>
+          <button type="button">Get Started</button>
+        </PricingCardAction>
+      </PricingCard>,
+    );
+    expect(screen.getByText('Most Popular')).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Pro' })).toBeTruthy();
+    expect(screen.getByText('$49')).toBeTruthy();
+    expect(screen.getByText('Unlimited users')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Get Started' })).toBeTruthy();
   });
 });

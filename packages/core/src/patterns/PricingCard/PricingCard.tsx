@@ -5,14 +5,30 @@ import styles from './PricingCard.module.css';
 // ─── PricingCard ─────────────────────────────────────────────────────────────
 
 export interface PricingCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether this plan is highlighted / recommended */
-  featured?: boolean;
+  /** Whether this plan is the recommended / popular tier */
+  popular?: boolean;
+  /** Layout density */
+  variant?: 'default' | 'compact';
 }
 
 export const PricingCard = React.forwardRef<HTMLDivElement, PricingCardProps>(
-  ({ featured = false, children, className, ...props }, ref) => {
+  ({ popular = false, variant = 'default', children, className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn(styles.card, featured && styles.featured, className)} {...props}>
+      <div
+        ref={ref}
+        className={cn(
+          styles.card,
+          popular && styles.popular,
+          variant === 'compact' && styles.compact,
+          className,
+        )}
+        {...props}
+      >
+        {popular && (
+          <span className={styles.popularBadge} aria-label="Most popular plan">
+            Most Popular
+          </span>
+        )}
         {children}
       </div>
     );
@@ -45,9 +61,9 @@ PricingCardHeader.displayName = 'PricingCardHeader';
 // ─── PricingCardPrice ────────────────────────────────────────────────────────
 
 export interface PricingCardPriceProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Price amount (e.g., "$29") */
+  /** Price amount (e.g., "$29" or "$0") */
   amount: string;
-  /** Billing period (e.g., "/month") */
+  /** Billing period (e.g., "/month", "/year", "one-time") */
   period?: string;
 }
 
@@ -81,7 +97,7 @@ PricingCardFeatures.displayName = 'PricingCardFeatures';
 // ─── PricingCardFeature ──────────────────────────────────────────────────────
 
 export interface PricingCardFeatureProps extends React.HTMLAttributes<HTMLLIElement> {
-  /** Whether this feature is included */
+  /** Whether this feature is included in this plan */
   included?: boolean;
 }
 
@@ -93,7 +109,13 @@ export const PricingCardFeature = React.forwardRef<HTMLLIElement, PricingCardFea
         className={cn(styles.feature, !included && styles.featureExcluded, className)}
         {...props}
       >
-        <span className={styles.featureCheck} aria-hidden="true">
+        <span
+          className={cn(
+            styles.featureIcon,
+            included ? styles.featureIncludedIcon : styles.featureExcludedIcon,
+          )}
+          aria-hidden="true"
+        >
           {included ? '\u2713' : '\u2717'}
         </span>
         {children}

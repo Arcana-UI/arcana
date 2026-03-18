@@ -2,11 +2,17 @@
  * PricingCard — Pricing tier card with plan, price, features, and CTA
  *
  * Component tokens:
- *   --pricing-bg             Background (fallback: --color-bg-surface)
- *   --pricing-border-color   Border color (fallback: --color-border-default)
- *   --pricing-radius         Border radius (fallback: --radius-xl)
- *   --pricing-padding        Padding (fallback: --spacing-xl)
- *   --pricing-featured-border  Featured border color (fallback: --color-action-primary)
+ *   --pricing-bg               Background (fallback: --color-bg-surface)
+ *   --pricing-radius           Border radius (fallback: --radius-xl)
+ *   --pricing-shadow           Box shadow (fallback: --shadow-sm)
+ *   --pricing-padding          Padding (fallback: --spacing-xl)
+ *   --pricing-popular-border   Popular border color (fallback: --color-action-primary)
+ *   --pricing-popular-shadow   Popular shadow (fallback: --shadow-lg)
+ *   --pricing-popular-bg       Popular background (fallback: --color-bg-surface)
+ *   --pricing-price-size       Price font size (fallback: --font-size-fluid-4xl)
+ *   --pricing-price-weight     Price font weight (fallback: --font-weight-bold)
+ *   --pricing-feature-included-color  Check icon color (fallback: --color-status-success-fg)
+ *   --pricing-feature-excluded-color  Cross icon color (fallback: --color-fg-muted)
  */
 
 .card {
@@ -15,14 +21,47 @@
   gap: var(--spacing-lg);
   padding: var(--pricing-padding, var(--spacing-xl));
   background-color: var(--pricing-bg, var(--color-bg-surface));
-  border: var(--border-width-default) solid var(--pricing-border-color, var(--color-border-default));
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--pricing-radius, var(--radius-xl));
+  box-shadow: var(--pricing-shadow, var(--shadow-sm));
+  position: relative;
 }
 
-.featured {
-  border-color: var(--pricing-featured-border, var(--color-action-primary));
+/* Popular / featured tier */
+.popular {
+  border-color: var(--pricing-popular-border, var(--color-action-primary));
   border-width: var(--border-width-thick);
-  position: relative;
+  box-shadow: var(--pricing-popular-shadow, var(--shadow-lg));
+  background-color: var(--pricing-popular-bg, var(--color-bg-surface));
+}
+
+/* Popular badge */
+.popularBadge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--pricing-popular-border, var(--color-action-primary));
+  color: var(--color-fg-on-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Compact variant */
+.compact {
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+
+.compact .amount {
+  font-size: var(--font-size-fluid-3xl);
 }
 
 /* Header */
@@ -56,8 +95,8 @@
 
 .amount {
   font-family: var(--font-family-display);
-  font-size: var(--font-size-fluid-4xl);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--pricing-price-size, var(--font-size-fluid-4xl));
+  font-weight: var(--pricing-price-weight, var(--font-weight-bold));
   line-height: var(--line-height-none);
   color: var(--color-fg-primary);
 }
@@ -93,16 +132,25 @@
   text-decoration: line-through;
 }
 
-.featureCheck {
+.featureIcon {
   flex-shrink: 0;
-  color: var(--color-status-success-fg);
+  font-weight: var(--font-weight-bold);
 }
 
-.featureExcluded .featureCheck {
-  color: var(--color-fg-muted);
+.featureIncludedIcon {
+  color: var(--pricing-feature-included-color, var(--color-status-success-fg));
+}
+
+.featureExcludedIcon {
+  color: var(--pricing-feature-excluded-color, var(--color-fg-muted));
 }
 
 /* Action */
 .action {
   margin-top: auto;
+}
+
+.action button,
+.action a {
+  width: 100%;
 }
