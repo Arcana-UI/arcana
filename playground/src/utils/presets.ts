@@ -16,6 +16,8 @@ export interface ThemePreset {
   tokens: Record<string, string>;
   /** Optional CSS injected into a <style> tag (for body bg, etc.) */
   globalCSS?: string;
+  /** Inline SVG brand logo for theme gallery */
+  logo?: string;
 }
 
 // Module-level state for cleanup
@@ -66,12 +68,14 @@ export const PRESETS: ThemePreset[] = [
     emoji: '☀️',
     description: 'Default warm stone + indigo',
     tokens: {},
+    logo: '<svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="15" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#44403c" letter-spacing="-0.02em">arcana</text></svg>',
   },
   {
     id: 'dark',
     label: 'Dark',
     emoji: '🌙',
     description: 'Dark mode',
+    logo: '<svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="15" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#e2e8f0" letter-spacing="-0.02em">arcana</text><rect x="62" y="4" width="4" height="12" rx="2" fill="#818cf8" opacity="0.6"/></svg>',
     tokens: {},
   },
   {
@@ -80,6 +84,7 @@ export const PRESETS: ThemePreset[] = [
     emoji: '💻',
     description: 'Premium terminal — green phosphor on black, Warp-inspired',
     tokens: {},
+    logo: '<svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="15" font-family="monospace" font-size="12" fill="#00ff41" letter-spacing="0.05em">&gt;_arcana</text></svg>',
     globalCSS: `
       [data-theme="terminal"] * {
         text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
@@ -95,6 +100,7 @@ export const PRESETS: ThemePreset[] = [
     emoji: '🖥️',
     description: 'Authentic Windows 98 — pixel-perfect bevels, navy blue',
     tokens: {},
+    logo: '<svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="2" width="16" height="16" fill="#c0c0c0" stroke="#808080" stroke-width="1"/><rect x="1" y="3" width="14" height="3" fill="#000080"/><text x="20" y="15" font-family="Tahoma, sans-serif" font-size="11" font-weight="700" fill="#000000">Arcana</text></svg>',
     globalCSS: `
       [data-theme="retro98"] body {
         background: #008080;
@@ -110,6 +116,7 @@ export const PRESETS: ThemePreset[] = [
     emoji: '🫧',
     description: 'Frosted glass on gradient, Apple-inspired',
     tokens: {},
+    logo: '<svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="15" font-family="-apple-system, sans-serif" font-size="13" font-weight="300" fill="white" letter-spacing="0.04em" opacity="0.9">arcana</text></svg>',
     globalCSS: `
       body {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
@@ -146,6 +153,7 @@ export const PRESETS: ThemePreset[] = [
     emoji: '🔲',
     description: 'No mercy, no radius, no shadows',
     tokens: {},
+    logo: '<svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="16" font-family="Arial Black, Impact, sans-serif" font-size="15" font-weight="900" fill="#000000" letter-spacing="-0.03em" text-transform="uppercase">ARCANA</text></svg>',
   },
 ];
 
