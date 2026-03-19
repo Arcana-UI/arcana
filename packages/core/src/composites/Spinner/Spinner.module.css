@@ -1,0 +1,57 @@
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  animation: spinner-rotate var(--spinner-speed, var(--duration-slow)) linear infinite;
+}
+
+@keyframes spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svg {
+    animation: none;
+  }
+  .indicator {
+    opacity: 0.8;
+  }
+}
+
+.track {
+  opacity: 0.2;
+}
+
+.indicator {
+  opacity: 1;
+}
+
+.color-primary {
+  color: var(--spinner-color, var(--color-action-primary));
+}
+
+.color-current {
+  color: currentColor;
+}
+
+.color-white {
+  color: white;
+}
+
+.srOnly {
+  position: absolute;
+  width: var(--spacing-px);
+  height: var(--spacing-px);
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

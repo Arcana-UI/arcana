@@ -880,6 +880,49 @@
       "shortcut-color": "{semantic.color.foreground.muted}",
       "max-width": "40rem",
       "max-height": "60vh"
+    },
+    "divider": {
+      "color": "{semantic.color.border.muted}",
+      "weight": "{semantic.border.width.default}",
+      "label-color": "{semantic.color.foreground.muted}",
+      "label-size": "{primitive.typography.fontSize.sm}",
+      "label-bg": "{semantic.color.background.page}"
+    },
+    "skeleton": {
+      "bg": "{semantic.color.background.surface}",
+      "radius": "{semantic.radius.sm}",
+      "animation-duration": "var(--duration-slow)"
+    },
+    "spinner": {
+      "color": "{semantic.color.action.primary}",
+      "track-color": "{semantic.color.border.default}",
+      "speed": "var(--duration-slow)"
+    },
+    "banner": {
+      "padding-x": "var(--spacing-md)",
+      "padding-y": "var(--spacing-3)",
+      "info-bg": "{semantic.color.status.info.bg}",
+      "info-border": "{semantic.color.status.info.border}",
+      "success-bg": "{semantic.color.status.success.bg}",
+      "warning-bg": "{semantic.color.status.warning.bg}",
+      "error-bg": "{semantic.color.status.error.bg}",
+      "neutral-bg": "{semantic.color.background.surface}",
+      "icon-size": "var(--spacing-5)"
+    },
+    "image": {
+      "radius": "{semantic.radius.none}",
+      "fallback-bg": "{semantic.color.background.surface}",
+      "fallback-color": "{semantic.color.foreground.muted}"
+    },
+    "carousel": {
+      "arrow-bg": "{semantic.color.background.page}",
+      "arrow-color": "{semantic.color.foreground.primary}",
+      "arrow-size": "var(--spacing-10)",
+      "arrow-radius": "{semantic.radius.full}",
+      "dot-size": "var(--spacing-2)",
+      "dot-color": "{semantic.color.border.default}",
+      "dot-active-color": "{semantic.color.action.primary}",
+      "gap": "var(--spacing-md)"
     }
   }
 }
