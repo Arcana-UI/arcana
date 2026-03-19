@@ -2,7 +2,7 @@
   "$schema": "../schema/tokens.schema.json",
   "name": "arcana-terminal",
   "version": "0.1.0",
-  "description": "Hacker terminal \u2014 green phosphor on deep dark",
+  "description": "Premium terminal emulator \u2014 green phosphor on black, monospace everything, Warp/Hyper-inspired",
   "primitive": {
     "color": {
       "white": "#ffffff",
@@ -22,17 +22,17 @@
         "950": "#030712"
       },
       "green": {
-        "50": "#f0fdf4",
-        "100": "#dcfce7",
-        "200": "#bbf7d0",
-        "300": "#86efac",
-        "400": "#4ade80",
-        "500": "#22c55e",
-        "600": "#16a34a",
-        "700": "#15803d",
-        "800": "#166534",
-        "900": "#14532d",
-        "950": "#052e16"
+        "50": "#e6ffe6",
+        "100": "#b3ffb3",
+        "200": "#80ff80",
+        "300": "#4dff4d",
+        "400": "#33d17a",
+        "500": "#00d26a",
+        "600": "#00b359",
+        "700": "#009648",
+        "800": "#007a3a",
+        "900": "#005c2c",
+        "950": "#003d1d"
       }
     },
     "spacing": {
@@ -226,30 +226,30 @@
   "semantic": {
     "color": {
       "background": {
-        "page": "{primitive.color.black}",
-        "surface": "{primitive.color.gray.950}",
-        "elevated": "{primitive.color.gray.900}",
+        "page": "#0a0a0a",
+        "surface": "#111111",
+        "elevated": "#1a1a1a",
         "overlay": "rgba(0, 0, 0, 0.85)",
-        "sunken": "{primitive.color.black}",
-        "subtle": "{primitive.color.gray.900}"
+        "sunken": "#050505",
+        "subtle": "#141414"
       },
       "foreground": {
-        "primary": "{primitive.color.green.400}",
-        "secondary": "{primitive.color.green.500}",
-        "muted": "{primitive.color.green.700}",
+        "primary": "#00ff41",
+        "secondary": "#00cc33",
+        "muted": "#008f11",
         "disabled": "{primitive.color.green.900}",
         "inverse": "{primitive.color.black}",
         "on-primary": "{primitive.color.black}",
         "on-destructive": "{primitive.color.white}",
-        "link": "{primitive.color.green.300}",
-        "link-hover": "{primitive.color.green.200}"
+        "link": "#00ff41",
+        "link-hover": "#33ff66"
       },
       "action": {
         "primary": {
-          "default": "{primitive.color.green.500}",
-          "hover": "{primitive.color.green.400}",
-          "active": "{primitive.color.green.600}",
-          "disabled": "{primitive.color.green.800}"
+          "default": "#00d26a",
+          "hover": "#00ff41",
+          "active": "#009648",
+          "disabled": "#004d26"
         },
         "secondary": {
           "default": "{primitive.color.gray.800}",
@@ -273,11 +273,11 @@
         }
       },
       "border": {
-        "default": "{primitive.color.gray.800}",
+        "default": "#1a3a1a",
         "muted": "{primitive.color.gray.900}",
         "strong": "{primitive.color.gray.700}",
         "stronger": "{primitive.color.gray.600}",
-        "focus": "{primitive.color.green.400}",
+        "focus": "#00ff41",
         "error": "#f85149",
         "success": "{primitive.color.green.400}",
         "inverse": "{primitive.color.green.400}"
@@ -309,8 +309,8 @@
         }
       },
       "accent": {
-        "primary": "{primitive.color.green.400}",
-        "secondary": "{primitive.color.green.300}"
+        "primary": "#00ff41",
+        "secondary": "#00d26a"
       }
     },
     "typography": {
@@ -678,7 +678,7 @@
       "bg": "{semantic.color.background.surface}",
       "radius": "{semantic.radius.none}",
       "padding": "var(--spacing-xl)",
-      "quote-size": "{primitive.typography.fontSize.md}",
+      "quote-size": "{primitive.typography.fontSize.base}",
       "quote-color": "{semantic.color.foreground.primary}",
       "author-size": "{primitive.typography.fontSize.sm}",
       "star-color": "{semantic.color.status.warning.fg}"
@@ -721,7 +721,7 @@
       "row-border": "{semantic.color.border.default}",
       "row-hover-bg": "{semantic.color.background.surface}",
       "row-stripe-bg": "{semantic.color.background.surface}",
-      "row-selected-bg": "{semantic.color.action.primary}",
+      "row-selected-bg": "{semantic.color.action.primary.default}",
       "cell-padding-x": "var(--spacing-md)",
       "cell-padding-y": {
         "compact": "var(--spacing-2)",
@@ -753,7 +753,7 @@
     },
     "progress": {
       "bg": "{semantic.color.background.surface}",
-      "fill-color": "{semantic.color.action.primary}",
+      "fill-color": "{semantic.color.action.primary.default}",
       "radius": "{semantic.radius.none}",
       "height-sm": "0.25rem",
       "height-md": "0.5rem",
@@ -781,14 +781,14 @@
       "day-size": "var(--spacing-9)",
       "day-radius": "{semantic.radius.none}",
       "day-hover-bg": "{semantic.color.background.surface}",
-      "day-selected-bg": "{semantic.color.action.primary}",
-      "day-selected-color": "{semantic.color.foreground.onPrimary}",
-      "day-today-border": "{semantic.color.action.primary}",
+      "day-selected-bg": "{semantic.color.action.primary.default}",
+      "day-selected-color": "{semantic.color.foreground.on-primary}",
+      "day-today-border": "{semantic.color.action.primary.default}",
       "day-disabled-color": "{semantic.color.foreground.muted}"
     },
     "fileupload": {
       "border": "{semantic.color.border.default}",
-      "border-active": "{semantic.color.action.primary}",
+      "border-active": "{semantic.color.action.primary.default}",
       "bg": "{semantic.color.background.page}",
       "bg-active": "{semantic.color.background.surface}",
       "radius": "{semantic.radius.none}",
@@ -842,7 +842,7 @@
       "animation-duration": "var(--duration-slow)"
     },
     "spinner": {
-      "color": "{semantic.color.action.primary}",
+      "color": "{semantic.color.action.primary.default}",
       "track-color": "{semantic.color.border.default}",
       "speed": "var(--duration-slow)"
     },
@@ -869,7 +869,7 @@
       "arrow-radius": "{semantic.radius.full}",
       "dot-size": "var(--spacing-2)",
       "dot-color": "{semantic.color.border.default}",
-      "dot-active-color": "{semantic.color.action.primary}",
+      "dot-active-color": "{semantic.color.action.primary.default}",
       "gap": "var(--spacing-md)"
     },
     "productcard": {
@@ -878,8 +878,8 @@
       "shadow": "{semantic.elevation.card}",
       "hover-shadow": "{primitive.shadow.md}",
       "padding": "var(--spacing-md)",
-      "badge-bg": "{semantic.color.action.primary}",
-      "badge-color": "{semantic.color.foreground.onPrimary}",
+      "badge-bg": "{semantic.color.action.primary.default}",
+      "badge-color": "{semantic.color.foreground.on-primary}",
       "sale-color": "{semantic.color.status.error.fg}",
       "original-price-color": "{semantic.color.foreground.muted}"
     },
@@ -908,7 +908,7 @@
       "font-weight": "{primitive.typography.fontWeight.semibold}"
     },
     "article": {
-      "font-size": "{primitive.typography.fontSize.md}",
+      "font-size": "{primitive.typography.fontSize.base}",
       "line-height": "{primitive.typography.lineHeight.relaxed}",
       "paragraph-spacing": "var(--spacing-6)",
       "heading-spacing": "var(--spacing-10)",
@@ -916,7 +916,7 @@
       "sidebar-gap": "var(--spacing-xl)"
     },
     "pullquote": {
-      "border-color": "{semantic.color.action.primary}",
+      "border-color": "{semantic.color.action.primary.default}",
       "border-width": "{semantic.border.width.heavy}",
       "font-size": "{primitive.typography.fontSize.lg}",
       "attribution-color": "{semantic.color.foreground.secondary}"
