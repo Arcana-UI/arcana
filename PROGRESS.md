@@ -2,7 +2,7 @@
 
 > **Last updated:** 2026-03-18
 > **Current phase:** 3 — Expanded Component Library
-> **Next priority task:** 3.7
+> **Next priority task:** 3.10
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -50,9 +50,9 @@
 - [x] 3.4 — Data display: DataTable, StatCard, ProgressBar, KPICard
 - [x] 3.5 — Forms: Select, Checkbox, Radio, Toggle, Textarea, DatePicker, FileUpload, FormField
 - [x] 3.6 — Overlays: Modal, Drawer, Popover, Toast, CommandPalette
-- [ ] 3.7 — Layout: Stack, Grid, Container, Divider, Spacer, AspectRatio
-- [ ] 3.8 — Media: Avatar, AvatarGroup, Image, Video, Carousel
-- [ ] 3.9 — Feedback: Alert, Banner, Skeleton, Spinner, EmptyState, ErrorBoundary
+- [x] 3.7 — Layout: Stack, Grid, Container, Divider, Spacer, AspectRatio
+- [x] 3.8 — Media: Avatar, AvatarGroup, Image, Video, Carousel
+- [x] 3.9 — Feedback: Alert, Banner, Skeleton, Spinner, EmptyState, ErrorBoundary
 - [ ] 3.10 — E-commerce: ProductCard, CartItem, QuantitySelector, PriceDisplay, RatingStars
 - [ ] 3.11 — Editorial: ArticleLayout, PullQuote, AuthorCard, RelatedPosts, NewsletterSignup
 - [ ] 3.12 — Utility: ScrollArea, Collapsible, Accordion, CopyButton, KeyboardShortcut

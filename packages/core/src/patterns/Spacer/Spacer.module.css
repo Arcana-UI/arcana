@@ -1,0 +1,53 @@
+.spacer {
+  flex-shrink: 0;
+}
+
+.vertical-xs {
+  height: var(--spacing-xs);
+}
+.vertical-sm {
+  height: var(--spacing-sm);
+}
+.vertical-md {
+  height: var(--spacing-md);
+}
+.vertical-lg {
+  height: var(--spacing-lg);
+}
+.vertical-xl {
+  height: var(--spacing-xl);
+}
+.vertical-2xl {
+  height: var(--spacing-2xl);
+}
+.vertical-3xl {
+  height: var(--spacing-3xl);
+}
+.vertical-section {
+  height: var(--spacing-section);
+}
+
+.horizontal-xs {
+  width: var(--spacing-xs);
+}
+.horizontal-sm {
+  width: var(--spacing-sm);
+}
+.horizontal-md {
+  width: var(--spacing-md);
+}
+.horizontal-lg {
+  width: var(--spacing-lg);
+}
+.horizontal-xl {
+  width: var(--spacing-xl);
+}
+.horizontal-2xl {
+  width: var(--spacing-2xl);
+}
+.horizontal-3xl {
+  width: var(--spacing-3xl);
+}
+.horizontal-section {
+  width: var(--spacing-section);
+}

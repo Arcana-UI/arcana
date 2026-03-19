@@ -199,6 +199,33 @@ export type { PopoverProps } from './patterns/Popover';
 export { CommandPalette } from './patterns/CommandPalette';
 export type { CommandPaletteProps, CommandItem } from './patterns/CommandPalette';
 
+export { Divider } from './patterns/Divider';
+export type { DividerProps } from './patterns/Divider';
+
+export { Spacer } from './patterns/Spacer';
+export type { SpacerProps } from './patterns/Spacer';
+
+export { AspectRatio } from './patterns/AspectRatio';
+export type { AspectRatioProps } from './patterns/AspectRatio';
+
+export { Image } from './patterns/Image';
+export type { ImageProps } from './patterns/Image';
+
+export { Carousel } from './patterns/Carousel';
+export type { CarouselProps } from './patterns/Carousel';
+
+export { Banner } from './composites/Banner';
+export type { BannerProps } from './composites/Banner';
+
+export { Skeleton } from './composites/Skeleton';
+export type { SkeletonProps } from './composites/Skeleton';
+
+export { Spinner } from './composites/Spinner';
+export type { SpinnerProps } from './composites/Spinner';
+
+export { ErrorBoundary } from './composites/ErrorBoundary';
+export type { ErrorBoundaryProps } from './composites/ErrorBoundary';
+
 // ─── Hooks ────────────────────────────────────────────────────────────────────
 export { useMediaQuery } from './hooks/useMediaQuery';
 export { useBreakpoint } from './hooks/useBreakpoint';

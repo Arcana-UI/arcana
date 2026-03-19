@@ -4,9 +4,11 @@ import {
   AccordionItem,
   AccordionTrigger,
   Alert,
+  AspectRatio,
   Avatar,
   AvatarGroup,
   Badge,
+  Banner,
   BottomSheet,
   Button,
   CTA,
@@ -14,15 +16,18 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Carousel,
   Checkbox,
   CheckboxGroup,
   CommandPalette,
   Container,
   DataTable,
   DatePicker,
+  Divider,
   Drawer,
   DrawerNav,
   EmptyState,
+  ErrorBoundary,
   FeatureSection,
   FileUpload,
   Form,
@@ -33,6 +38,7 @@ import {
   Grid,
   HStack,
   Hero,
+  Image,
   Input,
   KPICard,
   LogoCloud,
@@ -44,6 +50,9 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Skeleton,
+  Spacer,
+  Spinner,
   Stack,
   StatCard,
   StatsBar,
@@ -67,7 +76,8 @@ import {
   useToast,
 } from '@arcana-ui/core';
 import type { ColumnDef, CommandItem } from '@arcana-ui/core';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import styles from './App.module.css';
 import { AccessibilityPanel } from './components/AccessibilityPanel';
 import { TokenEditor } from './components/TokenEditor';
@@ -1395,6 +1405,171 @@ function LayoutSection() {
   );
 }
 
+// ─── Feedback Section ─────────────────────────────────────────────────────────
+
+function BuggyComponent(): React.JSX.Element {
+  throw new Error('This component crashed intentionally!');
+}
+
+function FeedbackSection() {
+  const [showBuggy, setShowBuggy] = useState(false);
+
+  return (
+    <div>
+      <div className={styles.dashSection}>
+        <h3 className={styles.sectionTitle}>Banners</h3>
+        <p className={styles.sectionSubtitle}>Full-width notification bars</p>
+        <Stack gap={2}>
+          <Banner variant="info" title="Update available">
+            A new version of Arcana UI is ready to install.
+          </Banner>
+          <Banner variant="success">Your changes have been saved successfully.</Banner>
+          <Banner variant="warning" dismissible>
+            Your trial expires in 3 days. Upgrade now.
+          </Banner>
+          <Banner
+            variant="error"
+            title="Payment failed"
+            action={
+              <Button size="sm" variant="secondary">
+                Retry
+              </Button>
+            }
+          >
+            Unable to process your payment.
+          </Banner>
+        </Stack>
+      </div>
+
+      <div className={styles.dashSection}>
+        <h3 className={styles.sectionTitle}>Skeleton</h3>
+        <p className={styles.sectionSubtitle}>Loading placeholders</p>
+        <div className={styles.twoCol}>
+          <Card>
+            <CardBody>
+              <HStack gap={3}>
+                <Skeleton variant="circular" />
+                <Stack gap={2} style={{ flex: 1 }}>
+                  <Skeleton variant="text" width="60%" />
+                  <Skeleton variant="text" width="40%" />
+                </Stack>
+              </HStack>
+              <Spacer size="md" />
+              <Skeleton variant="text" lines={3} />
+              <Spacer size="md" />
+              <Skeleton variant="rectangular" height="var(--spacing-24)" />
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <Stack gap={3}>
+                <p style={{ margin: 0, fontWeight: 'var(--font-weight-semibold)' }}>
+                  Spinner Sizes
+                </p>
+                <HStack gap={4}>
+                  <Spinner size="xs" />
+                  <Spinner size="sm" />
+                  <Spinner size="md" />
+                  <Spinner size="lg" />
+                  <Spinner size="xl" />
+                </HStack>
+                <Divider label="Layout Utilities" />
+                <HStack gap={4}>
+                  <AspectRatio
+                    ratio="square"
+                    style={{
+                      width: 'var(--spacing-16)',
+                      background: 'var(--color-bg-surface)',
+                      borderRadius: 'var(--radius-md)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 'var(--font-size-xs)',
+                        color: 'var(--color-fg-muted)',
+                      }}
+                    >
+                      1:1
+                    </div>
+                  </AspectRatio>
+                  <AspectRatio
+                    ratio="video"
+                    style={{
+                      width: 'var(--spacing-24)',
+                      background: 'var(--color-bg-surface)',
+                      borderRadius: 'var(--radius-md)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 'var(--font-size-xs)',
+                        color: 'var(--color-fg-muted)',
+                      }}
+                    >
+                      16:9
+                    </div>
+                  </AspectRatio>
+                </HStack>
+              </Stack>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+
+      <div className={styles.dashSection}>
+        <h3 className={styles.sectionTitle}>Error Boundary</h3>
+        <p className={styles.sectionSubtitle}>Graceful error handling with recovery</p>
+        <Card>
+          <CardBody>
+            <ErrorBoundary
+              fallback={(error, reset) => (
+                <Stack gap={3} style={{ textAlign: 'center', padding: 'var(--spacing-lg)' }}>
+                  <p
+                    style={{
+                      color: 'var(--color-status-error-fg)',
+                      fontWeight: 'var(--font-weight-semibold)',
+                    }}
+                  >
+                    {error.message}
+                  </p>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      reset();
+                      setShowBuggy(false);
+                    }}
+                  >
+                    Recover
+                  </Button>
+                </Stack>
+              )}
+            >
+              {showBuggy ? (
+                <BuggyComponent />
+              ) : (
+                <Stack gap={3} style={{ textAlign: 'center', padding: 'var(--spacing-lg)' }}>
+                  <p style={{ margin: 0, color: 'var(--color-fg-secondary)' }}>
+                    Click the button to trigger an error
+                  </p>
+                  <Button size="sm" variant="destructive" onClick={() => setShowBuggy(true)}>
+                    Crash Component
+                  </Button>
+                </Stack>
+              )}
+            </ErrorBoundary>
+          </CardBody>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
 // ─── Mobile Patterns Section ─────────────────────────────────────────────────
 
 function MobilePatternsSection() {
@@ -2009,6 +2184,7 @@ type SectionId =
   | 'data'
   | 'layout'
   | 'overlays'
+  | 'feedback'
   | 'mobile'
   | 'marketing';
 
@@ -2018,6 +2194,7 @@ const SECTIONS: Array<{ id: SectionId; label: string }> = [
   { id: 'forms', label: 'Forms & Inputs' },
   { id: 'data', label: 'Data & Tables' },
   { id: 'overlays', label: 'Overlays' },
+  { id: 'feedback', label: 'Feedback' },
   { id: 'layout', label: 'Layout' },
   { id: 'mobile', label: 'Mobile Patterns' },
   { id: 'marketing', label: 'Marketing' },
@@ -2048,6 +2225,7 @@ function KitchenSink() {
         {activeSection === 'forms' && <FormsSection />}
         {activeSection === 'data' && <DataSection />}
         {activeSection === 'overlays' && <OverlaysSection />}
+        {activeSection === 'feedback' && <FeedbackSection />}
         {activeSection === 'layout' && <LayoutSection />}
         {activeSection === 'mobile' && <MobilePatternsSection />}
         {activeSection === 'marketing' && <MarketingSection />}

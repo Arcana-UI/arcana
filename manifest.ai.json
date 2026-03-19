@@ -1125,6 +1125,123 @@
         "useHotkey('k', () => setOpen(true), { modifier: 'meta' });\n<CommandPalette open={open} onClose={() => setOpen(false)} items={items} onSelect={handleSelect} />"
       ],
       "accessibility": "role=dialog, combobox input, listbox results, aria-activedescendant, focus trap, keyboard navigation"
+    },
+    {
+      "name": "Divider",
+      "import": "import { Divider } from '@arcana-ui/core'",
+      "description": "Horizontal or vertical separator line with optional centered label text.",
+      "props": {
+        "orientation": { "type": "'horizontal' | 'vertical'", "default": "horizontal" },
+        "variant": { "type": "'solid' | 'dashed' | 'dotted'", "default": "solid" },
+        "label": { "type": "string | ReactNode", "description": "Centered text (e.g., 'OR')" },
+        "spacing": { "type": "'none' | 'sm' | 'md' | 'lg'", "default": "md" }
+      },
+      "examples": [
+        "<Divider />",
+        "<Divider label=\"OR\" />",
+        "<Divider orientation=\"vertical\" />"
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "import": "import { Skeleton } from '@arcana-ui/core'",
+      "description": "Loading placeholder with pulse animation. Text, circular, and rectangular variants.",
+      "whenToUse": "Content loading states, data fetching placeholders, lazy component loading",
+      "props": {
+        "variant": { "type": "'text' | 'circular' | 'rectangular'", "default": "text" },
+        "lines": { "type": "number", "default": "1", "description": "Multiple text lines" },
+        "width": { "type": "string", "description": "CSS width" },
+        "height": { "type": "string", "description": "CSS height" },
+        "animate": { "type": "boolean", "default": "true" }
+      },
+      "examples": ["<Skeleton />", "<Skeleton variant=\"circular\" />", "<Skeleton lines={3} />"],
+      "accessibility": "aria-busy on container, aria-hidden on elements, respects prefers-reduced-motion"
+    },
+    {
+      "name": "Spinner",
+      "import": "import { Spinner } from '@arcana-ui/core'",
+      "description": "Rotating loading indicator with SVG circle and gap. Reduced-motion fallback.",
+      "props": {
+        "size": { "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'", "default": "md" },
+        "color": { "type": "'primary' | 'current' | 'white'", "default": "primary" },
+        "label": {
+          "type": "string",
+          "default": "Loading",
+          "description": "Visually hidden accessible label"
+        }
+      },
+      "examples": ["<Spinner />", "<Spinner size=\"lg\" color=\"current\" />"],
+      "accessibility": "role=status, aria-label, visually hidden text for screen readers"
+    },
+    {
+      "name": "Banner",
+      "import": "import { Banner } from '@arcana-ui/core'",
+      "description": "Full-width notification bar for site-wide notices. Supports sticky positioning and dismiss.",
+      "props": {
+        "variant": {
+          "type": "'info' | 'success' | 'warning' | 'error' | 'neutral'",
+          "default": "info"
+        },
+        "title": { "type": "string", "description": "Optional bold title" },
+        "children": { "type": "ReactNode", "description": "Message content" },
+        "dismissible": { "type": "boolean", "default": "false" },
+        "sticky": { "type": "boolean", "default": "false" },
+        "action": { "type": "ReactNode", "description": "Action button" }
+      },
+      "examples": ["<Banner variant=\"warning\" dismissible>Trial expires in 3 days.</Banner>"],
+      "accessibility": "role=alert for error/warning, role=status for info/success"
+    },
+    {
+      "name": "Image",
+      "import": "import { Image } from '@arcana-ui/core'",
+      "description": "Lazy-loaded image with skeleton fallback, error state, aspect ratio, and border radius.",
+      "props": {
+        "src": { "type": "string", "required": true },
+        "alt": { "type": "string", "required": true },
+        "fallback": { "type": "ReactNode", "description": "Custom fallback for loading/error" },
+        "aspectRatio": { "type": "number | 'square' | 'video' | 'portrait'" },
+        "objectFit": { "type": "'cover' | 'contain' | 'fill' | 'none'", "default": "cover" },
+        "lazy": { "type": "boolean", "default": "true" },
+        "radius": { "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", "default": "none" }
+      },
+      "examples": [
+        "<Image src=\"/photo.jpg\" alt=\"Team photo\" radius=\"lg\" aspectRatio=\"video\" />"
+      ]
+    },
+    {
+      "name": "Carousel",
+      "import": "import { Carousel } from '@arcana-ui/core'",
+      "description": "CSS scroll-snap carousel with arrows, dots, and auto-play. Native touch swipe.",
+      "whenToUse": "Image galleries, testimonial sliders, feature showcases",
+      "props": {
+        "children": { "type": "ReactNode[]", "required": true, "description": "Slide content" },
+        "autoPlay": { "type": "boolean", "default": "false" },
+        "autoPlayInterval": { "type": "number", "default": "5000" },
+        "loop": { "type": "boolean", "default": "true" },
+        "showArrows": { "type": "boolean", "default": "true" },
+        "showDots": { "type": "boolean", "default": "true" }
+      },
+      "examples": ["<Carousel>{slides.map(s => <div key={s.id}>{s.content}</div>)}</Carousel>"],
+      "accessibility": "role=region with aria-roledescription=carousel, slides with role=group, arrow buttons with labels"
+    },
+    {
+      "name": "ErrorBoundary",
+      "import": "import { ErrorBoundary } from '@arcana-ui/core'",
+      "description": "React error boundary with default fallback UI and retry. Class component (React requirement).",
+      "props": {
+        "fallback": {
+          "type": "ReactNode | ((error: Error, reset: () => void) => ReactNode)",
+          "description": "Custom error UI"
+        },
+        "onError": {
+          "type": "(error: Error, errorInfo: ErrorInfo) => void",
+          "description": "Error callback for logging"
+        },
+        "children": { "type": "ReactNode", "required": true }
+      },
+      "examples": [
+        "<ErrorBoundary fallback={(err, reset) => <p>{err.message} <button onClick={reset}>Retry</button></p>}>{children}</ErrorBoundary>"
+      ]
     }
   ],
   "design": {

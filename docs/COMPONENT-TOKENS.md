@@ -418,6 +418,62 @@ Each theme preset can override any component token. Here are the key differences
 | max-width | `--command-max-width` | `40rem` | |
 | max-height | `--command-max-height` | `60vh` | |
 
+### Divider
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| color | `--divider-color` | `--color-border-muted` | |
+| weight | `--divider-weight` | `--border-width-default` | |
+| label-color | `--divider-label-color` | `--color-fg-muted` | |
+| label-size | `--divider-label-size` | `--font-size-sm` | |
+| label-bg | `--divider-label-bg` | `--color-bg-page` | |
+
+### Skeleton
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| bg | `--skeleton-bg` | `--color-bg-surface` | |
+| radius | `--skeleton-radius` | `--radius-sm` | |
+| animation-duration | `--skeleton-animation-duration` | `--duration-slow` | |
+
+### Spinner
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| color | `--spinner-color` | `--color-action-primary` | |
+| track-color | `--spinner-track-color` | `--color-border-default` | |
+| speed | `--spinner-speed` | `--duration-slow` | |
+
+### Banner
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| padding-x | `--banner-padding-x` | `--spacing-md` | |
+| padding-y | `--banner-padding-y` | `--spacing-3` | |
+| info-bg | `--banner-info-bg` | `--color-status-info-bg` | |
+| success-bg | `--banner-success-bg` | `--color-status-success-bg` | |
+| warning-bg | `--banner-warning-bg` | `--color-status-warning-bg` | |
+| error-bg | `--banner-error-bg` | `--color-status-error-bg` | |
+| neutral-bg | `--banner-neutral-bg` | `--color-bg-surface` | |
+
+### Image
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| fallback-bg | `--image-fallback-bg` | `--color-bg-surface` | |
+| fallback-color | `--image-fallback-color` | `--color-fg-muted` | |
+
+### Carousel
+
+| Token | CSS Custom Property | Fallback | D |
+|-------|-------------------|----------|---|
+| arrow-bg | `--carousel-arrow-bg` | `--color-bg-page` | |
+| arrow-color | `--carousel-arrow-color` | `--color-fg-primary` | |
+| arrow-size | `--carousel-arrow-size` | `--spacing-10` | |
+| dot-size | `--carousel-dot-size` | `--spacing-2` | |
+| dot-color | `--carousel-dot-color` | `--color-border-default` | |
+| dot-active-color | `--carousel-dot-active-color` | `--color-action-primary` | |
+
 ---
 
 ## Per-Preset Overrides
