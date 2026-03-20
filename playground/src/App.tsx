@@ -178,6 +178,496 @@ function ToastDemo() {
   );
 }
 
+// ─── Typography Showcase ──────────────────────────────────────────────────────
+
+function TypographySection() {
+  return (
+    <div>
+      <h2 className={styles.sectionTitle}>Typography</h2>
+      <p className={styles.sectionDesc}>
+        Full type scale from 7xl hero headlines to xs captions. Marketing sites need big, bold
+        headlines while dashboards use compact, readable text. Switch themes to see how each preset
+        styles typography differently.
+      </p>
+
+      <Stack gap="xl">
+        {/* Display Headlines */}
+        <div>
+          <h3 className={styles.groupTitle}>Display Headlines</h3>
+          <p className={styles.sectionDesc}>
+            Fluid responsive sizes using clamp() — scales between mobile and desktop viewports.
+          </p>
+          <Stack gap="md">
+            <div>
+              <span
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--color-fg-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                }}
+              >
+                7xl — clamp(3rem, 2.5rem + 2.5vw, 4.5rem)
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontSize: 'var(--font-size-fluid-7xl)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  lineHeight: 'var(--line-height-tight)',
+                  letterSpacing: 'var(--letter-spacing-tight)',
+                  color: 'var(--color-fg-primary)',
+                  margin: 0,
+                }}
+              >
+                Build the future
+              </p>
+            </div>
+            <Divider />
+            <div>
+              <span
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--color-fg-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                }}
+              >
+                6xl — clamp(2.5rem, 2.083rem + 2.083vw, 3.75rem)
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontSize: 'var(--font-size-fluid-6xl)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  lineHeight: 'var(--line-height-tight)',
+                  letterSpacing: 'var(--letter-spacing-tight)',
+                  color: 'var(--color-fg-primary)',
+                  margin: 0,
+                }}
+              >
+                Ship products your customers love
+              </p>
+            </div>
+            <Divider />
+            <div>
+              <span
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--color-fg-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                }}
+              >
+                5xl — clamp(2rem, 1.667rem + 1.667vw, 3rem)
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontSize: 'var(--font-size-fluid-5xl)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  lineHeight: 'var(--line-height-tight)',
+                  letterSpacing: 'var(--letter-spacing-tight)',
+                  color: 'var(--color-fg-primary)',
+                  margin: 0,
+                }}
+              >
+                The modern design system
+              </p>
+            </div>
+            <Divider />
+            <div>
+              <span
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--color-fg-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                }}
+              >
+                4xl — clamp(1.75rem, 1.583rem + 0.833vw, 2.25rem)
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontSize: 'var(--font-size-fluid-4xl)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  lineHeight: 'var(--line-height-tight)',
+                  color: 'var(--color-fg-primary)',
+                  margin: 0,
+                }}
+              >
+                Features that set us apart
+              </p>
+            </div>
+            <Divider />
+            <div>
+              <span
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--color-fg-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                }}
+              >
+                3xl — clamp(1.5rem, 1.375rem + 0.625vw, 1.875rem)
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontSize: 'var(--font-size-fluid-3xl)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  lineHeight: 'var(--line-height-snug)',
+                  color: 'var(--color-fg-primary)',
+                  margin: 0,
+                }}
+              >
+                Section heading for content areas
+              </p>
+            </div>
+            <Divider />
+            <div>
+              <span
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--color-fg-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                }}
+              >
+                2xl — clamp(1.25rem, 1.167rem + 0.417vw, 1.5rem)
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontSize: 'var(--font-size-fluid-2xl)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  lineHeight: 'var(--line-height-snug)',
+                  color: 'var(--color-fg-primary)',
+                  margin: 0,
+                }}
+              >
+                Card titles and subsection headings
+              </p>
+            </div>
+          </Stack>
+        </div>
+
+        {/* Body Text */}
+        <div>
+          <h3 className={styles.groupTitle}>Body Text</h3>
+          <Stack gap="md">
+            {[
+              { label: 'xl', desc: 'Lead paragraph / intro text' },
+              { label: 'lg', desc: 'Large body — articles, marketing' },
+              { label: 'base', desc: 'Default body — general UI text' },
+              { label: 'sm', desc: 'Secondary text — descriptions, metadata' },
+              { label: 'xs', desc: 'Captions, labels, fine print' },
+            ].map(({ label, desc }) => (
+              <div
+                key={label}
+                style={{ display: 'flex', gap: 'var(--spacing-lg)', alignItems: 'baseline' }}
+              >
+                <span
+                  style={{
+                    fontSize: 'var(--font-size-xs)',
+                    color: 'var(--color-fg-muted)',
+                    fontFamily: 'var(--font-family-mono)',
+                    minWidth: '3rem',
+                    flexShrink: 0,
+                  }}
+                >
+                  {label}
+                </span>
+                <div>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-family-body)',
+                      fontSize: `var(--font-size-${label === 'base' ? 'base' : `fluid-${label}`})`,
+                      lineHeight: 'var(--line-height-relaxed)',
+                      color: 'var(--color-fg-primary)',
+                      margin: 0,
+                    }}
+                  >
+                    {desc}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-family-body)',
+                      fontSize: `var(--font-size-${label === 'base' ? 'base' : label})`,
+                      lineHeight: 'var(--line-height-relaxed)',
+                      color: 'var(--color-fg-secondary)',
+                      margin: '0.25em 0 0',
+                    }}
+                  >
+                    The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor
+                    jugs.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </Stack>
+        </div>
+
+        {/* Font Weights */}
+        <div>
+          <h3 className={styles.groupTitle}>Font Weights</h3>
+          <Stack gap="sm">
+            {[
+              { weight: 'light', value: '300' },
+              { weight: 'normal', value: '400' },
+              { weight: 'medium', value: '500' },
+              { weight: 'semibold', value: '600' },
+              { weight: 'bold', value: '700' },
+              { weight: 'black', value: '900' },
+            ].map(({ weight, value }) => (
+              <div
+                key={weight}
+                style={{ display: 'flex', gap: 'var(--spacing-lg)', alignItems: 'baseline' }}
+              >
+                <span
+                  style={{
+                    fontSize: 'var(--font-size-xs)',
+                    color: 'var(--color-fg-muted)',
+                    fontFamily: 'var(--font-family-mono)',
+                    minWidth: '6rem',
+                    flexShrink: 0,
+                  }}
+                >
+                  {weight} ({value})
+                </span>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-display)',
+                    fontSize: 'var(--font-size-fluid-2xl)',
+                    fontWeight: `var(--font-weight-${weight})`,
+                    color: 'var(--color-fg-primary)',
+                    margin: 0,
+                  }}
+                >
+                  Arcana Design System
+                </p>
+              </div>
+            ))}
+          </Stack>
+        </div>
+
+        {/* Font Families */}
+        <div>
+          <h3 className={styles.groupTitle}>Font Families</h3>
+          <Stack gap="md">
+            {[
+              { family: 'display', label: 'Display', sample: 'Headlines and hero sections' },
+              {
+                family: 'body',
+                label: 'Body',
+                sample: 'Paragraphs, descriptions, and general content',
+              },
+              { family: 'mono', label: 'Monospace', sample: 'Code blocks, technical labels, data' },
+            ].map(({ family, label, sample }) => (
+              <Card key={family}>
+                <CardBody>
+                  <span
+                    style={{
+                      fontSize: 'var(--font-size-xs)',
+                      color: 'var(--color-fg-muted)',
+                      fontFamily: 'var(--font-family-mono)',
+                    }}
+                  >
+                    --font-family-{family}
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: `var(--font-family-${family})`,
+                      fontSize: 'var(--font-size-fluid-3xl)',
+                      fontWeight: 'var(--font-weight-semibold)',
+                      color: 'var(--color-fg-primary)',
+                      margin: 'var(--spacing-xs) 0',
+                    }}
+                  >
+                    {label}: {sample}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: `var(--font-family-${family})`,
+                      fontSize: 'var(--font-size-base)',
+                      color: 'var(--color-fg-secondary)',
+                      margin: 0,
+                    }}
+                  >
+                    ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%
+                  </p>
+                </CardBody>
+              </Card>
+            ))}
+          </Stack>
+        </div>
+
+        {/* Marketing vs Dashboard comparison */}
+        <div>
+          <h3 className={styles.groupTitle}>Marketing vs Dashboard</h3>
+          <p className={styles.sectionDesc}>
+            Same type system, different contexts. Marketing uses large display headlines and relaxed
+            spacing, while dashboards use compact body text and tighter layouts.
+          </p>
+          <Grid columns={2} gap="lg">
+            <Card>
+              <CardBody>
+                <Badge variant="secondary">Marketing</Badge>
+                <Spacer size="sm" />
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-display)',
+                    fontSize: 'var(--font-size-fluid-5xl)',
+                    fontWeight: 'var(--font-weight-bold)',
+                    lineHeight: 'var(--line-height-tight)',
+                    letterSpacing: 'var(--letter-spacing-tight)',
+                    color: 'var(--color-fg-primary)',
+                    margin: 0,
+                  }}
+                >
+                  Start building today
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-body)',
+                    fontSize: 'var(--font-size-fluid-lg)',
+                    lineHeight: 'var(--line-height-relaxed)',
+                    color: 'var(--color-fg-secondary)',
+                    margin: 'var(--spacing-sm) 0 0',
+                  }}
+                >
+                  Join thousands of teams shipping faster with a design system built for the AI era.
+                </p>
+              </CardBody>
+            </Card>
+            <Card>
+              <CardBody>
+                <Badge variant="secondary">Dashboard</Badge>
+                <Spacer size="sm" />
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-body)',
+                    fontSize: 'var(--font-size-fluid-xl)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    lineHeight: 'var(--line-height-snug)',
+                    color: 'var(--color-fg-primary)',
+                    margin: 0,
+                  }}
+                >
+                  Monthly revenue
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-display)',
+                    fontSize: 'var(--font-size-fluid-4xl)',
+                    fontWeight: 'var(--font-weight-bold)',
+                    color: 'var(--color-fg-primary)',
+                    margin: 'var(--spacing-xs) 0 0',
+                    fontVariantNumeric: 'tabular-nums',
+                  }}
+                >
+                  $48,293.00
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-body)',
+                    fontSize: 'var(--font-size-sm)',
+                    color: 'var(--color-fg-muted)',
+                    margin: 'var(--spacing-xs) 0 0',
+                  }}
+                >
+                  +12.5% from last month
+                </p>
+              </CardBody>
+            </Card>
+          </Grid>
+        </div>
+
+        {/* Letter Spacing */}
+        <div>
+          <h3 className={styles.groupTitle}>Letter Spacing</h3>
+          <Stack gap="sm">
+            {[
+              { name: 'tighter', desc: '-0.05em — Extreme tight' },
+              { name: 'tight', desc: '-0.025em — Headlines' },
+              { name: 'normal', desc: '0 — Body text default' },
+              { name: 'wide', desc: '0.025em — Subtle expansion' },
+              { name: 'wider', desc: '0.05em — UI labels, caps' },
+              { name: 'widest', desc: '0.1em — All-caps headings' },
+            ].map(({ name, desc }) => (
+              <div
+                key={name}
+                style={{ display: 'flex', gap: 'var(--spacing-lg)', alignItems: 'baseline' }}
+              >
+                <span
+                  style={{
+                    fontSize: 'var(--font-size-xs)',
+                    color: 'var(--color-fg-muted)',
+                    fontFamily: 'var(--font-family-mono)',
+                    minWidth: '5rem',
+                    flexShrink: 0,
+                  }}
+                >
+                  {name}
+                </span>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-display)',
+                    fontSize: 'var(--font-size-fluid-xl)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    letterSpacing: `var(--letter-spacing-${name})`,
+                    color: 'var(--color-fg-primary)',
+                    margin: 0,
+                    textTransform: name === 'widest' ? 'uppercase' : undefined,
+                  }}
+                >
+                  {name === 'widest' ? 'ARCANA DESIGN SYSTEM' : 'Arcana Design System'}
+                </p>
+              </div>
+            ))}
+          </Stack>
+        </div>
+
+        {/* Line Heights */}
+        <div>
+          <h3 className={styles.groupTitle}>Line Heights</h3>
+          <Grid columns={3} gap="md">
+            {[
+              { name: 'none', value: '1' },
+              { name: 'tight', value: '1.15' },
+              { name: 'snug', value: '1.3' },
+              { name: 'normal', value: '1.5' },
+              { name: 'relaxed', value: '1.625' },
+              { name: 'loose', value: '1.75' },
+            ].map(({ name, value }) => (
+              <Card key={name}>
+                <CardBody>
+                  <span
+                    style={{
+                      fontSize: 'var(--font-size-xs)',
+                      color: 'var(--color-fg-muted)',
+                      fontFamily: 'var(--font-family-mono)',
+                    }}
+                  >
+                    {name} ({value})
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-family-body)',
+                      fontSize: 'var(--font-size-base)',
+                      lineHeight: `var(--line-height-${name})`,
+                      color: 'var(--color-fg-primary)',
+                      margin: 'var(--spacing-xs) 0 0',
+                    }}
+                  >
+                    Design systems enable teams to build better products faster by establishing a
+                    shared language between designers and developers.
+                  </p>
+                </CardBody>
+              </Card>
+            ))}
+          </Grid>
+        </div>
+      </Stack>
+    </div>
+  );
+}
+
 // ─── Overview Dashboard ───────────────────────────────────────────────────────
 
 function OverviewSection() {
@@ -3184,6 +3674,7 @@ function OverlaysSection() {
 
 type SectionId =
   | 'overview'
+  | 'typography'
   | 'navigation'
   | 'components'
   | 'forms'
@@ -3199,6 +3690,7 @@ type SectionId =
 
 const SECTIONS: Array<{ id: SectionId; label: string }> = [
   { id: 'overview', label: 'Overview' },
+  { id: 'typography', label: 'Typography' },
   { id: 'navigation', label: 'Navigation' },
   { id: 'components', label: 'Components' },
   { id: 'forms', label: 'Forms' },
@@ -3234,6 +3726,7 @@ function KitchenSink() {
       {/* Page content */}
       <div className={styles.pageContent}>
         {activeSection === 'overview' && <OverviewSection />}
+        {activeSection === 'typography' && <TypographySection />}
         {activeSection === 'navigation' && <NavigationSection />}
         {activeSection === 'components' && <ComponentsSection />}
         {activeSection === 'forms' && <FormsSection />}

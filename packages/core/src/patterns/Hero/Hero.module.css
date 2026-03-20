@@ -172,7 +172,7 @@
 
 .headline {
   font-family: var(--font-family-display);
-  font-size: var(--hero-headline-size, var(--font-size-fluid-5xl));
+  font-size: var(--hero-headline-size, var(--font-size-fluid-7xl));
   font-weight: var(--hero-headline-weight, var(--font-weight-bold));
   line-height: var(--hero-headline-line-height, var(--line-height-tight));
   letter-spacing: var(--letter-spacing-tight);

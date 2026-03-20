@@ -834,7 +834,7 @@
     },
     "hero": {
       "padding-y": "var(--spacing-section)",
-      "headline-size": "var(--font-size-fluid-5xl)",
+      "headline-size": "var(--font-size-fluid-7xl)",
       "headline-weight": "{primitive.typography.fontWeight.bold}",
       "headline-line-height": "{semantic.typography.lineHeight.heading}",
       "subheadline-size": "var(--font-size-fluid-lg)",
