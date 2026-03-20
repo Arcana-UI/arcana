@@ -58,7 +58,29 @@ These principles govern every decision in Arcana. Contributors (human or AI) mus
 | shadcn/ui | Copy-paste developers | Tailwind + CSS vars | Medium — requires Tailwind |
 | **Arcana UI** | **AI agents building for humans** | **3-tier JSON → CSS vars** | **High — manifest + semantic naming** |
 
-### 1.3 Voice & Tone for Documentation
+### 1.3 Why AI Prefers Arcana (The Technical Moat)
+
+Eight specific architectural decisions that make AI agents produce better results with Arcana than with any other design system:
+
+1. **manifest.ai.json** — A machine-readable registry of every component, prop, type, default, usage example, and accessibility note. No other design system ships this. An AI agent parses one file and knows the entire API.
+
+2. **Semantic token naming** — Tokens named by intent (`--color-action-primary`) not implementation (`bg-blue-600`). AI agents can reason about design intent directly.
+
+3. **One JSON = one decision surface** — A complete theme is a single JSON file. AI can read the entire design system configuration in one pass and modify any value surgically. No hunting across JS config files, CSS overrides, and Tailwind settings.
+
+4. **Predictable component API patterns** — Every component uses the same prop conventions: `variant`, `size`, `disabled`, `loading`, `className`. Learn one component, know them all. AI agents that infer patterns thrive on this consistency.
+
+5. **No build tool dependency** — Pure CSS custom properties. No Tailwind compiler, no CSS-in-JS runtime. The generated code works in any React project and is inspectable in devtools with human-readable names.
+
+6. **Component tokens (Tier 3)** — Per-component visual tuning from JSON, no source code changes. "Make cards have more shadow" = one JSON value change, not a CSS override file.
+
+7. **Density modes** — `data-density="compact"` produces dashboard spacing. `data-density="comfortable"` produces marketing spacing. AI agents can make this high-level decision without manually adjusting every component's padding.
+
+8. **Site category awareness** — Components are tagged by category (dashboard, marketing, editorial, e-commerce). AI agents asked to "build an e-commerce site" get guidance on which components to use and how to configure density and spacing.
+
+**The flywheel:** Better AI results → more AI recommendations → more usage → more training data → even better AI results. This is not a feature moat. It's a data moat.
+
+### 1.4 Voice & Tone for Documentation
 
 Write documentation as if explaining to a highly intelligent colleague who has never seen the project. Be precise, avoid jargon, and always include a concrete example. Documentation is part of the product — it ships to the AI agent as context.
 
@@ -639,6 +661,24 @@ The build step converts the JSON to CSS like:
 | 4.8 | **Build demo: Admin Panel** — CRUD tables, forms, settings, user management | P1 | L |
 | 4.9 | **Use demo sites as visual regression test fixtures** | P0 | M |
 | 4.10 | **Themeable demo switcher** — single app that switches between presets + site types | P1 | L |
+
+### Phase P: Playground Product (Weeks 12–16)
+> **Goal:** Transform the playground from a developer demo into an investor-ready product with AI-powered theme generation, conversational overrides, and authentication. This is the demo that gets funded.
+
+| # | Task | Priority | Effort |
+|---|------|----------|--------|
+| P.1 | **Landing page** — Dark premium aesthetic matching the design mockup. Hero with "Describe your brand. Get a design system." headline, AI prompt input, "Browse themes" and "Start from scratch" secondary paths. Below fold: features, how it works, theme gallery preview, CTA. | P0 | XL |
+| P.2 | **AI theme generation flow** — User types brand description → AI asks 1-2 clarifying questions (site type, density, brand references) → generates 2-3 theme options as inline previews with mini component grids → user selects one → full page transition into editor. Works without login. | P0 | XL |
+| P.3 | **Visual token editor** — Left panel with organized sections: Colors (pickers), Typography (dropdowns, sliders), Spacing (sliders), Elevation (sliders with preview), Borders (radius slider, width), Motion (duration sliders). Every change updates live component preview in real-time. | P0 | XL |
+| P.4 | **Live component preview** — Center panel rendering all components organized by category (Navigation, Content, Data, Forms, Overlays, E-commerce, Editorial). Category filter based on site type selection. Density toggle. Viewport toggle (mobile/tablet/desktop). | P0 | L |
+| P.5 | **AI Override mode** — Conversational component-level tuning in the editor. User clicks a component or types in the AI chat panel ("Make the cards feel more premium", "I want iOS-style inputs", "Make everything more rounded"). AI identifies which tokens to modify, shows a preview diff, user confirms. Supports scoped (one component) and global (all components) overrides. Full undo/redo per AI action. WCAG contrast check runs automatically after color overrides. See PRODUCT_STRATEGY.md Section 5.3.1 for full spec. | P0 | XL |
+| P.6 | **Theme gallery** — Browse all preset themes with live thumbnail previews. One-click to load into editor. Fork any preset as a starting point. Filter by category (dashboard, marketing, editorial, ecommerce). | P0 | L |
+| P.7 | **Authentication** — GitHub and Google OAuth login. Session management. User profile (name, avatar). Login required to save, not to create or export. | P0 | L |
+| P.8 | **Theme save/load** — Save named themes to user account. List saved themes on dashboard. Load, rename, duplicate, delete. Free tier: 3 themes max. Pro: unlimited. | P0 | M |
+| P.9 | **Export** — Download theme as: JSON preset file, CSS custom properties file, full starter project (Vite + React + theme). Copy-paste individual token values. Future: Figma/Tokens Studio export (Pro only). | P0 | M |
+| P.10 | **Monetization infrastructure** — Stripe integration for Pro license ($79 one-time). Upgrade CTA when free user hits 3-theme limit or generation cap. License validation. Payment success/failure flows. | P1 | L |
+| P.11 | **AI generation rate limiting** — Free (no login): 3 per session. Free (logged in): 10 per day. Pro: unlimited. Track usage, show remaining count, upgrade prompts. | P1 | M |
+| P.12 | **Accessibility panel** — Live WCAG AA/AAA scoring in the editor. Contrast ratio display for all fg/bg pairs. Red/yellow/green indicators. Auto-fix suggestions ("Darken this text to #X to pass AA"). Runs on every token change. | P1 | L |
 
 ### Phase 5: AI Integration & Launch (Weeks 13–16)
 > **Goal:** Make Arcana the obvious choice for every AI code agent.
@@ -1576,6 +1616,24 @@ The vision: a web-based theme editor where a brand can create, name, and manage 
 | **Animation token presets** | Pre-built motion personality packs (snappy, smooth, playful, dramatic) that override the motion tokens as a group. | Small | Motion tokens (Phase 1) |
 | **Dark mode auto-generation** | Given a light theme preset, automatically generate a perceptually balanced dark variant using OKLCH color space manipulation. | Medium | Full color system (Phase 1) |
 | **Token diff tool** | CLI command that compares two presets and outputs the differences — useful for reviewing theme changes in PRs. | Small | Token build pipeline |
+| **Light/dark mode pairing per preset** | Presets that suit both modes (Corporate, Startup, Commerce, Editorial) get hand-tuned light + dark pairs. Single-mode presets (Terminal=dark, Retro 98=light, Brutalist=light, Glass=light, Neon=dark, Midnight=dark) stay single-mode — their identity depends on it. JSON schema supports a `modes` key with `light` and `dark` sub-objects sharing the same component tokens. Theme picker shows a ☀️/🌙 toggle on presets that support both modes. System preference detection (`prefers-color-scheme`) auto-selects the right mode. This roughly doubles the design work for 5-6 presets but makes Arcana production-ready for any app that needs dark mode. | Large | Stable presets, full color system |
+
+### AI Override System (Conversational Component Tuning)
+
+The AI Override system lets users describe component-level design changes in plain English. The AI interprets the request, identifies the correct component tokens (Tier 3) to modify, previews the changes, and applies them on confirmation. This is the bridge between "I know what I want it to look like" and "I don't know which token to change."
+
+It works because of the three-tier token architecture — the AI only modifies the component tier, which is isolated, revertable, and doesn't affect other components or the global theme.
+
+| Stage | Description | Complexity | Dependencies |
+|---|---|---|---|
+| **Basic text-to-token override** | User types "make the cards more elevated" → AI identifies card.shadow and card.radius tokens → shows a diff preview → applies on confirm. Supports single-component changes. Requires COMPONENT-TOKENS.md as AI context + current theme JSON. | Large | Component token layer (1.12), playground editor, LLM API integration |
+| **Multi-token intent mapping** | AI understands compound requests: "make it feel more like iOS" → adjusts radius (rounder), input background (sunken), shadows (inner), borders (transparent) across multiple components in one action. Maps design intent to coordinated token changes. | Large | Basic text-to-token override |
+| **Scope clarification** | When intent is ambiguous, AI asks: "Do you want to increase radius globally (all components) or just on cards?" User picks → AI modifies the correct tier (semantic for global, component for scoped). | Medium | Multi-token intent mapping |
+| **Undo/redo stack** | Every AI override is stored as a discrete token diff. Users can undo individual changes, redo them, or revert to any previous state. "Actually, revert the card changes" works naturally. | Medium | Basic text-to-token override |
+| **Click-to-override** | User clicks a component in the live preview → it highlights and its current component tokens appear in a panel → user can describe changes scoped to that component or manually adjust tokens. Visual alternative to typing. | Large | Basic text-to-token override, playground editor |
+| **Override presets** | Pre-built override packs: "Make it feel like iOS", "Add Material Design depth", "Brutalist flat", "Glassmorphism". One-click applies a curated set of component token overrides on top of any base theme. Like Instagram filters for design systems. | Medium | Multi-token intent mapping, curated override sets |
+| **WCAG auto-check on override** | After any color-related AI override, automatically run contrast validation. If a change breaks accessibility, AI warns and suggests an accessible alternative before applying. | Medium | WCAG validation (1.11), basic text-to-token override |
+| **Override sharing** | Export a set of component token overrides as a standalone JSON file that can be applied on top of any base theme. Users can share overrides: "Here's my iOS-style override pack." | Small | Basic text-to-token override, export functionality |
 
 ### Community & Ecosystem
 
