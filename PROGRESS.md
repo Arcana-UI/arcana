@@ -1,8 +1,8 @@
 # Arcana UI — Progress Tracker
 
-> **Last updated:** 2026-03-19
-> **Current phase:** 4 — Theme Presets & Demo Sites (4.1 in progress)
-> **Next priority task:** 4.2
+> **Last updated:** 2026-03-20
+> **Current phase:** P — Playground Product
+> **Next priority task:** P.2
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -68,6 +68,10 @@
 - [ ] 4.8 — Demo: Admin Panel
 - [ ] 4.9 — Visual regression test fixtures from demos
 - [ ] 4.10 — Themeable demo switcher
+
+## Phase P: Playground Product
+- [x] P.1 — Landing page (dark premium aesthetic, 10 sections, SEO, responsive)
+- [ ] P.2 — AI theme generation (prompt input → theme JSON)
 
 ## Phase 5: AI Integration & Launch (Weeks 13–16)
 - [ ] 5.1 — Update manifest.ai.json
