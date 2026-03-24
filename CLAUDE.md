@@ -39,6 +39,20 @@
 
 ---
 
+## Branching Model
+
+This project uses a two-branch model. See `RELEASING.md` for the full strategy.
+
+- **`develop`** — Staging branch. This is where all day-to-day work happens. Feature branches are created from `develop`. PRs target `develop`. Beta releases are published from `develop`.
+- **`main`** — Releases only. Every commit on `main` is a published release. Never commit directly to `main`. Only receives merges from `develop` via release PRs.
+- **Feature branches** — Created from `develop`, named `{type}/{task-number}-{description}` (e.g., `feat/3.4-data-display`). Deleted after merge.
+
+**Rules for AI agents:**
+- Never directly commit to `main`. Never run `npm publish`. Never bump versions.
+- Always branch from `develop`. Always PR into `develop`.
+
+---
+
 ## Essential Documents
 
 | File | Purpose | When to Read |
@@ -47,6 +61,7 @@
 | `PROGRESS.md` | Checklist tracker — what's done, what's next | Every session (start + end) |
 | `ROADMAP.md` | Full architecture, token spec, component standards, phased plan | When working on any task |
 | `AI_OPS.md` | Prompt library, tracking system, session management | When you need the specific prompt for a task |
+| `RELEASING.md` | Branching model, release process, version numbering | When branching, releasing, or versioning |
 | `manifest.ai.json` | Machine-readable component/token registry for AI discovery | When updating AI integration |
 
 ---
