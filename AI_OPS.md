@@ -141,9 +141,9 @@ Every session, follow this exact sequence:
 4. **Do NOT start coding until the user confirms the plan**
 
 ### Branch Setup
-5. **Create a branch from main** before writing any code:
+5. **Create a branch from develop** before writing any code:
    ```
-   git checkout main && git pull
+   git checkout develop && git pull
    git checkout -b {type}/{task-number}-{short-description}
    ```
    Branch naming examples:
@@ -219,9 +219,9 @@ Every session, follow this exact sequence:
     - Closes #{issue-number} (if GitHub issue exists)
     ```
     
-    Use the GitHub CLI if available:
+    Use the GitHub CLI if available (always target develop, never main):
     ```
-    gh pr create \
+    gh pr create --base develop \
       --title "feat(core): add data display components [3.4]" \
       --body "$(cat <<'EOF'
     ## Task
@@ -248,6 +248,15 @@ Every session, follow this exact sequence:
 
 13. **Summarize** — tell the user what was done, what's next, and any blockers
 ```
+
+### Critical Rules for AI Agents
+
+- **Never directly commit to `main`.** Main is for releases only.
+- **Never run `npm publish`.** Publishing is the maintainer's job.
+- **Never bump version numbers.** Versioning is part of the release process.
+- **The `develop` branch is your working branch.** `main` is releases only.
+- **All feature branches are created from `develop`**, not main.
+- **All PRs target `develop`**, not main.
 
 ---
 
@@ -1032,7 +1041,7 @@ Then tell me:
 - The branch name you will create (e.g., feat/3.4-data-display-components)
 
 Do NOT start coding until I confirm the plan.
-After I confirm, create the branch from main before writing any code.
+After I confirm, create the branch from develop before writing any code.
 ```
 
 ### End-of-Session Prompt

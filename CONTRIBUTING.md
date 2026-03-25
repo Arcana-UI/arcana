@@ -58,14 +58,28 @@ For deeper reference:
 3. Comment on the issue before starting so others know it's claimed
 4. Want to propose something not on the roadmap? Open an issue first to discuss
 
+### Branching Model
+
+This project uses a two-branch model:
+
+- **`develop`** — The integration branch. All feature work merges here. Beta releases are published from `develop`.
+- **`main`** — Production releases only. Never commit directly to `main`. Only receives merges from `develop` via release PRs.
+- **Feature branches** — Created from `develop`, merged back into `develop`.
+
+See [RELEASING.md](./RELEASING.md) for the full release strategy.
+
 ### Branch and PR Workflow
 
-1. Create a branch from `main` with a descriptive name:
+1. Create a branch from `develop` (not `main`) with a descriptive name:
+   ```bash
+   git checkout develop && git pull
+   git checkout -b feat/1.4-elevation-system
+   ```
    - `feat/1.4-elevation-system`
    - `fix/button-focus-ring`
 2. Make your changes following the [code standards](#code-standards) below
 3. Run the full check: `pnpm lint && pnpm test && pnpm build`
-4. Push and open a PR
+4. Push and open a PR **targeting `develop`** (not `main`)
 5. **PR title must follow conventional commits:** `type(scope): description`
 6. Link the relevant PROGRESS.md task or GitHub Issue in the PR description
 7. One task per PR — do not bundle unrelated changes

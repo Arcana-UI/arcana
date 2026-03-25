@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "AI-first design system with token-driven theming",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm -r --filter '!docs' build",
     "build:tokens": "pnpm --filter @arcana-ui/tokens build",
     "build:core": "pnpm --filter @arcana-ui/core build",
     "dev": "pnpm --filter playground dev",

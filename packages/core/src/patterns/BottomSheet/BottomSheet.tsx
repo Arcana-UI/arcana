@@ -47,7 +47,7 @@ export const BottomSheet = React.forwardRef<HTMLDivElement, BottomSheetProps>(
     },
     ref,
   ) => {
-    const sheetRef = useRef<HTMLDivElement>(null);
+    const sheetRef = useRef<HTMLDialogElement>(null);
     const previousFocusRef = useRef<HTMLElement | null>(null);
     const titleId = useRef(`bottomsheet-title-${Math.random().toString(36).slice(2)}`);
     const descId = useRef(`bottomsheet-desc-${Math.random().toString(36).slice(2)}`);
@@ -120,9 +120,9 @@ export const BottomSheet = React.forwardRef<HTMLDivElement, BottomSheetProps>(
 
     return (
       <div ref={ref} className={styles.overlay} onClick={handleOverlayClick} aria-hidden="false">
-        <div
+        <dialog
           ref={sheetRef}
-          role="dialog"
+          open
           aria-modal="true"
           aria-labelledby={title ? titleId.current : undefined}
           aria-describedby={description ? descId.current : undefined}
@@ -176,7 +176,7 @@ export const BottomSheet = React.forwardRef<HTMLDivElement, BottomSheetProps>(
           )}
 
           <div className={styles.body}>{children}</div>
-        </div>
+        </dialog>
       </div>
     );
   },
