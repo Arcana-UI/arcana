@@ -1,8 +1,8 @@
 # Arcana UI — Progress Tracker
 
-> **Last updated:** 2026-03-23
+> **Last updated:** 2026-03-26
 > **Current phase:** 4 — Theme Presets & Demo Sites / 5 — AI Integration & Launch
-> **Next priority task:** npm publish (needs npm auth), then 4.3–4.8 demo content
+> **Next priority task:** P.2 AI theme generation, then 4.4–4.8 demo content, then npm publish
 > **Blocking issues:** npm publish requires `npm login` (no credentials in environment)
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
@@ -73,6 +73,7 @@
 - [x] P.1 — Landing page (dark premium aesthetic, 10 sections, SEO, responsive)
 - [x] P.1.1 — Landing page polish (all 14 themes, responsive showcase, ?theme= linking, dead link fixes)
 - [x] P.1.2 — Playground bugfix and polish (preset logos, color-scheme fixes, stale counts)
+- [x] P.1.3 — Token editor rebuild (custom color picker, bezier editor, search/filter, undo/redo, modified indicators, mobile)
 - [ ] P.2 — AI theme generation (prompt input → theme JSON)
 
 ## Phase 5: AI Integration & Launch (Weeks 13–16)

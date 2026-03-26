@@ -1,0 +1,175 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.canvasWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.canvas {
+  width: 140px;
+  height: 140px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: crosshair;
+  display: block;
+  background: var(--color-bg-page);
+}
+
+/* ─── Number inputs ─── */
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 4px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.inputLabel {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-fg-muted);
+}
+
+.input {
+  width: 100%;
+  padding: 3px 4px;
+  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-page);
+  color: var(--color-fg-primary);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-border-focus);
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ─── CSS output ─── */
+
+.cssOutput {
+  font-size: 10px;
+  font-family: "JetBrains Mono", monospace;
+  color: var(--color-fg-muted);
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: 4px 6px;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* ─── Preview ─── */
+
+.preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.previewTrack {
+  flex: 1;
+  height: 20px;
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  position: relative;
+  overflow: hidden;
+}
+
+.previewDot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-action-primary);
+  transform: translateY(-50%);
+  will-change: transform;
+}
+
+.playBtn {
+  padding: 2px 8px;
+  font-size: 10px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  color: var(--color-fg-secondary);
+  cursor: pointer;
+  transition: background var(--transition-colors);
+  font-family: var(--font-family-body);
+  flex-shrink: 0;
+}
+
+.playBtn:hover:not(:disabled) {
+  background: var(--color-action-ghost-hover);
+}
+
+.playBtn:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}
+
+/* ─── Presets ─── */
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.presetBtn {
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 500;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-page);
+  color: var(--color-fg-secondary);
+  cursor: pointer;
+  transition: all 80ms;
+  font-family: var(--font-family-body);
+}
+
+.presetBtn:hover {
+  border-color: var(--color-action-primary);
+  color: var(--color-action-primary);
+  background: var(--color-action-outline-hover);
+}
+
+.presetActive {
+  background: var(--color-action-primary);
+  border-color: var(--color-action-primary);
+  color: var(--color-fg-on-primary);
+}
+
+.presetActive:hover {
+  background: var(--color-action-primary-hover);
+  border-color: var(--color-action-primary-hover);
+  color: var(--color-fg-on-primary);
+}
