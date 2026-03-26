@@ -467,6 +467,63 @@
   }
 }
 
+/* ─── Mobile: hide editor, show message ──────────────────────────────────── */
+
+.mobileBanner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border-default);
+  font-size: 13px;
+  color: var(--color-fg-secondary);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mobileBannerIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Tablet (< 1024px): hide editor panel, show toggle button in topbar */
+@media (max-width: 1023px) {
+  .leftPanel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 300;
+    box-shadow: var(--shadow-xl);
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .leftPanel.collapsed {
+    transform: translateX(-100%);
+    width: 272px;
+    opacity: 1;
+    border-right: 1px solid var(--color-border-default);
+  }
+}
+
+/* Mobile (< 640px): show banner, completely disable editor toggle */
+@media (max-width: 639px) {
+  .mobileBanner {
+    display: flex;
+  }
+
+  .leftPanel {
+    display: none !important;
+  }
+
+  /* Hide the editor toggle button on mobile */
+  .editorToggleBtn {
+    display: none;
+  }
+}
+
 /* ─── Prose content area (for editorial demos) ───────────────────────────── */
 
 .proseDemo {
