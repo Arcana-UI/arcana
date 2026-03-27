@@ -3806,7 +3806,7 @@ export default function App() {
 
           <div className={styles.topbarControls}>
             <button
-              className={`${styles.panelToggle} ${leftOpen ? styles.panelToggleActive : ''}`}
+              className={`${styles.panelToggle} ${leftOpen ? styles.panelToggleActive : ''} ${styles.editorToggleBtn}`}
               onClick={() => setLeftOpen((v) => !v)}
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
@@ -3828,6 +3828,12 @@ export default function App() {
             </button>
           </div>
         </header>
+
+        {/* Mobile: editor not available message */}
+        <div className={styles.mobileBanner}>
+          <span className={styles.mobileBannerIcon}>🖥</span>
+          <span>The Arcana token editor is optimized for desktop. View component demos below.</span>
+        </div>
 
         {/* Workspace */}
         <div className={styles.workspace}>

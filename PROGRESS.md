@@ -1,9 +1,9 @@
 # Arcana UI — Progress Tracker
 
-> **Last updated:** 2026-03-23
-> **Current phase:** 4 — Theme Presets & Demo Sites / 5 — AI Integration & Launch
-> **Next priority task:** npm publish (needs npm auth), then 4.3–4.8 demo content
-> **Blocking issues:** npm publish requires `npm login` (no credentials in environment)
+> **Last updated:** 2026-03-26
+> **Current phase:** Phase 4 (partial) + Phase P (partial)
+> **Next priority task:** P.2 — AI theme generation, then 4.4/4.5/4.7/4.8 demo content
+> **Blocking issues:** None — npm packages published as 0.1.0-beta.1
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)
 - [x] 0.1 — Audit & document current token set
@@ -73,13 +73,14 @@
 - [x] P.1 — Landing page (dark premium aesthetic, 10 sections, SEO, responsive)
 - [x] P.1.1 — Landing page polish (all 14 themes, responsive showcase, ?theme= linking, dead link fixes)
 - [x] P.1.2 — Playground bugfix and polish (preset logos, color-scheme fixes, stale counts)
+- [x] P.1.3 — Token editor rebuild (custom color picker, bezier editor, search/filter, undo/redo, modified indicators, mobile)
 - [ ] P.2 — AI theme generation (prompt input → theme JSON)
 
 ## Phase 5: AI Integration & Launch (Weeks 13–16)
 - [ ] 5.1 — Update manifest.ai.json
 - [ ] 5.2 — Build Claude Code skill
 - [ ] 5.3 — Build prompt templates
-- [ ] 5.4 — Publish to npm (v1.0) — beta packages configured (0.1.0-beta.1), needs npm login to publish
+- [ ] 5.4 — Publish to npm (v1.0) — beta 0.1.0-beta.1 already published; this task is for the v1.0 stable release
 - [ ] 5.5 — Build documentation site
 - [ ] 5.6 — SEO & discoverability
 - [ ] 5.7 — Community starter templates (Next, Vite, Remix, Astro)
