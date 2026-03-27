@@ -35,7 +35,7 @@
 .popup {
   position: absolute;
   top: calc(100% + 6px);
-  left: 0;
+  right: 0;
   z-index: 500;
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border-default);
@@ -48,11 +48,11 @@
   gap: 8px;
 }
 
-/* Flip left if near right edge */
+/* Flip right if near left edge */
 @media (max-width: 400px) {
   .popup {
-    right: 0;
-    left: auto;
+    right: auto;
+    left: 0;
   }
 }
 
