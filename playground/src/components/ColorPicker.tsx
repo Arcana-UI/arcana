@@ -17,7 +17,7 @@
 
 import { useFloating } from '@arcana-ui/core';
 import type React from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styles from './ColorPicker.module.css';
 
 // ─── Color Math ───────────────────────────────────────────────────────────────
