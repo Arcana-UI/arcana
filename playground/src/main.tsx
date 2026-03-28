@@ -7,7 +7,6 @@ import ComponentGallery from './pages/ComponentGallery';
 import Landing from './pages/Landing';
 import PlaygroundLayout from './pages/PlaygroundLayout';
 import TokenExplorer from './pages/TokenExplorer';
-import TokenGraph from './pages/TokenGraph';
 import TokenImpact from './pages/TokenImpact';
 
 // Import Arcana tokens (CSS custom properties + reset)
@@ -26,7 +25,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/playground/components/:name" element={<ComponentDetail />} />
           <Route path="/playground/tokens" element={<TokenExplorer />} />
           <Route path="/playground/tokens/:category/:name" element={<TokenImpact />} />
-          <Route path="/playground/graph" element={<TokenGraph />} />
         </Route>
       </Routes>
     </BrowserRouter>

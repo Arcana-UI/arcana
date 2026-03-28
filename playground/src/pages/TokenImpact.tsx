@@ -233,7 +233,7 @@ export default function TokenImpact() {
         )}
         <div className={styles.copyRow}>
           <code>{fullName}</code>
-          <CopyButton text={fullName} />
+          <CopyButton value={fullName} />
         </div>
       </section>
 

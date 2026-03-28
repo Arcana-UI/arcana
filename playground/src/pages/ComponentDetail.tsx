@@ -168,7 +168,7 @@ function OverviewSection({ meta }: { meta: ComponentMeta }) {
       </div>
       <div className={styles.importBlock}>
         <code className={styles.importCode}>{importLine}</code>
-        <CopyButton text={importLine} />
+        <CopyButton value={importLine} />
       </div>
     </section>
   );

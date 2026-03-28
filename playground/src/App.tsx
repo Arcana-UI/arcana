@@ -3812,9 +3812,6 @@ export default function App() {
             <Link to="/playground/tokens" className={styles.playgroundNavLink}>
               Tokens
             </Link>
-            <Link to="/playground/graph" className={styles.playgroundNavLink}>
-              Graph
-            </Link>
           </nav>
 
           <div className={styles.topbarSpacer} />
