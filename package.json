@@ -17,6 +17,8 @@
     "test:visual:update": "playwright test --update-snapshots",
     "test:all": "vitest run && playwright test",
     "validate:tokens": "pnpm --filter @arcana-ui/tokens validate",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "manifest:check": "node scripts/generate-manifest.mjs --check",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean",
     "dev:dashboard": "pnpm --filter @arcana-ui/demo-dashboard dev",
