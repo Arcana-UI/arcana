@@ -5,6 +5,7 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -122,9 +123,9 @@ jobs:
     name: Visual Regression
     runs-on: ubuntu-latest
     needs: build
-    # Visual tests can be flaky in CI due to font rendering differences
-    # across environments. Non-blocking until baselines are stabilized.
-    continue-on-error: true
+    # Visual tests are slow and flaky due to font rendering differences
+    # across environments. Only runs on main branch pushes or manual trigger.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
 
