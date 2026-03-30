@@ -39,16 +39,18 @@ const CHECK_MODE = process.argv.includes('--check');
 function extractInterfaces(source) {
   const interfaces = {};
   // Match: export interface FooProps<T> extends ... { ... }
-  const interfaceRegex = /export\s+(?:type|interface)\s+(\w+Props\w*)\s*(?:<[^>]*>)?\s*(?:extends\s+[^{]+)?\{/g;
-  let match;
+  const interfaceRegex =
+    /export\s+(?:type|interface)\s+(\w+Props\w*)\s*(?:<[^>]*>)?\s*(?:extends\s+[^{]+)?\{/g;
+  let match = interfaceRegex.exec(source);
 
-  while ((match = interfaceRegex.exec(source)) !== null) {
+  while (match !== null) {
     const name = match[1];
     const startBrace = match.index + match[0].length - 1;
     const body = extractBalancedBraces(source, startBrace);
     if (body) {
       interfaces[name] = parseInterfaceBody(body);
     }
+    match = interfaceRegex.exec(source);
   }
 
   return interfaces;
@@ -88,7 +90,10 @@ function parseInterfaceBody(body) {
 
     // Accumulate JSDoc single-line comments: /** ... */
     if (line.startsWith('/**') && line.endsWith('*/')) {
-      currentComment = line.replace(/^\/\*\*\s*/, '').replace(/\s*\*\/$/, '').trim();
+      currentComment = line
+        .replace(/^\/\*\*\s*/, '')
+        .replace(/\s*\*\/$/, '')
+        .trim();
       continue;
     }
     if (line.startsWith('/**')) {
@@ -127,7 +132,12 @@ function parseInterfaceBody(body) {
       currentComment = '';
     } else {
       // Non-matching line — reset comment only if it's not a comment line
-      if (!line.startsWith('//') && !line.startsWith('*') && !line.startsWith('/**') && line !== '') {
+      if (
+        !line.startsWith('//') &&
+        !line.startsWith('*') &&
+        !line.startsWith('/**') &&
+        line !== ''
+      ) {
         currentComment = '';
       }
     }
@@ -145,9 +155,7 @@ function parseTypeString(typeStr) {
   // Check for union of string literals: 'a' | 'b' | 'c'
   const literalUnionMatch = typeStr.match(/^(['"][\w-]+['"](?:\s*\|\s*['"][\w-]+['"])+)$/);
   if (literalUnionMatch) {
-    const values = typeStr
-      .split('|')
-      .map((s) => s.trim().replace(/['"]/g, ''));
+    const values = typeStr.split('|').map((s) => s.trim().replace(/['"]/g, ''));
     prop.type = 'enum';
     prop.values = values;
     return prop;
@@ -196,9 +204,10 @@ function extractDefaults(source, componentName) {
     if (match) {
       const destructured = match[1];
       // Find all prop = defaultValue patterns
-      const defaultRegex = /(\w+)\s*=\s*(['"][\w-]+['"]|true|false|\d+(?:\.\d+)?|\[\]|\{\}|null|undefined)/g;
-      let dm;
-      while ((dm = defaultRegex.exec(destructured)) !== null) {
+      const defaultRegex =
+        /(\w+)\s*=\s*(['"][\w-]+['"]|true|false|\d+(?:\.\d+)?|\[\]|\{\}|null|undefined)/g;
+      let dm = defaultRegex.exec(destructured);
+      while (dm !== null) {
         let val = dm[2];
         // Clean up string values
         if (val.startsWith("'") || val.startsWith('"')) {
@@ -211,6 +220,7 @@ function extractDefaults(source, componentName) {
           val = Number(val);
         }
         defaults[dm[1]] = val;
+        dm = defaultRegex.exec(destructured);
       }
       break;
     }
@@ -243,16 +253,20 @@ function parseIndex(indexSource) {
 
   // Match: export { Foo, Bar } from './path';
   const reExportRegex = /export\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/g;
-  let match;
+  let match = reExportRegex.exec(indexSource);
 
-  while ((match = reExportRegex.exec(indexSource)) !== null) {
-    const names = match[1].split(',').map((n) => n.trim()).filter(Boolean);
+  while (match !== null) {
+    const names = match[1]
+      .split(',')
+      .map((n) => n.trim())
+      .filter(Boolean);
     const fromPath = match[2];
 
     for (const name of names) {
       // Skip type-only exports (they come on separate lines with `export type`)
       exports.push({ name, fromPath });
     }
+    match = reExportRegex.exec(indexSource);
   }
 
   // Deduplicate — types and values may share names
@@ -271,7 +285,7 @@ function parseIndex(indexSource) {
  * Follows barrel re-exports (index.ts) to find the real source.
  */
 function resolveSourceFile(name, fromPath) {
-  let resolvedPath = path.resolve(CORE_SRC, fromPath);
+  const resolvedPath = path.resolve(CORE_SRC, fromPath);
 
   // Try direct .tsx, .ts first (single-file modules)
   for (const ext of ['.tsx', '.ts']) {
@@ -281,13 +295,17 @@ function resolveSourceFile(name, fromPath) {
   // If it's a directory, check for barrel → follow re-export → find real source
   const dirIndex = path.join(resolvedPath, 'index.ts');
   const dirIndexTsx = path.join(resolvedPath, 'index.tsx');
-  const barrelPath = fs.existsSync(dirIndex) ? dirIndex : fs.existsSync(dirIndexTsx) ? dirIndexTsx : null;
+  const barrelPath = fs.existsSync(dirIndex)
+    ? dirIndex
+    : fs.existsSync(dirIndexTsx)
+      ? dirIndexTsx
+      : null;
 
   if (barrelPath) {
     const barrelSource = fs.readFileSync(barrelPath, 'utf-8');
     // Follow re-export: export { Foo } from './Foo'
     const reExport = barrelSource.match(
-      new RegExp(`export\\s+\\{[^}]*\\b${name}\\b[^}]*\\}\\s+from\\s+['"]([^'"]+)['"]`)
+      new RegExp(`export\\s+\\{[^}]*\\b${name}\\b[^}]*\\}\\s+from\\s+['"]([^'"]+)['"]`),
     );
     if (reExport) {
       const innerPath = path.resolve(path.dirname(barrelPath), reExport[1]);
@@ -366,7 +384,7 @@ function extractHookMetadata(name, fromPath) {
   // Extract ONLY the JSDoc block immediately preceding `export function hookName`
   // Use a targeted regex that captures just the last JSDoc before the function
   const jsdocRegex = new RegExp(
-    `/\\*\\*\\s*\\n([\\s\\S]*?)\\*/\\s*\\n\\s*export\\s+function\\s+${name}\\b`
+    `/\\*\\*\\s*\\n([\\s\\S]*?)\\*/\\s*\\n\\s*export\\s+function\\s+${name}\\b`,
   );
   const jsdocMatch = source.match(jsdocRegex);
 
@@ -374,9 +392,7 @@ function extractHookMetadata(name, fromPath) {
   let example = '';
 
   if (jsdocMatch) {
-    const lines = jsdocMatch[1]
-      .split('\n')
-      .map((l) => l.replace(/^\s*\*\s?/, '').trim());
+    const lines = jsdocMatch[1].split('\n').map((l) => l.replace(/^\s*\*\s?/, '').trim());
 
     const descLines = [];
     const exampleLines = [];
@@ -406,8 +422,10 @@ function extractHookMetadata(name, fromPath) {
 
   // Extract return type interface
   const returnInterfaces = extractInterfaces(source);
-  const returnTypeName = `${name.charAt(0).toUpperCase() + name.slice(1)}Return`
-    .replace('use', 'Use');
+  const returnTypeName = `${name.charAt(0).toUpperCase() + name.slice(1)}Return`.replace(
+    'use',
+    'Use',
+  );
 
   return {
     name,
@@ -455,7 +473,8 @@ function extractTokenMetadata() {
 
   return {
     categories: ['primitive', 'semantic', 'component'],
-    naming: 'Three-tier architecture: primitives (raw values) → semantic (contextual) → component (scoped)',
+    naming:
+      'Three-tier architecture: primitives (raw values) → semantic (contextual) → component (scoped)',
     themeSwitch: `Set data-theme attribute on root element: ${themes.map((t) => `'${t.id}'`).join(' | ')}`,
     customization:
       'Override any CSS custom property in your CSS to customize. All tokens are prefixed with -- (e.g., --color-action-primary)',
@@ -472,7 +491,7 @@ function buildManifest() {
 
   // Read package version
   const corePkg = JSON.parse(
-    fs.readFileSync(path.resolve(ROOT, 'packages/core/package.json'), 'utf-8')
+    fs.readFileSync(path.resolve(ROOT, 'packages/core/package.json'), 'utf-8'),
   );
 
   const components = [];
@@ -487,7 +506,13 @@ function buildManifest() {
     // Skip utility type exports
     if (['cn'].includes(name)) continue;
     // Skip type aliases that aren't components or hooks
-    if (name.match(/^[A-Z]/) && name.match(/(Data|Config|State|Trend|Target|Action|Feature|Item|Price|Rating|Social|Post|Variant|Size|Padding|Breakpoint|Placement|Alignment|Position)$/)) continue;
+    if (
+      name.match(/^[A-Z]/) &&
+      name.match(
+        /(Data|Config|State|Trend|Target|Action|Feature|Item|Price|Rating|Social|Post|Variant|Size|Padding|Breakpoint|Placement|Alignment|Position)$/,
+      )
+    )
+      continue;
 
     if (isHook(name)) {
       const hookMeta = extractHookMetadata(name, fromPath);
@@ -568,7 +593,7 @@ function main() {
   console.log(`   Themes:     ${manifest.tokens.themes?.length || 0}`);
 
   if (manifest._generated.skipped?.length) {
-    console.log(`\n   ⚠ Skipped:`);
+    console.log('\n   ⚠ Skipped:');
     for (const s of manifest._generated.skipped) {
       console.log(`     - ${s.name}: ${s.reason}`);
     }
@@ -598,7 +623,7 @@ function main() {
   }
 
   // Write manifest
-  fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\n');
+  fs.writeFileSync(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
   console.log(`\n   ✓ Written to ${path.relative(ROOT, MANIFEST_PATH)}`);
 }
 
@@ -608,12 +633,8 @@ function detectDrift(existing, generated) {
   const drift = [];
 
   // Compare component lists
-  const existingNames = new Set(
-    (existing.components || []).map((c) => c.name)
-  );
-  const generatedNames = new Set(
-    (generated.components || []).map((c) => c.name)
-  );
+  const existingNames = new Set((existing.components || []).map((c) => c.name));
+  const generatedNames = new Set((generated.components || []).map((c) => c.name));
 
   for (const name of generatedNames) {
     if (!existingNames.has(name)) {
@@ -627,12 +648,8 @@ function detectDrift(existing, generated) {
   }
 
   // Compare props for shared components
-  const existingMap = Object.fromEntries(
-    (existing.components || []).map((c) => [c.name, c])
-  );
-  const generatedMap = Object.fromEntries(
-    (generated.components || []).map((c) => [c.name, c])
-  );
+  const existingMap = Object.fromEntries((existing.components || []).map((c) => [c.name, c]));
+  const generatedMap = Object.fromEntries((generated.components || []).map((c) => [c.name, c]));
 
   for (const name of generatedNames) {
     if (!existingNames.has(name)) continue;
@@ -652,12 +669,8 @@ function detectDrift(existing, generated) {
   }
 
   // Compare hooks
-  const existingHooks = new Set(
-    (existing.hooks || []).map((h) => h.name)
-  );
-  const generatedHooks = new Set(
-    (generated.hooks || []).map((h) => h.name)
-  );
+  const existingHooks = new Set((existing.hooks || []).map((h) => h.name));
+  const generatedHooks = new Set((generated.hooks || []).map((h) => h.name));
 
   for (const name of generatedHooks) {
     if (!existingHooks.has(name)) {

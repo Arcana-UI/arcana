@@ -3113,7 +3113,7 @@
     }
   ],
   "_generated": {
-    "at": "2026-03-30T18:48:05.592Z",
+    "at": "2026-03-30T18:58:18.312Z",
     "by": "scripts/generate-manifest.mjs",
     "componentCount": 102,
     "hookCount": 8
