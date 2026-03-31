@@ -71,6 +71,7 @@ import { Link, useParams } from 'react-router-dom';
 import { type ComponentMeta, getComponentBySlug } from '../data/component-registry';
 import type { TokenMapData } from '../data/token-map-types';
 import tokenMapRaw from '../data/token-map.json';
+import { getCSSVar as getCSSVarValue } from '../utils/presets';
 
 const tokenMapData = tokenMapRaw as unknown as TokenMapData;
 import styles from './ComponentDetail.module.css';
@@ -106,10 +107,7 @@ function tokenToUrlPath(token: string): string {
   return `/playground/tokens/${cat}/${tokenName || name}`;
 }
 
-function getCSSVarValue(varName: string): string {
-  if (typeof window === 'undefined') return '';
-  return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-}
+// getCSSVarValue imported from presets (at top of file)
 
 function slugToDisplayName(slug: string): string {
   return slug
