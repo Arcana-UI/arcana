@@ -630,8 +630,9 @@ None. npm packages are published. Credentials not needed for development work.
 ### What the Next Agent Should Do
 1. Read CLAUDE.md, PROGRESS.md, ROADMAP.md, AI_OPS.md
 2. Create a new branch from `develop` for the task (NEVER commit directly to develop)
-3. Priority: P.2 — AI theme generation, OR 4.4/4.5/4.7/4.8 demo content
-4. Pre-existing test issue: 16 tests in `useTheme.test.tsx` fail (`localStorage.clear is not a function`) — investigate vitest jsdom environment config when time permits
+3. Merge open PR for `feat/padding-y-tokens-density-min-height` into develop first (if not yet merged)
+4. Priority: P.2 — AI theme generation, OR 4.4/4.5/4.7/4.8 demo content
+5. Pre-existing test issue: 16 tests in `useTheme.test.tsx` fail (`localStorage.clear is not a function`) — investigate vitest jsdom environment config when time permits
 
 ### Session History
 
@@ -662,3 +663,4 @@ None. npm packages are published. Credentials not needed for development work.
 | 2026-03-27 | Claude (Claude Code) | Playground component audit + dogfooding | Audited all playground UI elements. Replaced 35+ raw HTML elements with Arcana components (Button, Badge, Input, Select, ProgressBar) across TokenEditor, AccessibilityPanel, Landing, ColorPicker, CubicBezierEditor. Audit report at docs/audits/. Arcana usage: 63% → 91%. |
 | 2026-03-28 | Claude (Claude Code) | Task P.1.4 — Playground site map architecture | Built 6 new routes: component gallery, component detail, token explorer, token impact, relationship graph. Component-to-token mapping build script (67 components, 551 tokens). Canvas-based graph visualization. All pages use Arcana components, token-driven CSS. 928 tests pass. |
 | 2026-03-31 | Claude (Claude Code) | Graph visualization upgrade — D3 force simulation | Replaced Canvas-based graph with D3 force-directed SVG visualization. Added glow filters, hover highlighting with connection tracing, zoom/pan, drag interaction, search-to-focus, legend, category color coding, tooltip, loading spinner, mobile fallback message, click-to-navigate. 958 tests pass. |
+| 2026-03-31 | Claude (Claude Code) | padding-y tokens + density mode + min-height | Added --{component}-padding-y tokens to 19 components. Switched all size classes from height to min-height. Added CSS density overrides for compact/comfortable on all affected components. Updated terminal, retro98, brutalist, glass, editorial presets. 958 tests pass. |
