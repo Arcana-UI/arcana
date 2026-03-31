@@ -4,6 +4,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: var(--spacing-6) var(--spacing-4);
+  overflow: hidden;
 }
 
 .header {
@@ -102,10 +103,13 @@
   text-decoration: none;
   color: inherit;
   display: block;
+  min-width: 0;
 }
 
 .card {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .thumbnailWrap {
@@ -118,12 +122,14 @@
   background: var(--color-bg-surface);
   border-radius: var(--radius-sm);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .cardMeta {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1);
+  min-width: 0;
 }
 
 .cardName {
@@ -131,6 +137,9 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-fg-primary);
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cardDesc {
