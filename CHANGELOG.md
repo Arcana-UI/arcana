@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Unified single-source-of-truth documentation pipeline (`scripts/generate-docs.mjs`) with 7 generators producing all docs from source code
+- `pnpm generate-docs` command that runs all generators: manifest, token map, component inventory, component tokens reference, export verification, llms.txt/llms-full.txt, and version sync
+- Auto-generated `docs/generated/token-component-map.json` mapping 67 components to 551 tokens with both component→token and token→component lookups
+- Auto-generated `docs/generated/COMPONENT-INVENTORY.md` listing all 102 components with variants, sizes, and sub-components
+- Auto-generated `docs/generated/COMPONENT-TOKENS.md` documenting the complete token surface per component
+- Export verification that checks all component directories have corresponding barrel exports
+- `llms.txt` (short) and `llms-full.txt` (complete) AI agent reference files generated from manifest and token data
+- Version sync between `packages/core/package.json` and `manifest.ai.json`
+- Source-of-truth audit report at `docs/audits/source-of-truth-audit.md`
 - Automated `manifest.ai.json` generation pipeline (`scripts/generate-manifest.mjs`) that parses TypeScript source to extract component props, hook metadata, and token information
 - `pnpm manifest` and `pnpm manifest:check` scripts for generating and validating the AI discovery manifest
 - Playground site map architecture with individual component pages, token impact views, and relationship graph
