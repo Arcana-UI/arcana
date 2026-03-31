@@ -271,6 +271,13 @@ export type { CopyButtonProps } from './patterns/CopyButton';
 export { KeyboardShortcut } from './patterns/KeyboardShortcut';
 export type { KeyboardShortcutProps } from './patterns/KeyboardShortcut';
 
+// ─── Components ──────────────────────────────────────────────────────────────
+export { ColorPicker, rgbaToHex } from './components/ColorPicker';
+export type { ColorPickerProps } from './components/ColorPicker';
+
+export { FontPicker } from './components/FontPicker';
+export type { FontPickerProps, GoogleFontEntry, LocalFontEntry } from './components/FontPicker';
+
 // ─── Hooks ────────────────────────────────────────────────────────────────────
 export { useMediaQuery } from './hooks/useMediaQuery';
 export { useBreakpoint } from './hooks/useBreakpoint';
