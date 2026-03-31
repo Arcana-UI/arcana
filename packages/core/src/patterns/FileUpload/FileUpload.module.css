@@ -6,6 +6,8 @@
  *   --fileupload-bg-active     Active background (fallback: --color-bg-surface)
  *   --fileupload-radius        Border radius (fallback: --radius-lg)
  *   --fileupload-padding       Padding (fallback: --spacing-xl)
+ *   --fileupload-padding-y     Dropzone vertical padding (fallback: --fileupload-padding)
+ *   --fileupload-padding-x     Dropzone horizontal padding (fallback: --fileupload-padding)
  *   --fileupload-icon-color    Icon color (fallback: --color-fg-muted)
  *   --fileupload-text-color    Text color (fallback: --color-fg-secondary)
  */
@@ -41,7 +43,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
-  padding: var(--fileupload-padding, var(--spacing-xl));
+  padding: var(--fileupload-padding-y, var(--fileupload-padding, var(--spacing-xl)))
+    var(--fileupload-padding-x, var(--fileupload-padding, var(--spacing-xl)));
   border: var(--border-width-thick) dashed var(--fileupload-border, var(--color-border-default));
   border-radius: var(--fileupload-radius, var(--radius-lg));
   background: var(--fileupload-bg, var(--color-bg-page));
@@ -65,6 +68,15 @@
 .dropzoneActive {
   border-color: var(--fileupload-border-active, var(--color-action-primary));
   background: var(--fileupload-bg-active, var(--color-bg-surface));
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .dropzone {
+  --fileupload-padding-y: var(--spacing-md);
+}
+
+[data-density="comfortable"] .dropzone {
+  --fileupload-padding-y: var(--spacing-2xl);
 }
 
 .dropzoneDisabled {

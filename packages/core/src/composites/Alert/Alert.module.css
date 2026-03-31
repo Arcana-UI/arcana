@@ -1,7 +1,9 @@
 /**
  * Component tokens (overridable via preset JSON):
  *   --alert-radius         Border radius (fallback: --radius-md)
- *   --alert-padding        Content padding (fallback: --spacing-md)
+ *   --alert-padding        Content padding shorthand (fallback: --spacing-md)
+ *   --alert-padding-y      Vertical padding (fallback: --alert-padding)
+ *   --alert-padding-x      Horizontal padding (fallback: --alert-padding)
  *   --alert-border-width   Border width (fallback: --border-width-default)
  */
 
@@ -9,7 +11,8 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-3);
-  padding: var(--alert-padding, var(--spacing-md));
+  padding: var(--alert-padding-y, var(--alert-padding, var(--spacing-md)))
+    var(--alert-padding-x, var(--alert-padding, var(--spacing-md)));
   border-radius: var(--alert-radius, var(--radius-md));
   border: var(--alert-border-width, var(--border-width-default)) solid;
 }
@@ -81,6 +84,15 @@
 .closeButton:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .alert {
+  --alert-padding-y: var(--spacing-2);
+}
+
+[data-density="comfortable"] .alert {
+  --alert-padding-y: var(--spacing-5);
 }
 
 /* Variants */

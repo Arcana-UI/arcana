@@ -6,6 +6,7 @@
  *   --checkbox-bg             Background color (fallback: --color-bg-page)
  *   --checkbox-checked-bg     Checked background (fallback: --color-action-primary)
  *   --checkbox-checked-border Checked border (fallback: --color-action-primary)
+ *   --checkbox-padding-y      Row vertical padding (fallback: 0 on desktop, --spacing-1-5 on mobile)
  */
 
 .wrapper {
@@ -23,12 +24,17 @@
   padding: var(--spacing-1-5) 0;
 }
 
-/* @breakpoint-sm (640px) — relax touch target padding */
+/* @breakpoint-sm (640px) — relax touch target, expose padding-y token */
 @media (min-width: 640px) {
   .row {
     min-height: auto;
-    padding: 0;
+    padding: var(--checkbox-padding-y, 0) 0;
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="comfortable"] .row {
+  --checkbox-padding-y: var(--spacing-1);
 }
 
 .checkboxWrapper {

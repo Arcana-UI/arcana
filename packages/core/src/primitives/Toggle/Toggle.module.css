@@ -4,6 +4,7 @@
  *   --toggle-bg            Track background (fallback: --color-border-strong)
  *   --toggle-checked-bg    Checked background (fallback: --color-action-primary)
  *   --toggle-thumb-bg      Thumb color (fallback: --primitive-white)
+ *   --toggle-padding-y     Wrapper vertical padding (fallback: 0)
  */
 
 /* Wrapper — mobile-first: 44px min-height touch target */
@@ -14,11 +15,17 @@
   min-height: 2.75rem;
 }
 
-/* @breakpoint-sm (640px) — relax touch target */
+/* @breakpoint-sm (640px) — relax touch target, expose padding-y token */
 @media (min-width: 640px) {
   .wrapper {
     min-height: auto;
+    padding: var(--toggle-padding-y, 0) 0;
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="comfortable"] .wrapper {
+  --toggle-padding-y: var(--spacing-1);
 }
 
 .toggle {

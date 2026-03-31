@@ -7,6 +7,7 @@
  *   --select-radius         Border radius (fallback: --radius-md)
  *   --select-font-size      Font size (fallback: --font-size-sm)
  *   --select-padding-x      Horizontal padding (fallback: --spacing-sm)
+ *   --select-padding-y      Vertical padding (fallback: --spacing-2)
  *   --select-height         Element height (density-aware, fallback: 2.5rem)
  *   --select-dropdown-bg    Dropdown bg (fallback: --color-bg-page)
  *   --select-dropdown-shadow Dropdown shadow (fallback: --shadow-lg)
@@ -52,7 +53,8 @@
   gap: var(--spacing-2);
   width: 100%;
   min-height: 2.75rem;
-  padding: 0 var(--spacing-3) 0 var(--select-padding-x, var(--spacing-sm));
+  padding: var(--select-padding-y, var(--spacing-2)) var(--spacing-3)
+    var(--select-padding-y, var(--spacing-2)) var(--select-padding-x, var(--spacing-sm));
   background-color: var(--select-bg, var(--color-bg-page));
   border: var(--select-border-width, var(--border-width-default)) solid
     var(--select-border-color, var(--color-border-default));
@@ -67,10 +69,18 @@
 
 @media (min-width: 640px) {
   .trigger {
-    min-height: auto;
-    height: var(--select-height, 2.5rem);
+    min-height: var(--select-height, 2.5rem);
     font-size: var(--select-font-size, var(--font-size-sm));
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .trigger {
+  --select-padding-y: var(--spacing-1);
+}
+
+[data-density="comfortable"] .trigger {
+  --select-padding-y: var(--spacing-3);
 }
 
 .size-sm .trigger {

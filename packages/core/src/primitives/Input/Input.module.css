@@ -8,6 +8,7 @@
  *   --input-border-width     Border width (fallback: --border-width-default)
  *   --input-radius           Border radius (fallback: --radius-md)
  *   --input-padding-x        Horizontal padding (fallback: --spacing-sm)
+ *   --input-padding-y        Vertical padding (fallback: --spacing-2)
  *   --input-font-size        Font size (fallback: --font-size-sm)
  *   --input-placeholder-color Placeholder color (fallback: --color-fg-muted)
  *   --input-height           Element height (density-aware, fallback: 2.5rem)
@@ -97,7 +98,7 @@
   flex: 1;
   min-width: 0;
   min-height: 2.75rem;
-  padding: 0 var(--input-padding-x, var(--spacing-sm));
+  padding: var(--input-padding-y, var(--spacing-2)) var(--input-padding-x, var(--spacing-sm));
   background: transparent;
   border: none;
   outline: none;
@@ -110,10 +111,18 @@
 /* @breakpoint-sm (640px) — restore density-aware height and smaller font */
 @media (min-width: 640px) {
   .input {
-    min-height: auto;
-    height: var(--input-height, 2.5rem);
+    min-height: var(--input-height, 2.5rem);
     font-size: var(--input-font-size, var(--font-size-sm));
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .input {
+  --input-padding-y: var(--spacing-1);
+}
+
+[data-density="comfortable"] .input {
+  --input-padding-y: var(--spacing-3);
 }
 
 .input::placeholder {
@@ -127,10 +136,12 @@
 
 .input.hasPrefix {
   padding-left: var(--spacing-2);
+  /* padding-y preserved from .input rule */
 }
 
 .input.hasSuffix {
   padding-right: var(--spacing-2);
+  /* padding-y preserved from .input rule */
 }
 
 /* Prefix / Suffix */

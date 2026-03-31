@@ -4,6 +4,7 @@
  *   --radio-border-color     Border color (fallback: --color-border-strong)
  *   --radio-bg               Background color (fallback: --color-bg-page)
  *   --radio-checked-border   Checked border color (fallback: --color-action-primary)
+ *   --radio-padding-y        Row vertical padding (fallback: 0 on desktop, --spacing-1-5 on mobile)
  */
 
 .group {
@@ -46,12 +47,17 @@
   padding: var(--spacing-1-5) 0;
 }
 
-/* @breakpoint-sm (640px) — relax touch target padding */
+/* @breakpoint-sm (640px) — relax touch target, expose padding-y token */
 @media (min-width: 640px) {
   .row {
     min-height: auto;
-    padding: 0;
+    padding: var(--radio-padding-y, 0) 0;
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="comfortable"] .row {
+  --radio-padding-y: var(--spacing-1);
 }
 
 .inputWrapper {

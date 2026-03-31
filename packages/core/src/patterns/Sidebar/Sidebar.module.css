@@ -2,10 +2,11 @@
  * Sidebar — Collapsible navigation sidebar with icon-only mode
  *
  * Component tokens:
- *   --sidebar-width         Expanded width (fallback: 16rem)
- *   --sidebar-collapsed-width  Collapsed width (fallback: 4rem)
- *   --sidebar-bg            Background color (fallback: --color-bg-surface)
- *   --sidebar-border-color  Border color (fallback: --color-border-default)
+ *   --sidebar-width              Expanded width (fallback: 16rem)
+ *   --sidebar-collapsed-width    Collapsed width (fallback: 4rem)
+ *   --sidebar-bg                 Background color (fallback: --color-bg-surface)
+ *   --sidebar-border-color       Border color (fallback: --color-border-default)
+ *   --sidebar-item-padding-y     Item vertical padding (fallback: --spacing-2)
  */
 
 /* Sidebar — mobile-first: hidden by default on mobile */
@@ -105,12 +106,21 @@
   transition: var(--transition-colors);
 }
 
-/* @breakpoint-sm (640px) — relax touch target */
+/* @breakpoint-sm (640px) — relax touch target, expose padding-y token */
 @media (min-width: 640px) {
   .item {
     min-height: auto;
-    padding: var(--spacing-2) var(--spacing-4);
+    padding: var(--sidebar-item-padding-y, var(--spacing-2)) var(--spacing-4);
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .item {
+  --sidebar-item-padding-y: var(--spacing-1);
+}
+
+[data-density="comfortable"] .item {
+  --sidebar-item-padding-y: var(--spacing-3);
 }
 
 .item:hover:not(.itemDisabled) {

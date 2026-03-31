@@ -1,5 +1,8 @@
 /**
  * Footer — Site footer with sections, links, and bottom bar
+ *
+ * Component tokens:
+ *   --footer-link-padding-y   Link vertical padding (fallback: --spacing-1)
  */
 
 .footer {
@@ -57,8 +60,17 @@
   color: var(--color-fg-secondary);
   text-decoration: none;
   transition: var(--transition-colors);
-  padding: var(--spacing-1) 0;
+  padding: var(--footer-link-padding-y, var(--spacing-1)) 0;
   display: inline-block;
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .link {
+  --footer-link-padding-y: 0;
+}
+
+[data-density="comfortable"] .link {
+  --footer-link-padding-y: var(--spacing-2);
 }
 
 .link:hover {

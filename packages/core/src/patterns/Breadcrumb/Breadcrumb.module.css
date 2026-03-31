@@ -1,5 +1,8 @@
 /**
  * Breadcrumb — Navigation hierarchy indicator
+ *
+ * Component tokens:
+ *   --breadcrumb-item-padding-y   Link vertical padding (fallback: --spacing-0-5)
  */
 
 .breadcrumb {
@@ -40,8 +43,14 @@
   text-decoration: none;
   transition: var(--transition-colors);
   border-radius: var(--radius-sm);
-  padding: var(--spacing-0-5) var(--spacing-1);
-  margin: calc(-1 * var(--spacing-0-5)) calc(-1 * var(--spacing-1));
+  padding: var(--breadcrumb-item-padding-y, var(--spacing-0-5)) var(--spacing-1);
+  margin: calc(-1 * var(--breadcrumb-item-padding-y, var(--spacing-0-5)))
+    calc(-1 * var(--spacing-1));
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="comfortable"] .link {
+  --breadcrumb-item-padding-y: var(--spacing-1);
 }
 
 .link:hover {

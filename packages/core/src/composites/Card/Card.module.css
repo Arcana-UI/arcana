@@ -6,7 +6,9 @@
  *   --card-radius         Border radius (fallback: --radius-md)
  *   --card-shadow         Box shadow (fallback: --elevation-card)
  *   --card-shadow-hover   Hover box shadow (fallback: --elevation-card-hover)
- *   --card-padding        Content padding (density-aware, fallback: --spacing-lg)
+ *   --card-padding        Content padding shorthand (fallback: --spacing-lg)
+ *   --card-padding-y      Content vertical padding (fallback: --card-padding)
+ *   --card-padding-x      Content horizontal padding (fallback: --card-padding)
  */
 
 .card {
@@ -77,12 +79,13 @@
   padding: var(--spacing-4) var(--spacing-5);
 }
 
-/* @breakpoint-sm (640px) — restore standard padding */
+/* @breakpoint-sm (640px) — restore standard padding, expose padding-y/x tokens */
 @media (min-width: 640px) {
   .padding-md .header,
   .padding-md .body,
   .padding-md .footer {
-    padding: var(--card-padding, var(--spacing-lg));
+    padding: var(--card-padding-y, var(--card-padding, var(--spacing-lg)))
+      var(--card-padding-x, var(--card-padding, var(--spacing-lg)));
   }
 
   .padding-lg .header,
@@ -90,6 +93,19 @@
   .padding-lg .footer {
     padding: var(--spacing-6) var(--spacing-8);
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .padding-md .header,
+[data-density="compact"] .padding-md .body,
+[data-density="compact"] .padding-md .footer {
+  --card-padding-y: var(--spacing-3);
+}
+
+[data-density="comfortable"] .padding-md .header,
+[data-density="comfortable"] .padding-md .body,
+[data-density="comfortable"] .padding-md .footer {
+  --card-padding-y: var(--spacing-8);
 }
 
 /* CardHeader */

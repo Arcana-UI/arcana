@@ -1,14 +1,17 @@
 /**
  * Component tokens (overridable via preset JSON):
- *   --drawer-bg           Background (fallback: --color-bg-page)
- *   --drawer-shadow       Box shadow (fallback: --shadow-2xl)
- *   --drawer-overlay-bg   Overlay backdrop (fallback: --color-bg-overlay)
- *   --drawer-header-padding  Header padding (fallback: --spacing-lg)
- *   --drawer-body-padding    Body padding (fallback: --spacing-lg)
- *   --drawer-footer-padding  Footer padding (fallback: --spacing-lg)
- *   --drawer-width-sm     Small width (fallback: 20rem)
- *   --drawer-width-md     Medium width (fallback: 26.25rem)
- *   --drawer-width-lg     Large width (fallback: 40rem)
+ *   --drawer-bg                  Background (fallback: --color-bg-page)
+ *   --drawer-shadow              Box shadow (fallback: --shadow-2xl)
+ *   --drawer-overlay-bg          Overlay backdrop (fallback: --color-bg-overlay)
+ *   --drawer-header-padding      Header padding shorthand (fallback: --spacing-lg)
+ *   --drawer-header-padding-y    Header vertical padding (fallback: --drawer-header-padding)
+ *   --drawer-body-padding        Body padding shorthand (fallback: --spacing-lg)
+ *   --drawer-body-padding-y      Body vertical padding (fallback: --drawer-body-padding)
+ *   --drawer-footer-padding      Footer padding shorthand (fallback: --spacing-lg)
+ *   --drawer-footer-padding-y    Footer vertical padding (fallback: --drawer-footer-padding)
+ *   --drawer-width-sm            Small width (fallback: 20rem)
+ *   --drawer-width-md            Medium width (fallback: 26.25rem)
+ *   --drawer-width-lg            Large width (fallback: 40rem)
  */
 
 .wrapper {
@@ -160,7 +163,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--spacing-3);
-  padding: var(--drawer-header-padding, var(--spacing-lg));
+  padding: var(--drawer-header-padding-y, var(--drawer-header-padding, var(--spacing-lg)))
+    var(--drawer-header-padding, var(--spacing-lg));
   border-bottom: var(--border-width-default) solid var(--color-border-default);
   flex-shrink: 0;
 }
@@ -224,13 +228,40 @@
 .body {
   flex: 1;
   overflow-y: auto;
-  padding: var(--drawer-body-padding, var(--spacing-lg));
+  padding: var(--drawer-body-padding-y, var(--drawer-body-padding, var(--spacing-lg)))
+    var(--drawer-body-padding, var(--spacing-lg));
   -webkit-overflow-scrolling: touch;
 }
 
 /* Footer — sticky at bottom */
 .footer {
   flex-shrink: 0;
-  padding: var(--drawer-footer-padding, var(--spacing-lg));
+  padding: var(--drawer-footer-padding-y, var(--drawer-footer-padding, var(--spacing-lg)))
+    var(--drawer-footer-padding, var(--spacing-lg));
   border-top: var(--border-width-default) solid var(--color-border-default);
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .header {
+  --drawer-header-padding-y: var(--spacing-3);
+}
+
+[data-density="compact"] .body {
+  --drawer-body-padding-y: var(--spacing-3);
+}
+
+[data-density="compact"] .footer {
+  --drawer-footer-padding-y: var(--spacing-3);
+}
+
+[data-density="comfortable"] .header {
+  --drawer-header-padding-y: var(--spacing-8);
+}
+
+[data-density="comfortable"] .body {
+  --drawer-body-padding-y: var(--spacing-8);
+}
+
+[data-density="comfortable"] .footer {
+  --drawer-footer-padding-y: var(--spacing-8);
 }

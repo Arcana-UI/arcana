@@ -1,13 +1,16 @@
 /**
  * Component tokens (overridable via preset JSON):
- *   --modal-bg             Background color (fallback: --color-bg-elevated)
- *   --modal-border-color   Border color (fallback: --color-border-default)
- *   --modal-border-width   Border width (fallback: --border-width-default)
- *   --modal-radius         Border radius (fallback: --radius-xl)
- *   --modal-shadow         Box shadow (fallback: --elevation-modal)
- *   --modal-padding        Content padding (fallback: --spacing-xl)
- *   --modal-overlay-bg     Overlay background (fallback: --color-bg-overlay)
- *   --modal-max-width      Maximum width (fallback: 35rem)
+ *   --modal-bg                   Background color (fallback: --color-bg-elevated)
+ *   --modal-border-color         Border color (fallback: --color-border-default)
+ *   --modal-border-width         Border width (fallback: --border-width-default)
+ *   --modal-radius               Border radius (fallback: --radius-xl)
+ *   --modal-shadow               Box shadow (fallback: --elevation-modal)
+ *   --modal-padding              Content padding shorthand (fallback: --spacing-xl)
+ *   --modal-header-padding-y     Header vertical padding (fallback: --modal-padding)
+ *   --modal-body-padding-y       Body vertical padding (fallback: --modal-padding)
+ *   --modal-footer-padding-y     Footer vertical padding (fallback: --spacing-4)
+ *   --modal-overlay-bg           Overlay background (fallback: --color-bg-overlay)
+ *   --modal-max-width            Maximum width (fallback: 35rem)
  */
 
 /* Overlay — mobile-first: bottom-sheet alignment */
@@ -117,8 +120,8 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-4);
-  padding: var(--modal-padding, var(--spacing-xl)) var(--modal-padding, var(--spacing-xl))
-    var(--spacing-4);
+  padding: var(--modal-header-padding-y, var(--modal-padding, var(--spacing-xl)))
+    var(--modal-padding, var(--spacing-xl)) var(--spacing-4);
   border-bottom: var(--modal-border-width, var(--border-width-default)) solid
     var(--modal-border-color, var(--color-border-default));
   flex-shrink: 0;
@@ -156,7 +159,8 @@
 .dialogBody {
   flex: 1;
   overflow-y: auto;
-  padding: var(--modal-padding, var(--spacing-xl));
+  padding: var(--modal-body-padding-y, var(--modal-padding, var(--spacing-xl)))
+    var(--modal-padding, var(--spacing-xl));
   color: var(--color-fg-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
@@ -168,10 +172,35 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--spacing-3);
-  padding: var(--spacing-4) var(--modal-padding, var(--spacing-xl));
+  padding: var(--modal-footer-padding-y, var(--spacing-4)) var(--modal-padding, var(--spacing-xl));
   border-top: var(--modal-border-width, var(--border-width-default)) solid
     var(--modal-border-color, var(--color-border-default));
   flex-shrink: 0;
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .dialogHeader {
+  --modal-header-padding-y: var(--spacing-3);
+}
+
+[data-density="compact"] .dialogBody {
+  --modal-body-padding-y: var(--spacing-3);
+}
+
+[data-density="compact"] .dialogFooter {
+  --modal-footer-padding-y: var(--spacing-2);
+}
+
+[data-density="comfortable"] .dialogHeader {
+  --modal-header-padding-y: var(--spacing-8);
+}
+
+[data-density="comfortable"] .dialogBody {
+  --modal-body-padding-y: var(--spacing-8);
+}
+
+[data-density="comfortable"] .dialogFooter {
+  --modal-footer-padding-y: var(--spacing-6);
 }
 
 /* Close button — mobile-first: 44px touch target */

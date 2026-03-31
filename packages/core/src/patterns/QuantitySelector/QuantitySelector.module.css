@@ -2,6 +2,7 @@
  * QuantitySelector tokens:
  *   Uses semantic tokens for all visual properties.
  *   Mobile-first: 44px touch targets on mobile, auto on desktop.
+ *   --quantity-padding-y   Input vertical padding (fallback: --spacing-1)
  */
 
 .root {
@@ -98,8 +99,17 @@
   text-align: center;
   font-variant-numeric: tabular-nums;
   font-family: inherit;
-  padding: var(--spacing-1) var(--spacing-1);
+  padding: var(--quantity-padding-y, var(--spacing-1)) var(--spacing-1);
   outline: none;
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .input {
+  --quantity-padding-y: 0;
+}
+
+[data-density="comfortable"] .input {
+  --quantity-padding-y: var(--spacing-2);
 }
 
 .input:focus {

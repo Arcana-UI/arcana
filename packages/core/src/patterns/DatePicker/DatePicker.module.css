@@ -2,6 +2,7 @@
  * Component tokens (overridable via preset JSON):
  *   --datepicker-bg            Input background (fallback: --color-bg-page)
  *   --datepicker-border        Border color (fallback: --color-border-default)
+ *   --datepicker-padding-y     Input trigger vertical padding (fallback: --spacing-2)
  *   --datepicker-radius        Border radius (fallback: --radius-md)
  *   --datepicker-calendar-bg   Calendar bg (fallback: --color-bg-page)
  *   --datepicker-calendar-shadow Calendar shadow (fallback: --shadow-lg)
@@ -64,7 +65,8 @@
   flex: 1;
   min-width: 0;
   min-height: 2.75rem;
-  padding: 0 var(--spacing-2) 0 var(--spacing-sm);
+  padding: var(--datepicker-padding-y, var(--spacing-2)) var(--spacing-2)
+    var(--datepicker-padding-y, var(--spacing-2)) var(--spacing-sm);
   border: none;
   background: transparent;
   color: var(--color-fg-primary);
@@ -76,10 +78,18 @@
 
 @media (min-width: 640px) {
   .input {
-    min-height: auto;
-    height: var(--input-height, 2.5rem);
+    min-height: var(--input-height, 2.5rem);
     font-size: var(--font-size-sm);
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .input {
+  --datepicker-padding-y: var(--spacing-1);
+}
+
+[data-density="comfortable"] .input {
+  --datepicker-padding-y: var(--spacing-3);
 }
 
 .input::placeholder {

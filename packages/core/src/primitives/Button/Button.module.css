@@ -116,34 +116,53 @@
 /* Sizes — mobile-first: all sizes get 44px minimum touch target */
 .sm {
   --button-icon-size: var(--spacing-3-5);
-  height: 2.75rem;
-  padding: 0 var(--spacing-3);
+  min-height: 2.75rem;
+  padding: var(--button-padding-y, var(--spacing-2)) var(--spacing-3);
   font-size: var(--font-size-xs);
 }
 
 .md {
   --button-icon-size: var(--spacing-4);
-  height: 2.75rem;
-  padding: 0 var(--button-padding-x, var(--spacing-md));
+  min-height: 2.75rem;
+  padding: var(--button-padding-y, var(--spacing-2)) var(--button-padding-x, var(--spacing-md));
   font-size: var(--button-font-size, var(--font-size-sm));
 }
 
 .lg {
   --button-icon-size: var(--spacing-5);
-  height: var(--button-height, 3rem);
-  padding: 0 var(--spacing-6);
+  min-height: var(--button-height, 3rem);
+  padding: var(--button-padding-y, var(--spacing-2)) var(--spacing-6);
   font-size: var(--font-size-base);
 }
 
 /* @breakpoint-sm (640px) — restore intended sizes */
 @media (min-width: 640px) {
   .sm {
-    height: var(--button-height, 2rem);
+    min-height: var(--button-height, 2rem);
   }
 
   .md {
-    height: var(--button-height, 2.5rem);
+    min-height: var(--button-height, 2.5rem);
   }
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .sm,
+[data-density="compact"] .md {
+  --button-padding-y: var(--spacing-1);
+}
+
+[data-density="compact"] .lg {
+  --button-padding-y: var(--spacing-2);
+}
+
+[data-density="comfortable"] .sm,
+[data-density="comfortable"] .md {
+  --button-padding-y: var(--spacing-3);
+}
+
+[data-density="comfortable"] .lg {
+  --button-padding-y: var(--spacing-4);
 }
 
 /* Full width */

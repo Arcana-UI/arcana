@@ -5,7 +5,9 @@
  *   --toast-border-width   Border width (fallback: --border-width-default)
  *   --toast-radius         Border radius (fallback: --radius-md)
  *   --toast-shadow         Box shadow (fallback: --elevation-toast)
- *   --toast-padding        Content padding (fallback: --spacing-md)
+ *   --toast-padding        Content padding shorthand (fallback: --spacing-md)
+ *   --toast-padding-y      Vertical padding (fallback: --toast-padding)
+ *   --toast-padding-x      Horizontal padding (fallback: --toast-padding)
  *   --toast-max-width      Maximum width (fallback: 23.75rem)
  */
 
@@ -38,7 +40,8 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-3);
-  padding: var(--toast-padding, var(--spacing-md));
+  padding: var(--toast-padding-y, var(--toast-padding, var(--spacing-md)))
+    var(--toast-padding-x, var(--toast-padding, var(--spacing-md)));
   background-color: var(--toast-bg, var(--color-bg-elevated));
   border: var(--toast-border-width, var(--border-width-default)) solid
     var(--toast-border-color, var(--color-border-default));
@@ -174,6 +177,15 @@
 .dismissButton:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
+}
+
+/* Density mode — vertical padding scaling */
+[data-density="compact"] .toast {
+  --toast-padding-y: var(--spacing-2);
+}
+
+[data-density="comfortable"] .toast {
+  --toast-padding-y: var(--spacing-5);
 }
 
 /* Variant accents */

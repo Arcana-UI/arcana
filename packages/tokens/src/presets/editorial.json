@@ -690,7 +690,8 @@
         "compact": "2rem",
         "default": "2.5rem",
         "comfortable": "3rem"
-      }
+      },
+      "padding-y": "var(--spacing-3)"
     },
     "card": {
       "bg": "{semantic.color.background.surface}",
@@ -713,7 +714,8 @@
       "shadow": "{semantic.elevation.modal}",
       "padding": "var(--spacing-xl)",
       "overlay-bg": "{semantic.color.background.overlay}",
-      "max-width": "35rem"
+      "max-width": "35rem",
+      "body-padding-y": "var(--spacing-8)"
     },
     "toast": {
       "bg": "{semantic.color.background.elevated}",

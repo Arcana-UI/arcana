@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `--{component}-padding-y` component tokens for all interactive and content components: Button, Input, Select, DatePicker, FileUpload, QuantitySelector, Sidebar, Pagination, Breadcrumb, MobileNav, Footer, Card, Alert, Toast, Modal (header/body/footer), Drawer (header/body/footer)
+- `--card-padding-y` / `--card-padding-x` split tokens with backward-compat fallback to `--card-padding`
+- `--alert-padding-y` / `--alert-padding-x` split tokens with backward-compat fallback to `--alert-padding`
+- `--toast-padding-y` / `--toast-padding-x` split tokens with backward-compat fallback to `--toast-padding`
+- CSS density mode overrides (`[data-density='compact']` / `[data-density='comfortable']`) for all affected components
+- Preset JSON padding-y overrides for terminal, retro98 (compact), brutalist (bold), glass (spacious), and editorial (generous) presets
+
+### Changed
+- All interactive component size classes now use `min-height` instead of fixed `height`, enabling flexible height when vertical padding increases
+- Mobile: all interactive elements use `min-height: 2.75rem` (44px touch target); desktop relaxes to `min-height: auto` or token-driven value
 - `useClickOutside` hook — fires callback on mousedown outside a ref element, SSR-safe, with enabled flag
 - `useDrag` hook — generic drag handling with RAF throttling, touch support, relative positioning, and ref-based callbacks
 - `useUndoRedo<T>` hook — generic history stack with branch trimming, configurable max history, and reactive canUndo/canRedo

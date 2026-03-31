@@ -1,9 +1,10 @@
 /**
  * Component tokens (overridable via preset JSON):
- *   --mobilenav-bg           Background color (fallback: --color-bg-surface)
- *   --mobilenav-border       Top border color (fallback: --color-border-default)
- *   --mobilenav-height       Bar height (fallback: --spacing-16)
- *   --mobilenav-active-color Active item color (fallback: --color-action-primary)
+ *   --mobilenav-bg               Background color (fallback: --color-bg-surface)
+ *   --mobilenav-border           Top border color (fallback: --color-border-default)
+ *   --mobilenav-height           Bar height (fallback: --spacing-16)
+ *   --mobilenav-active-color     Active item color (fallback: --color-action-primary)
+ *   --mobilenav-item-padding-y   Item vertical padding (fallback: --spacing-1)
  */
 
 .mobileNav {
@@ -48,7 +49,7 @@
   gap: var(--spacing-0-5);
   width: 100%;
   min-height: 2.75rem;
-  padding: var(--spacing-1) var(--spacing-1);
+  padding: var(--mobilenav-item-padding-y, var(--spacing-1)) var(--spacing-1);
   border: none;
   background: transparent;
   cursor: pointer;

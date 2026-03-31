@@ -1,8 +1,8 @@
 # Arcana UI — Progress Tracker
 
-> **Last updated:** 2026-03-01
-> **Current phase:** 0 — Foundation Cleanup
-> **Next priority task:** 0.1
+> **Last updated:** 2026-03-31
+> **Current phase:** 4 (partial) + Phase P (partial)
+> **Next priority task:** P.2 — AI theme generation, or 4.4/4.5/4.7/4.8 demos
 > **Blocking issues:** None
 
 ## Phase 0: Foundation Cleanup (Weeks 1–2)

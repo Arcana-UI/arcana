@@ -498,7 +498,8 @@
         "compact": "1.75rem",
         "default": "2rem",
         "comfortable": "2.5rem"
-      }
+      },
+      "padding-y": "var(--spacing-1)"
     },
     "card": {
       "bg": "{semantic.color.background.surface}",
@@ -521,7 +522,10 @@
       "shadow": "{primitive.shadow.none}",
       "padding": "var(--spacing-xl)",
       "overlay-bg": "{semantic.color.background.overlay}",
-      "max-width": "35rem"
+      "max-width": "35rem",
+      "header-padding-y": "var(--spacing-md)",
+      "body-padding-y": "var(--spacing-md)",
+      "footer-padding-y": "var(--spacing-2)"
     },
     "toast": {
       "bg": "{semantic.color.background.elevated}",
@@ -584,7 +588,8 @@
         "compact": "1.75rem",
         "default": "2rem",
         "comfortable": "2.5rem"
-      }
+      },
+      "padding-y": "var(--spacing-1)"
     },
     "textarea": {
       "bg": "{semantic.color.background.page}",
@@ -805,7 +810,10 @@
       "footer-padding": "var(--spacing-lg)",
       "width-sm": "20rem",
       "width-md": "26.25rem",
-      "width-lg": "40rem"
+      "width-lg": "40rem",
+      "header-padding-y": "var(--spacing-md)",
+      "body-padding-y": "var(--spacing-md)",
+      "footer-padding-y": "var(--spacing-md)"
     },
     "popover": {
       "bg": "{semantic.color.background.page}",

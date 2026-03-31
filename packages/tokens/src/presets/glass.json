@@ -680,7 +680,8 @@
         "compact": "2rem",
         "default": "2.5rem",
         "comfortable": "3rem"
-      }
+      },
+      "padding-y": "var(--spacing-3)"
     },
     "card": {
       "bg": "rgba(255, 255, 255, 0.12)",
@@ -693,7 +694,8 @@
         "compact": "var(--spacing-sm)",
         "default": "var(--spacing-lg)",
         "comfortable": "var(--spacing-xl)"
-      }
+      },
+      "padding-y": "var(--spacing-8)"
     },
     "modal": {
       "bg": "{semantic.color.background.elevated}",
@@ -703,7 +705,10 @@
       "shadow": "{semantic.elevation.modal}",
       "padding": "var(--spacing-xl)",
       "overlay-bg": "{semantic.color.background.overlay}",
-      "max-width": "35rem"
+      "max-width": "35rem",
+      "header-padding-y": "var(--spacing-8)",
+      "body-padding-y": "var(--spacing-8)",
+      "footer-padding-y": "var(--spacing-5)"
     },
     "toast": {
       "bg": "{semantic.color.background.elevated}",
@@ -766,7 +771,8 @@
         "compact": "2rem",
         "default": "2.5rem",
         "comfortable": "3rem"
-      }
+      },
+      "padding-y": "var(--spacing-3)"
     },
     "textarea": {
       "bg": "{semantic.color.background.page}",
@@ -987,7 +993,10 @@
       "footer-padding": "var(--spacing-lg)",
       "width-sm": "20rem",
       "width-md": "26.25rem",
-      "width-lg": "40rem"
+      "width-lg": "40rem",
+      "header-padding-y": "var(--spacing-8)",
+      "body-padding-y": "var(--spacing-8)",
+      "footer-padding-y": "var(--spacing-8)"
     },
     "popover": {
       "bg": "{semantic.color.background.page}",
