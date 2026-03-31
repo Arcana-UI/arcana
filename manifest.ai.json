@@ -2,7 +2,7 @@
   "$schema": "./scripts/manifest.schema.json",
   "release": {
     "version": "0.1.0-beta.1",
-    "releaseDate": "2026-03-30",
+    "releaseDate": "2026-03-31",
     "changelog": "https://github.com/garrettbear/arcana-ui/blob/develop/CHANGELOG.md",
     "breaking": [],
     "migration": null
@@ -3113,7 +3113,7 @@
     }
   ],
   "_generated": {
-    "at": "2026-03-30T18:58:18.312Z",
+    "at": "2026-03-31T00:01:52.741Z",
     "by": "scripts/generate-manifest.mjs",
     "componentCount": 102,
     "hookCount": 8
