@@ -158,23 +158,28 @@
 /* @breakpoint-sm (640px) — apply element height tokens */
 @media (min-width: 640px) {
   .xs {
-    min-height: var(--button-height-xs, var(--button-height, var(--element-height-xs)));
+    height: var(--button-height-xs, var(--button-height, var(--element-height-xs)));
+    min-height: auto;
   }
 
   .sm {
-    min-height: var(--button-height-sm, var(--button-height, var(--element-height-sm)));
+    height: var(--button-height-sm, var(--button-height, var(--element-height-sm)));
+    min-height: auto;
   }
 
   .md {
-    min-height: var(--button-height-md, var(--button-height, var(--element-height-md)));
+    height: var(--button-height-md, var(--button-height, var(--element-height-md)));
+    min-height: auto;
   }
 
   .lg {
-    min-height: var(--button-height-lg, var(--button-height, var(--element-height-lg)));
+    height: var(--button-height-lg, var(--button-height, var(--element-height-lg)));
+    min-height: auto;
   }
 
   .xl {
-    min-height: var(--button-height-xl, var(--button-height, var(--element-height-xl)));
+    height: var(--button-height-xl, var(--button-height, var(--element-height-xl)));
+    min-height: auto;
   }
 }
 

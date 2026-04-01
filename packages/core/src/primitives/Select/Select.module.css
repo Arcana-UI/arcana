@@ -74,7 +74,8 @@
 
 @media (min-width: 640px) {
   .trigger {
-    min-height: var(--select-height-md, var(--select-height, var(--element-height-md)));
+    height: var(--select-height-md, var(--select-height, var(--element-height-md)));
+    min-height: auto;
     font-size: var(--select-font-size-md, var(--element-font-size-md));
   }
 }
@@ -109,19 +110,23 @@
 
 @media (min-width: 640px) {
   .size-xs .trigger {
-    min-height: var(--select-height-xs, var(--select-height, var(--element-height-xs)));
+    height: var(--select-height-xs, var(--select-height, var(--element-height-xs)));
+    min-height: auto;
   }
 
   .size-sm .trigger {
-    min-height: var(--select-height-sm, var(--select-height, var(--element-height-sm)));
+    height: var(--select-height-sm, var(--select-height, var(--element-height-sm)));
+    min-height: auto;
   }
 
   .size-lg .trigger {
-    min-height: var(--select-height-lg, var(--select-height, var(--element-height-lg)));
+    height: var(--select-height-lg, var(--select-height, var(--element-height-lg)));
+    min-height: auto;
   }
 
   .size-xl .trigger {
-    min-height: var(--select-height-xl, var(--select-height, var(--element-height-xl)));
+    height: var(--select-height-xl, var(--select-height, var(--element-height-xl)));
+    min-height: auto;
   }
 }
 

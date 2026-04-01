@@ -94,7 +94,8 @@
 /* @breakpoint-sm (640px) — apply element height tokens */
 @media (min-width: 640px) {
   .input {
-    min-height: var(--input-height-md, var(--input-height, var(--element-height-md)));
+    height: var(--input-height-md, var(--input-height, var(--element-height-md)));
+    min-height: auto;
     font-size: var(--input-font-size-md, var(--element-font-size-md));
   }
 }
@@ -126,19 +127,23 @@
 
 @media (min-width: 640px) {
   .size-xs .input {
-    min-height: var(--input-height-xs, var(--input-height, var(--element-height-xs)));
+    height: var(--input-height-xs, var(--input-height, var(--element-height-xs)));
+    min-height: auto;
   }
 
   .size-sm .input {
-    min-height: var(--input-height-sm, var(--input-height, var(--element-height-sm)));
+    height: var(--input-height-sm, var(--input-height, var(--element-height-sm)));
+    min-height: auto;
   }
 
   .size-lg .input {
-    min-height: var(--input-height-lg, var(--input-height, var(--element-height-lg)));
+    height: var(--input-height-lg, var(--input-height, var(--element-height-lg)));
+    min-height: auto;
   }
 
   .size-xl .input {
-    min-height: var(--input-height-xl, var(--input-height, var(--element-height-xl)));
+    height: var(--input-height-xl, var(--input-height, var(--element-height-xl)));
+    min-height: auto;
   }
 }
 
