@@ -12,7 +12,7 @@
  *   --select-option-selected-bg Selected option bg (fallback: --color-action-primary)
  *
  * Per-size tokens (fall back to global element sizing):
- *   --select-height-{xs..xl}      → --select-height → --element-height-{xs..xl}
+ *   --select-height-{xs..xl}      → --element-height-{xs..xl}
  *   --select-padding-y-{xs..xl}   → --element-padding-y-{xs..xl}
  *   --select-padding-x-{xs..xl}   → --element-padding-x-{xs..xl}
  *   --select-font-size-{xs..xl}   → --element-font-size-{xs..xl}
@@ -74,7 +74,7 @@
 
 @media (min-width: 640px) {
   .trigger {
-    height: var(--select-height-md, var(--select-height, var(--element-height-md)));
+    height: var(--select-height-md, var(--element-height-md));
     min-height: auto;
     font-size: var(--select-font-size-md, var(--element-font-size-md));
   }
@@ -110,22 +110,22 @@
 
 @media (min-width: 640px) {
   .size-xs .trigger {
-    height: var(--select-height-xs, var(--select-height, var(--element-height-xs)));
+    height: var(--select-height-xs, var(--element-height-xs));
     min-height: auto;
   }
 
   .size-sm .trigger {
-    height: var(--select-height-sm, var(--select-height, var(--element-height-sm)));
+    height: var(--select-height-sm, var(--element-height-sm));
     min-height: auto;
   }
 
   .size-lg .trigger {
-    height: var(--select-height-lg, var(--select-height, var(--element-height-lg)));
+    height: var(--select-height-lg, var(--element-height-lg));
     min-height: auto;
   }
 
   .size-xl .trigger {
-    height: var(--select-height-xl, var(--select-height, var(--element-height-xl)));
+    height: var(--select-height-xl, var(--element-height-xl));
     min-height: auto;
   }
 }

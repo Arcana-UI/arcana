@@ -542,12 +542,7 @@
       "padding-y": "var(--spacing-sm)",
       "font-size": "{primitive.typography.fontSize.sm}",
       "font-weight": "{primitive.typography.fontWeight.bold}",
-      "letter-spacing": "{primitive.typography.letterSpacing.wide}",
-      "height": {
-        "compact": "2rem",
-        "default": "2.5rem",
-        "comfortable": "3rem"
-      }
+      "letter-spacing": "{primitive.typography.letterSpacing.wide}"
     },
     "input": {
       "bg": "{semantic.color.background.page}",
@@ -559,12 +554,7 @@
       "radius": "{semantic.radius.none}",
       "padding-x": "var(--spacing-sm)",
       "font-size": "{primitive.typography.fontSize.sm}",
-      "placeholder-color": "{semantic.color.foreground.muted}",
-      "height": {
-        "compact": "2rem",
-        "default": "2.5rem",
-        "comfortable": "3rem"
-      }
+      "placeholder-color": "{semantic.color.foreground.muted}"
     },
     "card": {
       "bg": "{semantic.color.background.surface}",
@@ -645,12 +635,7 @@
       "border-width": "{semantic.border.width.default}",
       "radius": "{semantic.radius.none}",
       "font-size": "{primitive.typography.fontSize.sm}",
-      "padding-x": "var(--spacing-sm)",
-      "height": {
-        "compact": "2rem",
-        "default": "2.5rem",
-        "comfortable": "3rem"
-      }
+      "padding-x": "var(--spacing-sm)"
     },
     "textarea": {
       "bg": "{semantic.color.background.page}",
