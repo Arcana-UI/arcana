@@ -249,11 +249,11 @@
 /* ─── Shape variants ─────────────────────────────────────────────────── */
 
 .circle {
-  border-radius: 9999px;
+  border-radius: var(--radius-full);
 }
 
 .pill {
-  border-radius: 9999px;
+  border-radius: var(--radius-full);
 }
 
 /* ─── Full width ─────────────────────────────────────────────────────── */
