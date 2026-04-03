@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- `useTheme.test.tsx`: 16 failing tests caused by missing `localStorage.clear` in vitest+jsdom environment. Fixed by patching `globalThis.localStorage` with an in-memory implementation in `packages/core/src/test/setup.ts`. Also added `environmentOptions.jsdom.url` to `vitest.config.ts` for proper jsdom origin context.
+
 ### Added
 - Global element sizing token system: `--element-height-{xs..xl}`, `--element-padding-y-{xs..xl}`, `--element-padding-x-{xs..xl}`, `--element-font-size-{xs..xl}`, `--element-icon-size-{xs..xl}` with density scaling (compact/comfortable)
 - Button xs and xl sizes, plus icon-only sizes (`icon-xs`, `icon-sm`, `icon`, `icon-lg`, `icon-xl`) that create square buttons
