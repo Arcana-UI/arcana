@@ -2,7 +2,7 @@
   "$schema": "./scripts/manifest.schema.json",
   "release": {
     "version": "0.1.0-beta.1",
-    "releaseDate": "2026-03-31",
+    "releaseDate": "2026-04-04",
     "changelog": "https://github.com/garrettbear/arcana-ui/blob/develop/CHANGELOG.md",
     "breaking": [],
     "migration": null
@@ -122,10 +122,28 @@
         },
         "size": {
           "type": "enum",
-          "values": ["sm", "md", "lg"],
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "icon-xs",
+            "icon-sm",
+            "icon",
+            "icon-lg",
+            "icon-xl"
+          ],
           "required": false,
           "description": "Size of the button",
           "default": "md"
+        },
+        "shape": {
+          "type": "enum",
+          "values": ["default", "circle", "pill"],
+          "required": false,
+          "description": "Shape of the button",
+          "default": "default"
         },
         "loading": {
           "type": "boolean",
@@ -152,7 +170,7 @@
         "iconOnly": {
           "type": "boolean",
           "required": false,
-          "description": "Render as an icon-only button (square shape, requires aria-label)",
+          "description": "@deprecated Use size=\"icon\" instead. Render as an icon-only button (square shape, requires aria-label)",
           "default": false
         }
       }
@@ -169,7 +187,7 @@
         },
         "size": {
           "type": "enum",
-          "values": ["sm", "md", "lg"],
+          "values": ["xs", "sm", "md", "lg", "xl"],
           "required": false,
           "description": "Size of the input",
           "default": "md"
@@ -204,6 +222,11 @@
           "type": "boolean",
           "required": false,
           "description": "Whether the input is required (shows indicator on label)"
+        },
+        "wrapperClassName": {
+          "type": "string",
+          "required": false,
+          "description": "Additional className for the outer wrapper containing border and focus ring"
         }
       }
     },
@@ -318,7 +341,7 @@
         },
         "size": {
           "type": "enum",
-          "values": ["sm", "md", "lg"],
+          "values": ["xs", "sm", "md", "lg", "xl"],
           "required": false,
           "description": "Size variant",
           "default": "md"
@@ -836,6 +859,22 @@
       }
     },
     {
+      "name": "AccordionItem",
+      "category": "composites",
+      "import": "import { AccordionItem } from '@arcana-ui/core'",
+      "props": {
+        "value": {
+          "type": "string",
+          "description": "Unique identifier for this item"
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the item is disabled"
+        }
+      }
+    },
+    {
       "name": "AccordionTrigger",
       "category": "composites",
       "import": "import { AccordionTrigger } from '@arcana-ui/core'"
@@ -998,7 +1037,8 @@
       "import": "import { Container } from '@arcana-ui/core'",
       "props": {
         "size": {
-          "type": "ContainerSize",
+          "type": "enum",
+          "values": ["sm", "md", "lg", "xl", "2xl", "full"],
           "required": false,
           "description": "Maximum width of the container",
           "default": "xl"
@@ -1010,7 +1050,8 @@
           "default": false
         },
         "padding": {
-          "type": "ContainerPadding",
+          "type": "enum",
+          "values": ["none", "sm", "md", "lg"],
           "required": false,
           "description": "Horizontal edge padding. Responsive by default.",
           "default": "md"
@@ -1105,6 +1146,40 @@
       "name": "SidebarFooter",
       "category": "patterns",
       "import": "import { SidebarFooter } from '@arcana-ui/core'"
+    },
+    {
+      "name": "SidebarItem",
+      "category": "patterns",
+      "import": "import { SidebarItem } from '@arcana-ui/core'",
+      "props": {
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon element displayed before the label"
+        },
+        "active": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether this item is currently active",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether this item is disabled",
+          "default": false
+        },
+        "href": {
+          "type": "string",
+          "required": false,
+          "description": "Render as an anchor element instead of button"
+        },
+        "badge": {
+          "type": "string | number",
+          "required": false,
+          "description": "Badge count or text displayed on the right"
+        }
+      }
     },
     {
       "name": "SidebarSection",
@@ -1337,6 +1412,24 @@
           "type": "number",
           "required": false,
           "description": "Maximum items to display before truncating with ellipsis"
+        }
+      }
+    },
+    {
+      "name": "BreadcrumbItem",
+      "category": "patterns",
+      "import": "import { BreadcrumbItem } from '@arcana-ui/core'",
+      "props": {
+        "href": {
+          "type": "string",
+          "required": false,
+          "description": "URL for the breadcrumb link"
+        },
+        "current": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether this is the current (last) page",
+          "default": false
         }
       }
     },
@@ -2645,6 +2738,53 @@
       }
     },
     {
+      "name": "CartItem",
+      "category": "patterns",
+      "import": "import { CartItem } from '@arcana-ui/core'",
+      "props": {
+        "image": {
+          "type": "string",
+          "description": "URL of the product image"
+        },
+        "title": {
+          "type": "string",
+          "description": "Product title"
+        },
+        "variant": {
+          "type": "string",
+          "required": false,
+          "description": "Product variant description (e.g., \"Size M, Blue\")"
+        },
+        "price": {
+          "type": "number",
+          "description": "Price as a number"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Current quantity"
+        },
+        "currency": {
+          "type": "string",
+          "required": false,
+          "description": "Currency symbol or code"
+        },
+        "onQuantityChange": {
+          "type": "(quantity: number) => void",
+          "description": "Callback fired when quantity changes"
+        },
+        "onRemove": {
+          "type": "() => void",
+          "description": "Callback fired when the remove button is clicked"
+        },
+        "maxQuantity": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum allowed quantity",
+          "default": 99
+        }
+      }
+    },
+    {
       "name": "QuantitySelector",
       "category": "patterns",
       "import": "import { QuantitySelector } from '@arcana-ui/core'",
@@ -3117,11 +3257,6 @@
       }
     },
     {
-      "name": "rgbaToHex",
-      "category": "other",
-      "import": "import { rgbaToHex } from '@arcana-ui/core'"
-    },
-    {
       "name": "FontPicker",
       "category": "other",
       "import": "import { FontPicker } from '@arcana-ui/core'",
@@ -3182,7 +3317,23 @@
       "import": "import { ThemeProvider } from '@arcana-ui/core'",
       "props": {
         "defaultTheme": {
-          "type": "ThemeId",
+          "type": "enum",
+          "values": [
+            "brutalist",
+            "commerce",
+            "corporate",
+            "dark",
+            "editorial",
+            "glass",
+            "light",
+            "midnight",
+            "mono",
+            "nature",
+            "neon",
+            "retro98",
+            "startup",
+            "terminal"
+          ],
           "required": false,
           "description": "Default theme to use when no stored preference exists and system detection is not used.",
           "default": "light"
@@ -3259,9 +3410,9 @@
     }
   ],
   "_generated": {
-    "at": "2026-03-31T04:53:17.806Z",
+    "at": "2026-04-04T02:58:58.542Z",
     "by": "scripts/generate-manifest.mjs",
-    "componentCount": 105,
+    "componentCount": 108,
     "hookCount": 11
   }
 }

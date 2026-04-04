@@ -36,7 +36,7 @@ const CHECK_MODE = process.argv.includes('--check');
  * Parse an interface body from raw TypeScript source using regex + heuristics.
  * We avoid requiring the TS compiler API so this runs with zero dependencies.
  */
-function extractInterfaces(source) {
+function extractInterfaces(source, typeAliases = {}) {
   const interfaces = {};
   // Match: export interface FooProps<T> extends ... { ... }
   const interfaceRegex =
@@ -48,7 +48,7 @@ function extractInterfaces(source) {
     const startBrace = match.index + match[0].length - 1;
     const body = extractBalancedBraces(source, startBrace);
     if (body) {
-      interfaces[name] = parseInterfaceBody(body);
+      interfaces[name] = parseInterfaceBody(body, typeAliases);
     }
     match = interfaceRegex.exec(source);
   }
@@ -79,7 +79,7 @@ function extractBalancedBraces(source, start) {
  * Parse interface body into prop definitions.
  * Handles JSDoc comments, optional markers, union types, and defaults from JSDoc @default.
  */
-function parseInterfaceBody(body) {
+function parseInterfaceBody(body, typeAliases = {}) {
   const props = {};
   // Split by lines and process
   const lines = body.split('\n');
@@ -122,7 +122,7 @@ function parseInterfaceBody(body) {
         continue;
       }
 
-      const prop = parseTypeString(rawType.replace(/;$/, '').trim());
+      const prop = parseTypeString(rawType.replace(/;$/, '').trim(), typeAliases);
       if (optional) prop.required = false;
       if (currentComment) {
         prop.description = currentComment;
@@ -148,8 +148,9 @@ function parseInterfaceBody(body) {
 
 /**
  * Parse a TypeScript type string into a structured prop descriptor.
+ * If typeAliases is provided, resolves named aliases to their underlying enum values.
  */
-function parseTypeString(typeStr) {
+function parseTypeString(typeStr, typeAliases = {}) {
   const prop = {};
 
   // Check for union of string literals: 'a' | 'b' | 'c'
@@ -159,6 +160,11 @@ function parseTypeString(typeStr) {
     prop.type = 'enum';
     prop.values = values;
     return prop;
+  }
+
+  // Check for type alias resolution
+  if (typeAliases[typeStr]) {
+    return { type: 'enum', values: typeAliases[typeStr] };
   }
 
   // Check for simple types
@@ -341,7 +347,51 @@ function extractComponent(entry) {
 
   const source = fs.readFileSync(filePath, 'utf-8');
   const category = categoryFromPath(filePath);
-  const interfaces = extractInterfaces(source);
+
+  // Extract type alias declarations (e.g., export type ButtonSize = 'sm' | 'md' | 'lg')
+  // Handles both single-line and multi-line formats
+  const typeAliases = {};
+  const aliasRegex = /(?:export\s+)?type\s+(\w+)\s*=\s*((?:['"][\w-]+['"]\s*\|?\s*|\|\s*['"][\w-]+['"]\s*)+);/g;
+  let aliasMatch = aliasRegex.exec(source);
+  while (aliasMatch !== null) {
+    const aliasName = aliasMatch[1];
+    const rawValue = aliasMatch[2];
+    const values = rawValue.match(/['"][\w-]+['"]/g);
+    if (values && values.length >= 2) {
+      typeAliases[aliasName] = values.map((v) => v.replace(/['"]/g, ''));
+    }
+    aliasMatch = aliasRegex.exec(source);
+  }
+
+  // Also resolve type aliases from imported types by scanning import sources
+  const importRegex = /import\s+(?:type\s+)?\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/g;
+  let importMatch = importRegex.exec(source);
+  while (importMatch !== null) {
+    const importedNames = importMatch[1].split(',').map((n) => n.trim().replace(/\s+as\s+\w+/, ''));
+    const importPath = importMatch[2];
+    const resolvedImport = path.resolve(path.dirname(filePath), importPath);
+    for (const ext of ['.tsx', '.ts']) {
+      const importFile = resolvedImport + ext;
+      if (fs.existsSync(importFile)) {
+        const importSource = fs.readFileSync(importFile, 'utf-8');
+        const innerAliasRegex = /(?:export\s+)?type\s+(\w+)\s*=\s*((?:['"][\w-]+['"]\s*\|?\s*|\|\s*['"][\w-]+['"]\s*)+);/g;
+        let innerMatch = innerAliasRegex.exec(importSource);
+        while (innerMatch !== null) {
+          if (importedNames.includes(innerMatch[1]) && !typeAliases[innerMatch[1]]) {
+            const vals = innerMatch[2].match(/['"][\w-]+['"]/g);
+            if (vals && vals.length >= 2) {
+              typeAliases[innerMatch[1]] = vals.map((v) => v.replace(/['"]/g, ''));
+            }
+          }
+          innerMatch = innerAliasRegex.exec(importSource);
+        }
+        break;
+      }
+    }
+    importMatch = importRegex.exec(source);
+  }
+
+  const interfaces = extractInterfaces(source, typeAliases);
 
   // Find the matching props interface for this component
   const propsInterfaceName = `${name}Props`;
@@ -503,13 +553,13 @@ function buildManifest() {
 
     // Skip type-only exports (Props, Options, etc.)
     if (name.endsWith('Props') || name.endsWith('Option') || name.endsWith('Options')) continue;
-    // Skip utility type exports
-    if (['cn'].includes(name)) continue;
+    // Skip utility functions (lowercase, non-hook exports like cn, rgbaToHex, clsx)
+    if (/^[a-z]/.test(name) && !name.startsWith('use')) continue;
     // Skip type aliases that aren't components or hooks
     if (
       name.match(/^[A-Z]/) &&
       name.match(
-        /(Data|Config|State|Trend|Target|Action|Feature|Item|Price|Rating|Social|Post|Variant|Size|Padding|Breakpoint|Placement|Alignment|Position)$/,
+        /(Data|Config|State|Trend|Target|Action|Feature|Price|Rating|Social|Post|Variant|Size|Padding|Breakpoint|Placement|Alignment|Position)$/,
       )
     )
       continue;
