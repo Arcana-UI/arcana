@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm --filter @arcana-ui/tokens build && pnpm --filter @arcana-ui/demo-atelier build",
-  "outputDirectory": "demos/atelier/dist",
-  "installCommand": "pnpm install",
+  "buildCommand": "cd ../.. && pnpm --filter @arcana-ui/tokens build && pnpm --filter @arcana-ui/demo-atelier build",
+  "outputDirectory": "dist",
+  "installCommand": "cd ../.. && pnpm install",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
