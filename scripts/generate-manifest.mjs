@@ -351,7 +351,8 @@ function extractComponent(entry) {
   // Extract type alias declarations (e.g., export type ButtonSize = 'sm' | 'md' | 'lg')
   // Handles both single-line and multi-line formats
   const typeAliases = {};
-  const aliasRegex = /(?:export\s+)?type\s+(\w+)\s*=\s*((?:['"][\w-]+['"]\s*\|?\s*|\|\s*['"][\w-]+['"]\s*)+);/g;
+  const aliasRegex =
+    /(?:export\s+)?type\s+(\w+)\s*=\s*((?:['"][\w-]+['"]\s*\|?\s*|\|\s*['"][\w-]+['"]\s*)+);/g;
   let aliasMatch = aliasRegex.exec(source);
   while (aliasMatch !== null) {
     const aliasName = aliasMatch[1];
@@ -374,7 +375,8 @@ function extractComponent(entry) {
       const importFile = resolvedImport + ext;
       if (fs.existsSync(importFile)) {
         const importSource = fs.readFileSync(importFile, 'utf-8');
-        const innerAliasRegex = /(?:export\s+)?type\s+(\w+)\s*=\s*((?:['"][\w-]+['"]\s*\|?\s*|\|\s*['"][\w-]+['"]\s*)+);/g;
+        const innerAliasRegex =
+          /(?:export\s+)?type\s+(\w+)\s*=\s*((?:['"][\w-]+['"]\s*\|?\s*|\|\s*['"][\w-]+['"]\s*)+);/g;
         let innerMatch = innerAliasRegex.exec(importSource);
         while (innerMatch !== null) {
           if (importedNames.includes(innerMatch[1]) && !typeAliases[innerMatch[1]]) {
