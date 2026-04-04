@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Forma ecommerce demo: luxury objects brand with 4 pages (Home, Shop, Product Detail, Cart), 12-product catalog, cart state management, and 33+ Arcana UI components rendered across the app
+- Demo uses react-router-dom for client-side routing with `/`, `/shop`, `/shop/:slug`, and `/cart` routes
+- Cart context with add/remove/update/clear operations and derived totals
+- Quick view modal on shop page, promo code form in cart, shipping progress tracker, testimonials, timeline, newsletter signup
+
 ### Fixed
 - `useTheme.test.tsx`: 16 failing tests caused by missing `localStorage.clear` in vitest+jsdom environment. Fixed by patching `globalThis.localStorage` with an in-memory implementation in `packages/core/src/test/setup.ts`. Also added `environmentOptions.jsdom.url` to `vitest.config.ts` for proper jsdom origin context.
 
