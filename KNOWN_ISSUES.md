@@ -89,5 +89,66 @@ fail with `localStorage.clear is not a function`. These failures are
 isolated to the test environment; the hook itself works in real
 browsers.
 
-**Planned fix:** Update the vitest jsdom environment config so
-`localStorage` is fully mocked. Tracked as maintenance work.
+**Status:** RESOLVED as of 2026-04-15. All 16 tests pass under the
+current vitest + jsdom setup. Entry retained for historical context.
+
+---
+
+### 2. Transitive `hono` advisories via `@modelcontextprotocol/sdk`
+
+**Impact:** `pnpm audit` reports 20 advisories (15 moderate, 5 high)
+all rooted at `hono` 4.12.12, pulled in transitively through
+`@modelcontextprotocol/sdk@1.29.0` from `packages/mcp`. Latest hono is
+4.12.18; the patched versions are >= 4.12.16 (per
+GHSA-9vqf-7f2p-gf9v and GHSA-69xw-7hcm-h432, both about HTML injection
+in `hono/jsx` via unvalidated tag names).
+
+**Who is affected:** Any consumer running `pnpm audit` against a
+project that depends on `@arcana-ui/mcp`. Surfaces as a warning in the
+audit log.
+
+**Exploitability:** Not exploitable in current `@arcana-ui/mcp` usage.
+The MCP server does not render user-controlled JSX; the advisory
+covers a code path Arcana doesn't exercise.
+
+**Attempted fix (2026-05-07):** Added a `pnpm.overrides` entry for
+`hono: ^4.12.16` to the root `package.json`. pnpm v10.31.0 did not
+propagate the override to the lockfile even after `pnpm install
+--force` (24-minute full reinstall confirmed no effect). Tried
+`pnpm update @modelcontextprotocol/sdk --recursive` first, also no
+effect on the resolved hono version. Override reverted, advisories
+left in place.
+
+**Planned fix:** Wait for the next `@modelcontextprotocol/sdk` release
+that bundles a patched hono, then bump in `packages/mcp/package.json`.
+Track upstream at `github.com/modelcontextprotocol/typescript-sdk`.
+
+---
+
+### 3. Biome lint warning total looks high but is artifact of worktree
+
+**Impact:** `pnpm lint` reports 156 warnings against a 77-warning
+baseline that held through April. Investigation shows 78 of the 156
+warnings come from `.claude/worktrees/` directories (Claude Code
+worktrees biome scans as duplicate code). Real warning count inside
+the repo working tree has not grown.
+
+**Categorization (real 78 warnings, excluding worktree double-count):**
+
+- a11y: ~57 warnings, mostly `useSemanticElements` (24 in core,
+  patterns like Modal/Toast/Spinner where role attributes flag the
+  warning), `noSvgWithoutTitle` (11), `useKeyWithClickEvents` (9).
+- suspicious: ~14 warnings, mostly `noArrayIndexKey` (12 across demos
+  and patterns) and `noEmptyBlock` (2).
+- style: ~6 warnings, `noNonNullAssertion` and `noParameterAssign` in
+  test fixtures and contrast utility.
+- correctness: ~7 warnings, `useExhaustiveDependencies` in playground
+  pages (TokenImpact, TokenExplorer).
+
+**Workaround:** Lint from a clean checkout outside the worktree to see
+the real count, or add `.claude/worktrees/**` to `biome.json` ignore
+list (intentionally not done in this PR per scope).
+
+**Planned fix:** Sweep the a11y warnings as a maintenance pass before
+launch. Most are recommended rules biome promoted that were grandfathered
+in when the codebase grew. Not blocking.
