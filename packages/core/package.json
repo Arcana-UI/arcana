@@ -835,9 +835,9 @@
   "files": ["dist"],
   "sideEffects": ["**/*.css", "**/*.module.css"],
   "scripts": {
-    "build": "tsup",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 tsup",
     "prepublishOnly": "pnpm build",
-    "dev": "tsup --watch",
+    "dev": "NODE_OPTIONS=--max-old-space-size=8192 tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
