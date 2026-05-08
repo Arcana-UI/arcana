@@ -30,13 +30,60 @@ jobs:
       - name: Verify build output
         run: pnpm verify-build
 
+      # Each publish step skips if the package's local version is already on npm.
+      # This makes hotfix releases (where only one package version bumps) clean:
+      # the unchanged packages no-op instead of failing the workflow. Real
+      # publish failures (auth, network, npm errors) still surface loudly because
+      # we only short-circuit on the explicit "already published" condition.
       - name: Publish @arcana-ui/tokens
-        run: cd packages/tokens && npm publish --access public
+        run: |
+          cd packages/tokens
+          VERSION=$(npm pkg get version | tr -d '"')
+          if npm view "@arcana-ui/tokens@$VERSION" version >/dev/null 2>&1; then
+            echo "@arcana-ui/tokens@$VERSION already on npm, skipping."
+          else
+            echo "Publishing @arcana-ui/tokens@$VERSION"
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @arcana-ui/core
-        run: cd packages/core && npm publish --access public
+        run: |
+          cd packages/core
+          VERSION=$(npm pkg get version | tr -d '"')
+          if npm view "@arcana-ui/core@$VERSION" version >/dev/null 2>&1; then
+            echo "@arcana-ui/core@$VERSION already on npm, skipping."
+          else
+            echo "Publishing @arcana-ui/core@$VERSION"
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @arcana-ui/cli
+        run: |
+          cd packages/cli
+          VERSION=$(npm pkg get version | tr -d '"')
+          if npm view "@arcana-ui/cli@$VERSION" version >/dev/null 2>&1; then
+            echo "@arcana-ui/cli@$VERSION already on npm, skipping."
+          else
+            echo "Publishing @arcana-ui/cli@$VERSION"
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @arcana-ui/mcp
+        run: |
+          cd packages/mcp
+          VERSION=$(npm pkg get version | tr -d '"')
+          if npm view "@arcana-ui/mcp@$VERSION" version >/dev/null 2>&1; then
+            echo "@arcana-ui/mcp@$VERSION already on npm, skipping."
+          else
+            echo "Publishing @arcana-ui/mcp@$VERSION"
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
