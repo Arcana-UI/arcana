@@ -20,12 +20,16 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+
+      - name: Run tests before publish
+        # Last safety net — if tests fail, abort before publishing.
+        run: pnpm test
 
       - name: Verify build output
         run: pnpm verify-build

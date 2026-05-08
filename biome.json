@@ -13,7 +13,8 @@
       "*.min.js",
       "docs/build/**",
       "docs/.next/**",
-      "docs/.source/**"
+      "docs/.source/**",
+      ".claude/worktrees/**"
     ]
   },
   "formatter": {
