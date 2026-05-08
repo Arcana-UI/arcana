@@ -4,7 +4,7 @@
 > **Current version:** v0.1.2 (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0).
 > **Current sprint:** Tree-shaking release shipped (single-component import 278 kB → 2.2 kB). KV→Supabase, landing polish (3 PRs), useTheme tests, 0.1.1 CSS-module hotfix, and 5.9 tree-shaking all closed. Phase O still parked.
 > **Source of truth for current state:** CLAUDE.md "Current State" section.
-> **Next priority:** (1) Cut 0.1.2 release (Bear), (2) DESIGN.md export (5.12, urgent post-Google-Labs spec release), (3) Claude Design integration pack (P.14), (4) Finish docs site scaffold (5.5).
+> **Next priority:** (1) Cut 0.1.2 release (Bear), (2) Publish `@arcana-ui/claude-design-pack@0.1.0` to npm (Bear), (3) Finish docs site scaffold (5.5).
 
 ---
 
@@ -80,7 +80,7 @@ All foundation work, token system (2,600+ CSS variables), responsive framework (
 - [ ] P.11 -- AI generation rate limiting beyond current IP limit. **Deferred.**
 - [ ] P.12 -- Accessibility panel (live WCAG scoring). **Deferred.**
 - [x] **P.13 -- Per-preset motion personalities** (PRs #115, #116, #117, all merged 2026-04-15). Landing now consumes motion tokens, scroll-reveal + count-up + gradient-border primitives shipped, and 14 presets ship distinct motion personalities. Manifest captures motion personality so AI agents can query "which presets have calm motion" and get an answer.
-- [ ] **P.14 -- Claude Design integration pack** (NEW, see `COMPETITIVE_INTEL_2026-05-07.md`). `@arcana-ui/claude-design-pack` of 14 DESIGN.md files plus a landing page at `arcana-ui.com/claude-design`. Targets the `claude.ai/design/#org → Add assets` flow.
+- [x] **P.14 -- Claude Design integration pack** (built 2026-05-08, awaiting Bear's `npm publish`). `@arcana-ui/claude-design-pack@0.1.0` ships 14 pre-generated DESIGN.md files plus `manifest.claude-design.json` (slug, swatches, motion personality, raw GitHub URL, codebase pointer). `regenerate.ts` rebuilds from the source token JSON; CI runs `regenerate:check` on every push and fails on drift. Playground page `/claude-design` lists all 14 with copy + download per card and a 3-step "How to import" walkthrough. Targets the `claude.ai/design/#org → Add assets` flow.
 
 ---
 

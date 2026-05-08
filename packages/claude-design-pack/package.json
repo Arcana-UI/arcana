@@ -1,0 +1,37 @@
+{
+  "name": "@arcana-ui/claude-design-pack",
+  "version": "0.1.0",
+  "description": "14 token-driven design systems shipped as DESIGN.md files for Claude Design's Add assets flow.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./manifest.claude-design.json",
+  "exports": {
+    ".": "./manifest.claude-design.json",
+    "./manifest.claude-design.json": "./manifest.claude-design.json",
+    "./presets/*.md": "./presets/*.md"
+  },
+  "files": ["presets", "manifest.claude-design.json", "README.md"],
+  "scripts": {
+    "regenerate": "tsx scripts/regenerate.ts",
+    "regenerate:check": "tsx scripts/regenerate.ts --check"
+  },
+  "devDependencies": {
+    "@arcana-ui/design-md": "workspace:*",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arcana-UI/arcana",
+    "directory": "packages/claude-design-pack"
+  },
+  "homepage": "https://arcana-ui.com/claude-design",
+  "keywords": ["arcana", "claude-design", "design-system", "design-md", "tokens", "ai"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

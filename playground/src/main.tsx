@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
+import ClaudeDesign from './pages/ClaudeDesign';
 import ComponentDetail from './pages/ComponentDetail';
 import ComponentGallery from './pages/ComponentGallery';
 import Generate from './pages/Generate';
@@ -21,6 +22,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Landing />} />
         {/* AI theme generation: preview + pick step before landing in the editor */}
         <Route path="/generate" element={<Generate />} />
+        {/* Claude Design distribution: 14 DESIGN.md presets, drop-in for claude.ai/design */}
+        <Route path="/claude-design" element={<ClaudeDesign />} />
         {/* Main editor — existing App with three-panel layout */}
         <Route path="/playground" element={<App />} />
         {/* New playground pages with shared layout */}
