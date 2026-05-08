@@ -47,8 +47,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:tokens
       # Demos resolve `@arcana-ui/core` via the built dist/index.d.ts,
-      # so core must be built before their `tsc -b` typecheck runs.
+      # so core must be built before their `tsc -b` typecheck runs. Same
+      # for `@arcana-ui/design-md`, which the CLI imports for type info.
       - run: pnpm --filter @arcana-ui/core build
+      - run: pnpm --filter @arcana-ui/design-md build
       - run: pnpm typecheck
 
   test:
