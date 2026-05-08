@@ -115,16 +115,62 @@ const cssModulesPlugin: any = {
   },
 };
 
-// NOTE on tree-shaking: we ship a single pre-bundled ESM entry. Because
-// every component lives in one file, consumer bundlers (Vite/Rollup)
-// cannot currently tree-shake unused components — a Button-only import
-// produces nearly the same bundle size as an 8-component import. See
-// docs/KNOWN_ISSUES.md. The proper fix is per-component entry points,
-// which will land in a follow-up beta.
+// Tree-shaking strategy (5.9): we ship one entry per component, hook,
+// and utility under `dist/` so consumers can deep-import a single
+// component (`@arcana-ui/core/Button`) and pay only for that
+// component's code plus its actual dependencies, instead of inlining
+// the whole library.
 //
-// We keep splitting=false so the "use client" directive banner stays
-// intact at the top of the bundle; turning on splitting with a single
-// entry causes Rollup to strip the directive and break Next.js RSC.
+// We keep splitting=false intentionally: the "use client" banner that
+// esbuild writes via the banner option must end up at the top of every
+// consumer-reachable output, and tsup's splitting strips that banner
+// from shared chunks. With splitting=false each entry is self-
+// contained, so the directive lands on every output file and Next.js
+// App Router / Server Components see it correctly.
+//
+// Side effect: shared utility code (`cn`, `useFloating`, etc.) gets
+// duplicated across entries on disk. That cost is paid once at
+// install time; consumer bundlers dedupe the modules they actually
+// import.
+function discoverEntries(): Record<string, string> {
+  const srcDir = path.resolve(process.cwd(), 'src');
+  const entries: Record<string, string> = {
+    index: 'src/index.ts',
+  };
+
+  for (const category of ['primitives', 'composites', 'patterns', 'components']) {
+    const catDir = path.join(srcDir, category);
+    if (!fs.existsSync(catDir)) continue;
+    for (const name of fs.readdirSync(catDir)) {
+      const entryPath = path.join(catDir, name, 'index.ts');
+      if (fs.existsSync(entryPath)) {
+        entries[`${category}/${name}/index`] = `src/${category}/${name}/index.ts`;
+      }
+    }
+  }
+
+  const layoutEntry = path.join(srcDir, 'layout', 'index.ts');
+  if (fs.existsSync(layoutEntry)) {
+    entries['layout/index'] = 'src/layout/index.ts';
+  }
+
+  const hooksDir = path.join(srcDir, 'hooks');
+  if (fs.existsSync(hooksDir)) {
+    for (const file of fs.readdirSync(hooksDir)) {
+      if ((file.endsWith('.ts') || file.endsWith('.tsx')) && !file.includes('.test.')) {
+        const name = file.replace(/\.tsx?$/, '');
+        entries[`hooks/${name}`] = `src/hooks/${file}`;
+      }
+    }
+  }
+
+  entries['context/ThemeProvider'] = 'src/context/ThemeProvider.tsx';
+  entries['utils/cn'] = 'src/utils/cn.ts';
+  entries.version = 'src/version.ts';
+
+  return entries;
+}
+
 // Copy manifest.ai.json from the repo root into dist/ so consumers and AI
 // agents can read it at `@arcana-ui/core/dist/manifest.ai.json` without
 // having to clone the full repo. Only a best-effort copy — if the root
@@ -141,7 +187,7 @@ async function copyManifest(): Promise<void> {
 }
 
 const config: Options = {
-  entry: ['src/index.ts'],
+  entry: discoverEntries(),
   format: ['cjs', 'esm'],
   dts: true,
   splitting: false,
