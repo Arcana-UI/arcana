@@ -1,0 +1,189 @@
+{
+  "version": "alpha",
+  "generated": "2026-05-08",
+  "source": "https://github.com/Arcana-UI/arcana/tree/main/packages/tokens/src/presets",
+  "presets": [
+    {
+      "slug": "brutalist",
+      "name": "Brutalist",
+      "description": "Bloomberg Terminal meets Swiss poster - bold red accent, dramatic typography, thick structural borders",
+      "motionPersonality": "static",
+      "swatches": {
+        "background": "#ffffff",
+        "surface": "#ffffff",
+        "accent": "#cc0000"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/brutalist.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "commerce",
+      "name": "Commerce",
+      "description": "Clean product-focused design - warm neutrals with green accent, Shopify-inspired",
+      "motionPersonality": "default",
+      "swatches": {
+        "background": "#ffffff",
+        "surface": "#f9fafb",
+        "accent": "#047857"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/commerce.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "corporate",
+      "name": "Corporate",
+      "description": "Conservative navy/slate palette - trustworthy, enterprise-grade, Stripe-inspired",
+      "motionPersonality": "default",
+      "swatches": {
+        "background": "#ffffff",
+        "surface": "#f8fafc",
+        "accent": "#1d4ed8"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/corporate.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "dark",
+      "name": "Dark",
+      "description": "Deep slate dark with vibrant indigo accent - focused, rich, Linear-inspired",
+      "motionPersonality": "default",
+      "swatches": {
+        "background": "#020617",
+        "surface": "#0f172a",
+        "accent": "#4f46e5"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/dark.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "editorial",
+      "name": "Editorial",
+      "description": "Elegant serif typography, high contrast - publishing, NYT-inspired",
+      "motionPersonality": "calm",
+      "swatches": {
+        "background": "#faf8f5",
+        "surface": "#fafaf9",
+        "accent": "#1c1917"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/editorial.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "glass",
+      "name": "Glass",
+      "description": "Apple iOS glassmorphism - frosted translucent surfaces on gradient, elegant light typography",
+      "motionPersonality": "languid",
+      "swatches": {
+        "background": "#ffffff",
+        "surface": "#f5f5f5",
+        "accent": "#3b82f6"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/glass.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "light",
+      "name": "Light",
+      "description": "Warm stone palette with indigo accent - clean, precise, Notion-inspired",
+      "motionPersonality": "default",
+      "swatches": {
+        "background": "#fafaf9",
+        "surface": "#ffffff",
+        "accent": "#4f46e5"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/light.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "midnight",
+      "name": "Midnight",
+      "description": "Deep navy with soft gold accents - premium, finance-grade, Bloomberg-inspired",
+      "motionPersonality": "calm",
+      "swatches": {
+        "background": "#0a0e1a",
+        "surface": "#101829",
+        "accent": "#fbbf24"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/midnight.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "mono",
+      "name": "Mono",
+      "description": "Pure black and white - stark typographic minimalism, portfolio/architecture-inspired",
+      "motionPersonality": "default",
+      "swatches": {
+        "background": "#ffffff",
+        "surface": "#f9fafb",
+        "accent": "#000000"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/mono.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "nature",
+      "name": "Nature",
+      "description": "Earth tones with warm greens - organic, wellness, sustainability-inspired",
+      "motionPersonality": "organic",
+      "swatches": {
+        "background": "#f9faf6",
+        "surface": "#fafaf9",
+        "accent": "#15803d"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/nature.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "neon",
+      "name": "Neon",
+      "description": "Electric neon on dark - vivid cyan/pink accents, cyberpunk, gaming-inspired",
+      "motionPersonality": "spring",
+      "swatches": {
+        "background": "#08080c",
+        "surface": "#111118",
+        "accent": "#22d3ee"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/neon.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "retro98",
+      "name": "Retro98",
+      "description": "Authentic Windows 98 recreation - pixel-perfect bevels, navy blue title bars, silver surfaces",
+      "motionPersonality": "step",
+      "swatches": {
+        "background": "#c0c0c0",
+        "surface": "#ffffff",
+        "accent": "#000080"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/retro98.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "startup",
+      "name": "Startup",
+      "description": "Vibrant purple-to-pink gradient energy - modern SaaS, Vercel/Linear-inspired",
+      "motionPersonality": "snappy",
+      "swatches": {
+        "background": "#ffffff",
+        "surface": "#f5f3ff",
+        "accent": "#7c3aed"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/startup.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    },
+    {
+      "slug": "terminal",
+      "name": "Terminal",
+      "description": "Premium terminal emulator - green phosphor on black, monospace everything, Warp/Hyper-inspired",
+      "motionPersonality": "snappy",
+      "swatches": {
+        "background": "#0a0a0a",
+        "surface": "#111111",
+        "accent": "#00d26a"
+      },
+      "designMdUrl": "https://raw.githubusercontent.com/Arcana-UI/arcana/main/packages/claude-design-pack/presets/terminal.md",
+      "codebaseUrl": "https://github.com/Arcana-UI/arcana"
+    }
+  ]
+}

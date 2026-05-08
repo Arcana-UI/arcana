@@ -98,6 +98,14 @@ Arcana is published as four scoped packages on npm:
 
 ---
 
+## Claude Design
+
+Every Arcana preset ships as a Google `DESIGN.md` spec file under [`packages/claude-design-pack/presets/`](packages/claude-design-pack/presets), ready to drop into [claude.ai/design](https://claude.ai/design)'s "Add assets" flow. Pick a preset, paste the markdown, and every project the org creates inherits the design system.
+
+Browse all 14 with copy + download at [arcana-ui.com/claude-design](https://arcana-ui.com/claude-design). All 14 are validated against `@google/design.md lint` on every CI run.
+
+---
+
 ## How It Works
 
 Arcana uses a three-tier token architecture inspired by Material 3, Carbon, and Spectrum:

@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Claude Design distribution pack.** New `@arcana-ui/claude-design-pack`
+  package ships pre-generated DESIGN.md files for all 14 Arcana presets
+  plus a `manifest.claude-design.json` mapping each preset to its slug,
+  swatches, motion personality, raw GitHub URL, and codebase pointer.
+  Drop-in for [claude.ai/design](https://claude.ai/design)'s "Add assets"
+  flow: paste any preset's markdown and every project the org creates
+  inherits the design system. New playground page at `/claude-design`
+  surfaces all 14 presets with copy-to-clipboard and download-as-`.md`
+  per card, plus a 3-step "How to import" walkthrough. CI guard
+  (`pnpm --filter @arcana-ui/claude-design-pack regenerate:check`)
+  fails the build if any preset drifts from the source token JSON.
+  Not yet published to npm.
 - **DESIGN.md export.** `arcana-ui export-design-md <preset>` produces a
   Google DESIGN.md spec-compliant file for any of the 14 Arcana presets.
   `arcana-ui export-design-md all` writes 14 files at once. `--validate`

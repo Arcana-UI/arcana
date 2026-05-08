@@ -47,8 +47,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:tokens
       # Demos resolve `@arcana-ui/core` via the built dist/index.d.ts,
-      # so core must be built before their `tsc -b` typecheck runs.
+      # so core must be built before their `tsc -b` typecheck runs. Same
+      # for `@arcana-ui/design-md`, which the CLI imports for type info.
       - run: pnpm --filter @arcana-ui/core build
+      - run: pnpm --filter @arcana-ui/design-md build
       - run: pnpm typecheck
 
   test:
@@ -149,3 +151,10 @@ jobs:
           mkdir -p design-md-output
           cd design-md-output
           node ../packages/cli/dist/index.js export-design-md all --validate
+
+      - name: Verify claude-design-pack is regenerated from source
+        # Guards against `packages/claude-design-pack/presets/*.md` and
+        # `manifest.claude-design.json` drifting away from the source preset
+        # JSONs. Run `pnpm --filter @arcana-ui/claude-design-pack regenerate`
+        # locally to fix drift.
+        run: pnpm --filter @arcana-ui/claude-design-pack regenerate:check
