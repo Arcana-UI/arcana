@@ -1,10 +1,10 @@
 # Arcana UI -- Progress Tracker
 
 > **Last updated:** 2026-05-07
-> **Current version:** v0.1.1 (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0)
-> **Current sprint:** Pre-launch cleanup + tree-shaking fix. KV→Supabase, landing polish (3 PRs), useTheme tests, and 0.1.1 CSS-module hotfix all shipped between 2026-04-15 and 2026-04-17. Phase O still parked.
+> **Current version:** v0.1.1 published (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0). v0.1.2 staged on `develop` pending Bear's release.
+> **Current sprint:** Tree-shaking fix shipped to `develop` (single-component import 278 kB → 2.2 kB). KV→Supabase, landing polish (3 PRs), useTheme tests, 0.1.1 CSS-module hotfix, and 5.9 tree-shaking all closed. Phase O still parked.
 > **Source of truth for current state:** CLAUDE.md "Current State" section.
-> **Next priority:** (1) Tree-shaking fix per-component entry points (5.9), (2) DESIGN.md export (newly urgent, see `~/Documents/Claude/Projects/Arcana/COMPETITIVE_INTEL_2026-05-07.md`), (3) Claude Design integration pack, (4) Finish docs site scaffold (5.5).
+> **Next priority:** (1) Cut 0.1.2 release (Bear), (2) DESIGN.md export (5.12, urgent post-Google-Labs spec release), (3) Claude Design integration pack (P.14), (4) Finish docs site scaffold (5.5).
 
 ---
 
@@ -13,7 +13,7 @@
 | Package | Version | npm | Status |
 |---------|---------|-----|--------|
 | `@arcana-ui/tokens` | 0.1.0 | Published | Stable |
-| `@arcana-ui/core` | 0.1.1 | Published | Stable, 0.1.1 hotfix shipped 2026-04-17 (CSS module class-name maps) |
+| `@arcana-ui/core` | 0.1.1 (npm) / 0.1.2 (develop) | Published 0.1.1, 0.1.2 staged | Stable; 0.1.2 ships per-component entry points for tree-shaking |
 | `@arcana-ui/cli` | 0.1.0 | Published | Stable |
 | `@arcana-ui/mcp` | 0.1.0 | Published | Stable, transitive `hono` advisories tracked in KNOWN_ISSUES.md |
 
@@ -94,7 +94,7 @@ All foundation work, token system (2,600+ CSS variables), responsive framework (
 - [ ] 5.6 -- SEO and discoverability (structured data, OG images, meta tags)
 - [ ] 5.7 -- Community starter templates (Next, Vite, Remix, Astro). Tracked under Phase 7.
 - [ ] 5.8 -- Figma Code Connect (light pass scoped, see `COMPETITIVE_INTEL_2026-05-07.md` insertion 3)
-- [ ] **5.9 -- Performance audit / tree-shaking fix.** Per-component entry points required. `tsup.config.ts` is single-entry (`splitting: false` because splitting strips the `"use client"` directive Next.js RSC needs). Fix is in `package.json` `exports` map plus per-component tsup entries, not the splitting flag. Single Button import is currently 278 kB; target <50 kB. **Active task.**
+- [x] **5.9 -- Performance audit / tree-shaking fix.** Per-component entry points landed via `perf/5.9-per-component-entry-points`. `tsup.config.ts` now discovers ~82 entries programmatically (every primitive, composite, pattern, component, hook, layout module, context, and util). Each entry is self-contained with its own `"use client"` banner; `splitting: false` is preserved deliberately so the directive lands on every consumer-reachable output. `package.json` `exports` map exposes friendly subpaths (`@arcana-ui/core/Button`, `@arcana-ui/core/useTheme`, etc). `sideEffects` widened to `["**/*.css", "**/*.module.css"]` to keep CSS imports preserved during tree-shaking. **Verified consumer bundle: single-Button import 278 kB → 2.2 kB minified (99.2% drop); full barrel import 278 kB → 166.9 kB.** Bumped `@arcana-ui/core` to 0.1.2 (Bear publishes).
 - [ ] 5.10 -- Launch checklist
 - [x] 5.11 -- CLI: init, validate, add-theme
 - [ ] **5.12 -- DESIGN.md export** (NEW, urgent post-Google-Labs spec release on 2026-04-21). Validates against `@google/design.md` CLI in CI. Each of 14 presets ships as a DESIGN.md file. PR'd to VoltAgent's `awesome-claude-design` list.
@@ -140,7 +140,7 @@ Status unchanged. Repo exists, dormant. Supabase project repurposed as the gener
 
 | Issue | Severity | Status |
 |-------|----------|--------|
-| Tree-shaking broken (single entry point, 278 kB for any import) | High | Active task. Fix is per-component entry points + per-subpath exports. |
+| Tree-shaking broken (single entry point, 278 kB for any import) | RESOLVED | Fixed in 0.1.2 via per-component entry points + per-subpath exports map. Single-Button consumer bundle: 2.2 kB. |
 | 20 `hono` advisories (15 moderate, 5 high) via `@modelcontextprotocol/sdk` in `packages/mcp` | Medium | Transitive. Not exploitable in current `@arcana-ui/mcp` usage (no user-controlled JSX). `pnpm.overrides` attempt on 2026-05-07 failed to propagate under pnpm v10.31.0; reverted. Fix: bump MCP SDK when upstream ships a patched-hono release. |
 | 156 biome warnings reported, ~78 of which are duplicates from `.claude/worktrees/` | Low | Real warning count inside the working tree is ~78, roughly stable vs the 77 baseline. Categorized in KNOWN_ISSUES.md. Sweep planned before launch. |
 
