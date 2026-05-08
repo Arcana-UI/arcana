@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-05-08
+
+Tree-shaking release for `@arcana-ui/core`. Single-component imports drop
+from 278 kB to 2.2 kB minified. The full-barrel import path is unchanged
+for consumers who don't deep-import.
+
+Only `@arcana-ui/core` is republished. `@arcana-ui/tokens`,
+`@arcana-ui/cli`, and `@arcana-ui/mcp` stay at `0.1.0`.
+
 ### Changed
 
 - **[`@arcana-ui/core`] Now ships per-component entry points for proper
@@ -42,6 +51,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   styles would be dropped during tree-shaking).
 
 - **[`@arcana-ui/core`] Bumped to `0.1.2`.**
+
+- **[infra] Release workflow now skips already-published versions.**
+  Each publish step in `.github/workflows/release.yml` checks
+  `npm view @arcana-ui/<pkg>@<version>` before running `npm publish`.
+  Hotfix releases (where only one package's version bumps) now no-op
+  the unchanged packages instead of failing the workflow. Genuine
+  publish failures (auth, network, registry errors) still surface
+  loudly. `cli` and `mcp` were also added to the workflow so future
+  releases can publish all four packages from the same tag push.
 
 ## [0.1.1] - 2026-04-17
 
