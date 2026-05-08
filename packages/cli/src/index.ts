@@ -1,12 +1,14 @@
 /**
- * Entry point for the @arcana-ui/cli binary. Wires three commands
- * (init / validate / add-theme) onto a single commander program.
+ * Entry point for the @arcana-ui/cli binary. Wires four commands
+ * (init / validate / add-theme / export-design-md) onto a single
+ * commander program.
  *
  * The shebang is injected by tsup at build time (see tsup.config.ts).
  */
 import { Command } from 'commander';
 
 import { runAddTheme } from './commands/add-theme.js';
+import { runExportDesignMd } from './commands/export-design-md.js';
 import { runInit } from './commands/init.js';
 import { runValidate } from './commands/validate.js';
 import * as log from './utils/logger.js';
@@ -58,6 +60,20 @@ program
   .action(async (preset, opts) => {
     try {
       await runAddTheme(preset, opts);
+    } catch (err) {
+      log.error((err as Error).message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('export-design-md <preset>')
+  .description('Export an Arcana preset as a Google DESIGN.md file')
+  .option('--out <path>', 'output file path (default: ./<preset>.md; ignored when preset=all)')
+  .option('--validate', 'run @google/design.md lint after writing (network required)')
+  .action(async (preset, opts) => {
+    try {
+      await runExportDesignMd(preset, opts);
     } catch (err) {
       log.error((err as Error).message);
       process.exit(1);

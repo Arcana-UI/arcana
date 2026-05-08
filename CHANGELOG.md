@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **DESIGN.md export.** `arcana-ui export-design-md <preset>` produces a
+  Google DESIGN.md spec-compliant file for any of the 14 Arcana presets.
+  `arcana-ui export-design-md all` writes 14 files at once. `--validate`
+  runs `@google/design.md lint` after writing and reports per-preset
+  results. New CI job (`DESIGN.md Spec`) validates all 14 presets on
+  every PR; the workflow hard-fails if any preset emits spec errors.
+  Internal `@arcana-ui/design-md` package houses the converter
+  (`presetToDesignMd(preset, options)` returns a string). Front matter
+  emits 11 colors with WCAG-verified contrast pairs, 12 typography
+  levels, a 7-step rounded scale, a 9-step spacing scale, and 6 atomic
+  components. Markdown body covers Overview, Colors, Typography,
+  Layout, Elevation & Depth, Shapes, Motion (extension), Components,
+  and Do's and Don'ts in spec order. Driven by Google Labs' DESIGN.md
+  spec release on 2026-04-21 and VoltAgent's `awesome-claude-design`
+  inventory.
+
 ## [0.1.2] - 2026-05-08
 
 Tree-shaking release for `@arcana-ui/core`. Single-component imports drop
