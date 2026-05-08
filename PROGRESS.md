@@ -1,8 +1,8 @@
 # Arcana UI -- Progress Tracker
 
-> **Last updated:** 2026-05-07
-> **Current version:** v0.1.1 published (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0). v0.1.2 staged on `develop` pending Bear's release.
-> **Current sprint:** Tree-shaking fix shipped to `develop` (single-component import 278 kB → 2.2 kB). KV→Supabase, landing polish (3 PRs), useTheme tests, 0.1.1 CSS-module hotfix, and 5.9 tree-shaking all closed. Phase O still parked.
+> **Last updated:** 2026-05-08
+> **Current version:** v0.1.2 (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0).
+> **Current sprint:** Tree-shaking release shipped (single-component import 278 kB → 2.2 kB). KV→Supabase, landing polish (3 PRs), useTheme tests, 0.1.1 CSS-module hotfix, and 5.9 tree-shaking all closed. Phase O still parked.
 > **Source of truth for current state:** CLAUDE.md "Current State" section.
 > **Next priority:** (1) Cut 0.1.2 release (Bear), (2) DESIGN.md export (5.12, urgent post-Google-Labs spec release), (3) Claude Design integration pack (P.14), (4) Finish docs site scaffold (5.5).
 
@@ -13,7 +13,7 @@
 | Package | Version | npm | Status |
 |---------|---------|-----|--------|
 | `@arcana-ui/tokens` | 0.1.0 | Published | Stable |
-| `@arcana-ui/core` | 0.1.1 (npm) / 0.1.2 (develop) | Published 0.1.1, 0.1.2 staged | Stable; 0.1.2 ships per-component entry points for tree-shaking |
+| `@arcana-ui/core` | 0.1.2 | Published | Stable; 0.1.2 ships per-component entry points for tree-shaking (278 kB → 2.2 kB single-component import) |
 | `@arcana-ui/cli` | 0.1.0 | Published | Stable |
 | `@arcana-ui/mcp` | 0.1.0 | Published | Stable, transitive `hono` advisories tracked in KNOWN_ISSUES.md |
 
