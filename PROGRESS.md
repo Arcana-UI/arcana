@@ -97,7 +97,7 @@ All foundation work, token system (2,600+ CSS variables), responsive framework (
 - [x] **5.9 -- Performance audit / tree-shaking fix.** Per-component entry points landed via `perf/5.9-per-component-entry-points`. `tsup.config.ts` now discovers ~82 entries programmatically (every primitive, composite, pattern, component, hook, layout module, context, and util). Each entry is self-contained with its own `"use client"` banner; `splitting: false` is preserved deliberately so the directive lands on every consumer-reachable output. `package.json` `exports` map exposes friendly subpaths (`@arcana-ui/core/Button`, `@arcana-ui/core/useTheme`, etc). `sideEffects` widened to `["**/*.css", "**/*.module.css"]` to keep CSS imports preserved during tree-shaking. **Verified consumer bundle: single-Button import 278 kB → 2.2 kB minified (99.2% drop); full barrel import 278 kB → 166.9 kB.** Bumped `@arcana-ui/core` to 0.1.2 (Bear publishes).
 - [ ] 5.10 -- Launch checklist
 - [x] 5.11 -- CLI: init, validate, add-theme
-- [ ] **5.12 -- DESIGN.md export** (NEW, urgent post-Google-Labs spec release on 2026-04-21). Validates against `@google/design.md` CLI in CI. Each of 14 presets ships as a DESIGN.md file. PR'd to VoltAgent's `awesome-claude-design` list.
+- [x] **5.12 -- DESIGN.md export** (shipped 2026-05-08). Internal `packages/design-md` workspace converts any Arcana preset to a Google DESIGN.md spec-compliant string via `presetToDesignMd(preset, options)`. CLI command `arcana-ui export-design-md <preset>` (or `all`) writes the file(s) and optionally runs `@google/design.md lint` against the output. New CI job validates all 14 presets on every PR; hard-fails on any spec error. All 14 presets currently pass with 0 errors and 5-8 advisory warnings each.
 
 ---
 
