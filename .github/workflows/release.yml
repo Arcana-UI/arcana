@@ -91,6 +91,22 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Publish @arcana-ui/claude-design-pack
+        # Markdown + manifest only — no build artifacts to verify. CI's
+        # `regenerate:check` already guarantees presets/ is in sync with
+        # the source token JSONs before we get here.
+        run: |
+          cd packages/claude-design-pack
+          VERSION=$(npm pkg get version | tr -d '"')
+          if npm view "@arcana-ui/claude-design-pack@$VERSION" version >/dev/null 2>&1; then
+            echo "@arcana-ui/claude-design-pack@$VERSION already on npm, skipping."
+          else
+            echo "Publishing @arcana-ui/claude-design-pack@$VERSION"
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
