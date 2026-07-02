@@ -37,6 +37,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   spec release on 2026-04-21 and VoltAgent's `awesome-claude-design`
   inventory.
 
+### Changed
+
+- Refreshed tracking docs (`PROGRESS.md`, `CLAUDE.md` "Current State")
+  after the 2026-07-02 post-pause audit: 5.12 and P.14 recorded as
+  shipped, the May 7-11 sprint summarized, the stale 0.1.2 release
+  blocker replaced with the pending `@arcana-ui/claude-design-pack`
+  release cut, and the retired 6.5 roadmap row removed. Docs-only, no
+  package code changes.
+
 ## [0.1.2] - 2026-05-08
 
 Tree-shaking release for `@arcana-ui/core`. Single-component imports drop
