@@ -90,7 +90,7 @@ All foundation work, token system (2,600+ CSS variables), responsive framework (
 - [x] 5.2 -- llms.txt + llms-full.txt (2,370 lines)
 - [x] 5.3 -- Claude Code skill at `.claude/skills/arcana/SKILL.md` (1,821 lines)
 - [x] 5.4 -- MCP server: `@arcana-ui/mcp@0.1.0` (7 tools)
-- [ ] **5.5 -- Documentation site -- SCAFFOLDED, content in progress.** `docs/` workspace exists with fumadocs-mdx, Next.js 15, React 19. Content generation from manifest.ai.json not yet wired.
+- [ ] **5.5 -- Documentation site -- content generation wired 2026-07-24, guides still open.** `docs/` workspace (fumadocs-mdx, Next.js 15, React 19) now gets component reference pages generated from manifest.ai.json: Generator 9 in `scripts/generate-docs.mjs` emits MDX (import + props table) for all 108 components, preserves hand-written pages, and rebuilds the category-grouped sidebar `meta.json` (with a `...` rest entry so hand-written pages without a manifest counterpart stay visible). 91 generated + 17 hand-written preserved; docs build prerenders 117 paths. Still open: component-level descriptions in the manifest (generated pages use a generic one), usage examples on generated pages, and the non-component guides.
 - [ ] 5.6 -- SEO and discoverability (structured data, OG images, meta tags)
 - [ ] 5.7 -- Community starter templates (Next, Vite, Remix, Astro). Tracked under Phase 7.
 - [ ] 5.8 -- Figma Code Connect (light pass scoped, see `COMPETITIVE_INTEL_2026-05-07.md` insertion 3)

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-09T17:22:56.002Z",
+  "generatedAt": "2026-07-25T02:59:11.148Z",
   "componentCount": 69,
   "tokenCount": 656,
   "components": {
@@ -4264,7 +4264,9 @@
         "--color-border-strong",
         "--color-fg-on-primary",
         "--color-fg-primary",
+        "--duration-fast",
         "--ease-linear",
+        "--ease-out",
         "--element-font-size-lg",
         "--element-font-size-md",
         "--element-font-size-sm",
@@ -4353,7 +4355,9 @@
         "--color-border-strong",
         "--color-fg-on-primary",
         "--color-fg-primary",
+        "--duration-fast",
         "--ease-linear",
+        "--ease-out",
         "--element-font-size-lg",
         "--element-font-size-md",
         "--element-font-size-sm",
@@ -5454,7 +5458,7 @@
       "category": "color"
     },
     "--duration-fast": {
-      "usedBy": ["colorpicker", "commandpalette", "fontpicker", "logocloud", "popover"],
+      "usedBy": ["button", "colorpicker", "commandpalette", "fontpicker", "logocloud", "popover"],
       "tier": "semantic",
       "category": "motion"
     },
@@ -7264,7 +7268,15 @@
       "category": "motion"
     },
     "--ease-out": {
-      "usedBy": ["bottomsheet", "commandpalette", "drawer", "drawernav", "popover", "toast"],
+      "usedBy": [
+        "bottomsheet",
+        "button",
+        "commandpalette",
+        "drawer",
+        "drawernav",
+        "popover",
+        "toast"
+      ],
       "tier": "semantic",
       "category": "motion"
     },

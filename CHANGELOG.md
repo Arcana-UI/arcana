@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Docs site component pages generated from manifest.ai.json** (5.5).
+  New Generator 9 in `scripts/generate-docs.mjs` emits an MDX API
+  reference page (import statement + props table with types, defaults,
+  and descriptions) into `docs/content/docs/components/` for every
+  component in `manifest.ai.json`, and rebuilds the sidebar `meta.json`
+  grouped by category (Primitives, Composites, Layout, Patterns,
+  Context, Utilities) with a `...` rest entry so hand-written pages
+  without a manifest counterpart stay visible. Hand-written pages are
+  never overwritten: only files carrying the `@generated` marker are
+  regenerated, and regeneration is idempotent. First run adds 91
+  generated pages alongside the 17 preserved hand-written ones; the
+  docs site now prerenders 117 static paths. Also refreshed the other
+  pipeline outputs (COMPONENT-INVENTORY.md, COMPONENT-TOKENS.md,
+  token maps, llms.txt / llms-full.txt), which had drifted since
+  2026-04-09.
 - **Claude Design distribution pack.** New `@arcana-ui/claude-design-pack`
   package ships pre-generated DESIGN.md files for all 14 Arcana presets
   plus a `manifest.claude-design.json` mapping each preset to its slug,
