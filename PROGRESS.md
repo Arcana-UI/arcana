@@ -1,10 +1,10 @@
 # Arcana UI -- Progress Tracker
 
-> **Last updated:** 2026-05-08
-> **Current version:** v0.1.2 (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0).
-> **Current sprint:** Tree-shaking release shipped (single-component import 278 kB → 2.2 kB). KV→Supabase, landing polish (3 PRs), useTheme tests, 0.1.1 CSS-module hotfix, and 5.9 tree-shaking all closed. Phase O still parked.
+> **Last updated:** 2026-07-02
+> **Current version:** v0.1.2 (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0). `@arcana-ui/claude-design-pack@0.1.0` published 2026-05-11.
+> **Current sprint:** Resumed 2026-07-02 after a 7-week pause. May 7-11 sprint shipped 5.9 tree-shaking, the v0.1.2 release, 5.12 DESIGN.md export, and P.14 Claude Design pack (PRs #122-#128, all merged). No open PRs; `develop` is 7 ahead / 0 behind `main`. Phase O still parked.
 > **Source of truth for current state:** CLAUDE.md "Current State" section.
-> **Next priority:** (1) Cut 0.1.2 release (Bear), (2) Publish `@arcana-ui/claude-design-pack@0.1.0` to npm (Bear), (3) Finish docs site scaffold (5.5).
+> **Next priority:** (1) Docs site content (5.5, in progress), (2) PR the pack to VoltAgent's `awesome-claude-design` list, (3) README overhaul (8.1), (4) Release cut from develop to sync main when convenient (Bear).
 
 ---
 
@@ -16,6 +16,7 @@
 | `@arcana-ui/core` | 0.1.2 | Published | Stable; 0.1.2 ships per-component entry points for tree-shaking (278 kB → 2.2 kB single-component import) |
 | `@arcana-ui/cli` | 0.1.0 | Published | Stable |
 | `@arcana-ui/mcp` | 0.1.0 | Published | Stable, transitive `hono` advisories tracked in KNOWN_ISSUES.md |
+| `@arcana-ui/claude-design-pack` | 0.1.0 | Published | Live since 2026-05-11 (manual publish by Bear); future versions publish via release.yml (step added in PR #128) |
 
 ---
 
@@ -80,7 +81,7 @@ All foundation work, token system (2,600+ CSS variables), responsive framework (
 - [ ] P.11 -- AI generation rate limiting beyond current IP limit. **Deferred.**
 - [ ] P.12 -- Accessibility panel (live WCAG scoring). **Deferred.**
 - [x] **P.13 -- Per-preset motion personalities** (PRs #115, #116, #117, all merged 2026-04-15). Landing now consumes motion tokens, scroll-reveal + count-up + gradient-border primitives shipped, and 14 presets ship distinct motion personalities. Manifest captures motion personality so AI agents can query "which presets have calm motion" and get an answer.
-- [x] **P.14 -- Claude Design integration pack** (built 2026-05-08, awaiting Bear's `npm publish`). `@arcana-ui/claude-design-pack@0.1.0` ships 14 pre-generated DESIGN.md files plus `manifest.claude-design.json` (slug, swatches, motion personality, raw GitHub URL, codebase pointer). `regenerate.ts` rebuilds from the source token JSON; CI runs `regenerate:check` on every push and fails on drift. Playground page `/claude-design` lists all 14 with copy + download per card and a 3-step "How to import" walkthrough. Targets the `claude.ai/design/#org → Add assets` flow.
+- [x] **P.14 -- Claude Design integration pack** (built 2026-05-08, published to npm 2026-05-11). `@arcana-ui/claude-design-pack@0.1.0` ships 14 pre-generated DESIGN.md files plus `manifest.claude-design.json` (slug, swatches, motion personality, raw GitHub URL, codebase pointer). `regenerate.ts` rebuilds from the source token JSON; CI runs `regenerate:check` on every push and fails on drift. Playground page `/claude-design` lists all 14 with copy + download per card and a 3-step "How to import" walkthrough. Targets the `claude.ai/design/#org → Add assets` flow.
 
 ---
 
@@ -107,7 +108,6 @@ All foundation work, token system (2,600+ CSS variables), responsive framework (
 - [ ] 6.2 -- Extension guidelines: EXTENDING.md file for AI agents
 - [ ] 6.3 -- CLI enhancements: `add-theme` from description, `update` commands, AI-powered CLI flows
 - [ ] 6.4 -- Component variant depth: variant-level tokens (e.g., button primary vs ghost at the token layer)
-- [ ] 6.5 -- DESIGN.md export. **Promoted to Phase 5 task 5.12 above; row retained until next cleanup pass.**
 
 ---
 
@@ -144,7 +144,7 @@ Status unchanged. Repo exists, dormant. Supabase project repurposed as the gener
 | 20 `hono` advisories (15 moderate, 5 high) via `@modelcontextprotocol/sdk` in `packages/mcp` | Medium | Transitive. Not exploitable in current `@arcana-ui/mcp` usage (no user-controlled JSX). `pnpm.overrides` attempt on 2026-05-07 failed to propagate under pnpm v10.31.0; reverted. Fix: bump MCP SDK when upstream ships a patched-hono release. |
 | 156 biome warnings reported, ~78 of which are duplicates from `.claude/worktrees/` | Low | Real warning count inside the working tree is ~78, roughly stable vs the 77 baseline. Categorized in KNOWN_ISSUES.md. Sweep planned before launch. |
 
-Resolved since 2026-04-15: 16 useTheme tests now pass. Vercel KV deprecation cleared (PR #114). v0.1.1 CSS-module class-name map hotfix shipped (PRs #120/#121). `develop` synced with `main` (this PR). Tree-shaking remains the only outstanding launch blocker.
+Resolved since 2026-04-15: 16 useTheme tests now pass. Vercel KV deprecation cleared (PR #114). v0.1.1 CSS-module class-name map hotfix shipped (PRs #120/#121). `develop` synced with `main` (PR #122). Tree-shaking shipped in 0.1.2 (PRs #123/#124). No outstanding technical launch blockers as of 2026-07-24. `@arcana-ui/claude-design-pack@0.1.0` published 2026-05-11 (a 2026-07-02 audit misread the npm check and briefly recorded it as unpublished).
 
 ---
 
@@ -164,7 +164,23 @@ Resolved since 2026-04-15: 16 useTheme tests now pass. Vercel KV deprecation cle
 
 ---
 
-## Recent Sprint Summary (2026-04-15 to 2026-04-17)
+## Recent Sprint Summary (2026-05-07 to 2026-05-11)
+
+Return-from-pause sprint. Seven PRs merged in five days, then a second pause until 2026-07-02:
+
+- **PR #122** (2026-05-07): Post-0.1.1 cleanup. Develop synced with main, tracking docs refreshed, release.yml `continue-on-error` reverted.
+- **PR #123** (2026-05-07): Tree-shaking fix (5.9). Per-component entry points; single-component import 278 kB → 2.2 kB.
+- **PR #124** (2026-05-08): v0.1.2 release. First fully-green release.yml run.
+- **PR #125** (2026-05-08): Workflow polish. Visual Regression to manual + nightly cron, Node 22 LTS, `pnpm test` pre-publish guard.
+- **PR #126** (2026-05-08): DESIGN.md export (5.12). CLI command + CI validation of all 14 presets against `@google/design.md lint`.
+- **PR #127** (2026-05-08): Claude Design pack (P.14). 14 DESIGN.md presets, drift-guard CI, `/claude-design` playground page.
+- **PR #128** (2026-05-11): claude-design-pack publish step added to release.yml. Same day, Bear manually published `@arcana-ui/claude-design-pack@0.1.0` to npm.
+
+On 2026-07-02 a post-pause audit confirmed everything above is merged (no open PRs, every branch content-verified against develop) and refreshed these tracking docs. On 2026-07-24 the pack's publish status was corrected (the 07-02 audit had misread the npm check as "not published").
+
+---
+
+## Prior Sprint Summary (2026-04-15 to 2026-04-17)
 
 Four PR clusters shipped in three days, then Bear stepped away. Captured here so the timeline is clear:
 

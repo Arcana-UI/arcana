@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   per card, plus a 3-step "How to import" walkthrough. CI guard
   (`pnpm --filter @arcana-ui/claude-design-pack regenerate:check`)
   fails the build if any preset drifts from the source token JSON.
-  Not yet published to npm.
+  Published to npm 2026-05-11.
 - **DESIGN.md export.** `arcana-ui export-design-md <preset>` produces a
   Google DESIGN.md spec-compliant file for any of the 14 Arcana presets.
   `arcana-ui export-design-md all` writes 14 files at once. `--validate`
@@ -36,6 +36,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and Do's and Don'ts in spec order. Driven by Google Labs' DESIGN.md
   spec release on 2026-04-21 and VoltAgent's `awesome-claude-design`
   inventory.
+
+### Changed
+
+- Refreshed tracking docs (`PROGRESS.md`, `CLAUDE.md` "Current State")
+  after the 2026-07-02 post-pause audit and a 2026-07-24 follow-up:
+  5.12 and P.14 recorded as shipped, the May 7-11 sprint summarized,
+  the stale 0.1.2 release blocker removed, the retired 6.5 roadmap row
+  removed, and `@arcana-ui/claude-design-pack`'s publish status
+  corrected to published 2026-05-11. Docs-only, no package code
+  changes.
 
 ## [0.1.2] - 2026-05-08
 
