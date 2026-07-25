@@ -1,13 +1,20 @@
 {
   "$schema": "./scripts/manifest.schema.json",
   "release": {
-    "version": "0.1.1",
-    "releaseDate": "2026-04-17",
+    "version": "0.1.2",
+    "releaseDate": "2026-05-08",
     "changelog": "https://github.com/Arcana-UI/arcana/blob/main/CHANGELOG.md",
     "breaking": [],
     "migration": null
   },
   "releaseHistory": [
+    {
+      "version": "0.1.2",
+      "date": "2026-05-08",
+      "breaking": [],
+      "migration": null,
+      "summary": "Tree-shaking release for @arcana-ui/core (5.9). The tsup build now emits a self-contained entry per component, hook, layout module, context, and utility, each with its own \"use client\" banner, and the package.json exports map exposes friendly subpaths (@arcana-ui/core/Button, @arcana-ui/core/useTheme, ...). Single-component consumer import drops from 278 kB to 2.2 kB minified (99.2% reduction); the full barrel drops from 278 kB to 166.9 kB. sideEffects widened to [\"**/*.css\", \"**/*.module.css\"] so per-component styles survive tree-shaking. Only @arcana-ui/core republished; tokens, cli, and mcp stay at 0.1.0."
+    },
     {
       "version": "0.1.1",
       "date": "2026-04-17",
@@ -38,7 +45,7 @@
     }
   ],
   "name": "@arcana-ui/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React components for Arcana UI — AI's #1 design system",
   "install": "npm i @arcana-ui/core @arcana-ui/tokens",
   "quickStart": [
@@ -2597,7 +2604,12 @@
         "fallback": {
           "type": "ReactNode",
           "required": false,
-          "description": "Fallback content shown while loading or on error"
+          "description": "Fallback content shown while the image is loading or when it fails to load. When `errorFallback` is also provided, `fallback` is only used during loading."
+        },
+        "errorFallback": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown specifically when the image fails to load. Takes precedence over `fallback` in the error state. When the image has failed, the underlying `<img>` element is removed from the rendered output so the browser cannot paint a broken-image icon behind the fallback."
         },
         "aspectRatio": {
           "type": "number | 'square' | 'video' | 'portrait'",
@@ -3445,25 +3457,9 @@
       "import": "import { ThemeProvider } from '@arcana-ui/core'",
       "props": {
         "defaultTheme": {
-          "type": "enum",
-          "values": [
-            "brutalist",
-            "commerce",
-            "corporate",
-            "dark",
-            "editorial",
-            "glass",
-            "light",
-            "midnight",
-            "mono",
-            "nature",
-            "neon",
-            "retro98",
-            "startup",
-            "terminal"
-          ],
+          "type": "ThemeId | null | 'inherit'",
           "required": false,
-          "description": "Default theme to use when no stored preference exists and system detection is not used.",
+          "description": "Default theme to use when no stored preference exists and system detection is not used. Pass `null` or `\"inherit\"` to leave the existing `data-theme` attribute on `<html>` untouched — useful when the host app manages the attribute itself (e.g. a playground rendering arbitrary themes, or SSR that has already written the attribute).",
           "default": "light"
         },
         "storageKey": {
@@ -3477,6 +3473,11 @@
           "required": false,
           "description": "When `true`, add smooth CSS transitions during theme changes.",
           "default": false
+        },
+        "customThemes": {
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Additional theme ids beyond the built-in set. When provided, these are considered valid stored values and are included in the `themes` array exposed via context."
         }
       }
     }
@@ -3529,16 +3530,16 @@
     {
       "name": "useTheme",
       "import": "import { useTheme } from '@arcana-ui/core'",
-      "description": "Reads the persisted theme from localStorage. Returns `null` if no preference is stored or if running on the server. / function getStoredTheme(): ThemeId | null { if (typeof window === 'undefined') return null; try { const stored = localStorage.getItem(STORAGE_KEY); if (stored && THEME_IDS.includes(stored as ThemeId)) { return stored as ThemeId; } } catch { // localStorage may be unavailable (e.g., private browsing) } return null; } /** Persists the theme choice to localStorage, or removes it to follow system. / function storeTheme(theme: ThemeId | null): void { if (typeof window === 'undefined') return; try { if (theme === null) { localStorage.removeItem(STORAGE_KEY); } else { localStorage.setItem(STORAGE_KEY, theme); } } catch { // Silently fail if localStorage is unavailable } } /** Applies the theme to the document root element. / function applyTheme(theme: ThemeId): void { if (typeof document === 'undefined') return; document.documentElement.setAttribute(ATTRIBUTE, theme); } /** SSR-safe subscription to `prefers-color-scheme: dark` media query. / function useSystemPrefersDark(): boolean { const query = '(prefers-color-scheme: dark)'; const subscribe = useCallback((callback: () => void) => { if (typeof window === 'undefined') return () => {}; const mql = window.matchMedia(query); mql.addEventListener('change', callback); return () => mql.removeEventListener('change', callback); }, []); const getSnapshot = useCallback((): boolean => { if (typeof window === 'undefined') return false; return window.matchMedia(query).matches; }, []); const getServerSnapshot = useCallback((): boolean => false, []); return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot); } /** Manages theme switching with system preference detection, manual override, and localStorage persistence. SSR-safe: defaults to `\"light\"` when `window` is unavailable."
+      "description": "Supported theme identifiers. Accepts both built-in themes and arbitrary strings for custom themes — the `(string & {})` preserves autocomplete for built-ins while allowing any string. / export type ThemeId = BuiltInThemeId | (string & {}); /** The resolved source of the current theme. */ export type ThemeSource = 'manual' | 'system'; /** Return type of the `useTheme` hook. */ export interface UseThemeReturn { /** The currently active theme id. */ theme: ThemeId; /** How the current theme was determined. */ source: ThemeSource; /** All available theme ids. */ themes: readonly ThemeId[]; /** Whether the OS prefers dark mode. */ systemPrefersDark: boolean; /** Set a specific theme, overriding system preference. */ setTheme: (theme: ThemeId) => void; /** Clear manual override and follow system preference. */ followSystem: () => void; } /** All available theme ids. */ const THEME_IDS: readonly ThemeId[] = [ 'light', 'dark', 'terminal', 'retro98', 'glass', 'brutalist', ] as const; const STORAGE_KEY = 'arcana-theme'; const ATTRIBUTE = 'data-theme'; /** Reads the persisted theme from localStorage. Returns `null` if no preference is stored or if running on the server. / function getStoredTheme(): ThemeId | null { if (typeof window === 'undefined') return null; try { const stored = localStorage.getItem(STORAGE_KEY); if (stored && THEME_IDS.includes(stored as ThemeId)) { return stored as ThemeId; } } catch { // localStorage may be unavailable (e.g., private browsing) } return null; } /** Persists the theme choice to localStorage, or removes it to follow system. / function storeTheme(theme: ThemeId | null): void { if (typeof window === 'undefined') return; try { if (theme === null) { localStorage.removeItem(STORAGE_KEY); } else { localStorage.setItem(STORAGE_KEY, theme); } } catch { // Silently fail if localStorage is unavailable } } /** Applies the theme to the document root element. / function applyTheme(theme: ThemeId): void { if (typeof document === 'undefined') return; document.documentElement.setAttribute(ATTRIBUTE, theme); } /** SSR-safe subscription to `prefers-color-scheme: dark` media query. / function useSystemPrefersDark(): boolean { const query = '(prefers-color-scheme: dark)'; const subscribe = useCallback((callback: () => void) => { if (typeof window === 'undefined') return () => {}; const mql = window.matchMedia(query); mql.addEventListener('change', callback); return () => mql.removeEventListener('change', callback); }, []); const getSnapshot = useCallback((): boolean => { if (typeof window === 'undefined') return false; return window.matchMedia(query).matches; }, []); const getServerSnapshot = useCallback((): boolean => false, []); return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot); } /** Manages theme switching with system preference detection, manual override, and localStorage persistence. SSR-safe: defaults to `\"light\"` when `window` is unavailable."
     },
     {
       "name": "useThemeContext",
       "import": "import { useThemeContext } from '@arcana-ui/core'",
-      "description": "Reads the persisted theme from localStorage. / function getStoredTheme(key: string): ThemeId | null { if (typeof window === 'undefined') return null; try { const stored = localStorage.getItem(key); if (stored && THEME_IDS.includes(stored as ThemeId)) { return stored as ThemeId; } } catch { // localStorage may be unavailable } return null; } /** Persists the theme choice to localStorage. / function storeTheme(key: string, theme: ThemeId | null): void { if (typeof window === 'undefined') return; try { if (theme === null) { localStorage.removeItem(key); } else { localStorage.setItem(key, theme); } } catch { // Silently fail } } /** Provides theme state to the component tree via React context. Handles system preference detection (`prefers-color-scheme`), manual override, localStorage persistence, and optional CSS transitions during theme changes."
+      "description": "Default theme to use when no stored preference exists and system detection is not used. Pass `null` or `\"inherit\"` to leave the existing `data-theme` attribute on `<html>` untouched — useful when the host app manages the attribute itself (e.g. a playground rendering arbitrary themes, or SSR that has already written the attribute). / defaultTheme?: ThemeId | null | 'inherit'; /** localStorage key for persisting theme preference. */ storageKey?: string; /** When `true`, add smooth CSS transitions during theme changes. */ enableTransitions?: boolean; /** Additional theme ids beyond the built-in set. When provided, these are considered valid stored values and are included in the `themes` array exposed via context. / customThemes?: readonly string[]; } const ATTRIBUTE = 'data-theme'; const TRANSITION_ATTRIBUTE = 'data-theme-transition'; const BUILT_IN_THEME_IDS: readonly ThemeId[] = [ 'light', 'dark', 'terminal', 'retro98', 'glass', 'brutalist', 'corporate', 'startup', 'editorial', 'commerce', 'midnight', 'nature', 'neon', 'mono', ] as const; const ThemeContext = createContext<UseThemeReturn | null>(null); /** Reads the persisted theme from localStorage. A stored value is accepted if it matches either a built-in theme id or one of the caller-supplied `customThemes`. / function getStoredTheme(key: string, validThemes: readonly string[]): ThemeId | null { if (typeof window === 'undefined') return null; try { const stored = localStorage.getItem(key); if (stored && validThemes.includes(stored)) { return stored as ThemeId; } } catch { // localStorage may be unavailable } return null; } /** Persists the theme choice to localStorage. / function storeTheme(key: string, theme: ThemeId | null): void { if (typeof window === 'undefined') return; try { if (theme === null) { localStorage.removeItem(key); } else { localStorage.setItem(key, theme); } } catch { // Silently fail } } /** Provides theme state to the component tree via React context. Handles system preference detection (`prefers-color-scheme`), manual override, localStorage persistence, and optional CSS transitions during theme changes."
     }
   ],
   "_generated": {
-    "at": "2026-04-15T21:36:54.558Z",
+    "at": "2026-07-25T03:19:03.272Z",
     "by": "scripts/generate-manifest.mjs",
     "componentCount": 108,
     "hookCount": 11

@@ -23,7 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   docs site now prerenders 117 static paths. Also refreshed the other
   pipeline outputs (COMPONENT-INVENTORY.md, COMPONENT-TOKENS.md,
   token maps, llms.txt / llms-full.txt), which had drifted since
-  2026-04-09.
+  2026-04-09, and added the missing 0.1.2 entry to `releaseHistory` in
+  `scripts/generate-manifest.mjs` so `manifest.ai.json` reports the
+  real release date (2026-05-08) instead of falling back to the build
+  date.
 - **Claude Design distribution pack.** New `@arcana-ui/claude-design-pack`
   package ships pre-generated DESIGN.md files for all 14 Arcana presets
   plus a `manifest.claude-design.json` mapping each preset to its slug,

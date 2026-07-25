@@ -2,12 +2,19 @@
   "$schema": "./scripts/manifest.schema.json",
   "release": {
     "version": "0.1.2",
-    "releaseDate": "2026-07-25",
+    "releaseDate": "2026-05-08",
     "changelog": "https://github.com/Arcana-UI/arcana/blob/main/CHANGELOG.md",
     "breaking": [],
     "migration": null
   },
   "releaseHistory": [
+    {
+      "version": "0.1.2",
+      "date": "2026-05-08",
+      "breaking": [],
+      "migration": null,
+      "summary": "Tree-shaking release for @arcana-ui/core (5.9). The tsup build now emits a self-contained entry per component, hook, layout module, context, and utility, each with its own \"use client\" banner, and the package.json exports map exposes friendly subpaths (@arcana-ui/core/Button, @arcana-ui/core/useTheme, ...). Single-component consumer import drops from 278 kB to 2.2 kB minified (99.2% reduction); the full barrel drops from 278 kB to 166.9 kB. sideEffects widened to [\"**/*.css\", \"**/*.module.css\"] so per-component styles survive tree-shaking. Only @arcana-ui/core republished; tokens, cli, and mcp stay at 0.1.0."
+    },
     {
       "version": "0.1.1",
       "date": "2026-04-17",
@@ -3532,7 +3539,7 @@
     }
   ],
   "_generated": {
-    "at": "2026-07-25T02:59:11.240Z",
+    "at": "2026-07-25T03:19:03.272Z",
     "by": "scripts/generate-manifest.mjs",
     "componentCount": 108,
     "hookCount": 11

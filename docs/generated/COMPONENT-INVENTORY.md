@@ -1,7 +1,7 @@
 > **Auto-generated file.** Do not edit manually.
 > Source: `scripts/generate-docs.mjs`
 > Regenerate: `pnpm generate-docs`
-> Last generated: 2026-07-25T02:59:11.148Z
+> Last generated: 2026-07-25T03:19:03.156Z
 
 # Component Inventory
 
