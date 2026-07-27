@@ -1,10 +1,11 @@
 # Arcana UI -- Progress Tracker
 
-> **Last updated:** 2026-05-08
-> **Current version:** v0.1.2 (`@arcana-ui/core` only; tokens / cli / mcp remain at 0.1.0).
-> **Current sprint:** Tree-shaking release shipped (single-component import 278 kB → 2.2 kB). KV→Supabase, landing polish (3 PRs), useTheme tests, 0.1.1 CSS-module hotfix, and 5.9 tree-shaking all closed. Phase O still parked.
-> **Source of truth for current state:** CLAUDE.md "Current State" section.
-> **Next priority:** (1) Cut 0.1.2 release (Bear), (2) Publish `@arcana-ui/claude-design-pack@0.1.0` to npm (Bear), (3) Finish docs site scaffold (5.5).
+> **PROJECT SUNSET 2026-07-27.** Arcana UI was a proof of concept and is no longer being maintained or built. This tracker is preserved as a historical record; unchecked items below are discontinued, not pending. Meta's [Astryx](https://astryx.atmeta.com/) (React + StyleX, 160+ components, agent-ready docs and CLI) now pursues a very similar concept with active maintenance.
+>
+> **Last updated:** 2026-07-27
+> **Final version:** `@arcana-ui/core@0.1.2`; `@arcana-ui/tokens`, `@arcana-ui/cli`, `@arcana-ui/mcp`, `@arcana-ui/claude-design-pack` at 0.1.0. All published on npm and remaining as-is.
+> **Source of truth for current state:** CLAUDE.md "PROJECT STATUS" and "Current State" sections.
+> **Next priority:** none. No further sprints.
 
 ---
 
