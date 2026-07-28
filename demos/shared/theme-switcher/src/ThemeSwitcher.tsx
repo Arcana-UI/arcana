@@ -280,6 +280,17 @@ export function ThemeSwitcher({
   return (
     <div className="arcana-theme-switcher" role="toolbar" aria-label="Theme switcher">
       <div className="arcana-theme-switcher__controls">
+        <span className="arcana-theme-switcher__notice">
+          Demo of Arcana UI, an unmaintained proof of concept.{' '}
+          <a
+            className="arcana-theme-switcher__notice-link"
+            href="https://astryx.atmeta.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            See Meta&apos;s Astryx
+          </a>
+        </span>
         <label className="arcana-theme-switcher__label">
           Theme
           <select
