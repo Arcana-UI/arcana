@@ -22,6 +22,22 @@
   flex-wrap: wrap;
 }
 
+.arcana-theme-switcher__notice {
+  font-size: 12px;
+  color: #b8b8d0;
+  margin-right: auto;
+}
+
+.arcana-theme-switcher__notice-link {
+  color: #818cf8;
+  text-decoration: underline;
+}
+
+.arcana-theme-switcher__notice-link:hover,
+.arcana-theme-switcher__notice-link:focus-visible {
+  color: #a78bfa;
+}
+
 .arcana-theme-switcher__label {
   display: flex;
   align-items: center;

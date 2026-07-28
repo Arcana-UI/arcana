@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   [Astryx](https://astryx.atmeta.com/) has since shipped a very similar
   machine-readable design system concept (React + StyleX, 160+
   components, agent-ready docs and CLI) with active maintenance.
+- **Sunset notice extended to docs and demo sites.** The fumadocs
+  layout at docs.arcana-ui.com now shows a top banner, and the shared
+  demo ThemeSwitcher bar carries a short unmaintained-proof-of-concept
+  notice with an Astryx link, so all six demo subdomains surface the
+  project status without per-demo changes.
 
 ### Added
 
