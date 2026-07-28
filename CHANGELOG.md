@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Project sunset (2026-07-27).** Arcana UI was a proof of concept and
+  is no longer maintained or actively developed. README, CLAUDE.md, and
+  PROGRESS.md now carry a status notice. Published `@arcana-ui/*`
+  packages remain on npm as-is; no further releases are planned. Meta's
+  [Astryx](https://astryx.atmeta.com/) has since shipped a very similar
+  machine-readable design system concept (React + StyleX, 160+
+  components, agent-ready docs and CLI) with active maintenance.
+
 ### Added
 
 - **Claude Design distribution pack.** New `@arcana-ui/claude-design-pack`

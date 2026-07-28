@@ -28,6 +28,15 @@
 
 ---
 
+> [!IMPORTANT]
+> **Project status (July 2026): proof of concept, not actively maintained.**
+>
+> Arcana UI was built as a proof of concept exploring a machine-readable, token-driven design system that AI agents can compose directly: one JSON theme file, a component manifest, llms.txt, an MCP server, and DESIGN.md exports. That exploration shipped (108 components, 14 presets, four npm packages at 0.1.x), and the project is now dormant: no new features, fixes, or releases are planned.
+>
+> Since then, Meta has released [Astryx](https://astryx.atmeta.com/), an open-source, machine-readable design system built on React and StyleX with 160+ accessible components, agent-ready documentation, and CLI tooling. It is a very similar concept with a full-time team behind it. If you need a maintained design system in this space, start there.
+>
+> The published `@arcana-ui/*` packages remain on npm as-is, and this repository stays up as a reference for the ideas it prototyped.
+
 ## Why Arcana?
 
 When an AI agent builds a web interface, it needs a design system that speaks its language. Existing systems were designed for humans to configure — Arcana is designed for machines to compose and beautiful for humans to use.

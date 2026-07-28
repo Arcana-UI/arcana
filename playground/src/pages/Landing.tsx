@@ -439,6 +439,32 @@ function LandingContent() {
       {/* Purple orb background element */}
       <div className={styles.heroGlow} aria-hidden="true" />
 
+      {/* ═══ SECTION 0: Project status notice ═══ */}
+      <aside className={styles.sunsetNotice} aria-label="Project status">
+        <p className={styles.sunsetNoticeText}>
+          <strong>Arcana UI was a proof of concept and is not actively maintained.</strong> For a
+          maintained machine-readable design system, see{' '}
+          <a
+            href="https://astryx.atmeta.com/"
+            className={styles.sunsetNoticeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Meta&apos;s Astryx
+          </a>
+          . Details in the{' '}
+          <a
+            href="https://github.com/Arcana-UI/arcana#readme"
+            className={styles.sunsetNoticeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            project README
+          </a>
+          .
+        </p>
+      </aside>
+
       {/* ═══ SECTION 1: Navbar ═══ */}
       <nav className={styles.nav}>
         <div className={styles.navInner}>
