@@ -2,7 +2,7 @@
 
 > Auto-generated file. Do not edit manually.
 > Source: scripts/generate-docs.mjs | Regenerate: pnpm generate-docs
-> Last generated: 2026-04-09T17:22:56.002Z
+> Last generated: 2026-07-25T03:19:03.156Z
 
 Arcana UI is a token-driven React design system for AI agents to assemble production-grade web interfaces.
 
@@ -182,8 +182,8 @@ document.documentElement.setAttribute('data-density', 'compact'); // compact | n
 - **useClickOutside**: Fires a callback when a click (mousedown) occurs outside of the referenced element. SSR-safe: does nothing when `documen
 - **useDrag**: Generic drag interaction hook. Handles mousedown/touchstart → document mousemove/touchmove → mouseup/touchend with optio
 - **useUndoRedo**: Generic undo/redo history stack. New pushes after an undo clear the forward (redo) history. Stack size is bounded by `ma
-- **useTheme**: Reads the persisted theme from localStorage. Returns `null` if no preference is stored or if running on the server. / fu
-- **useThemeContext**: Reads the persisted theme from localStorage. / function getStoredTheme(key: string): ThemeId | null { if (typeof window 
+- **useTheme**: Supported theme identifiers. Accepts both built-in themes and arbitrary strings for custom themes — the `(string & {})` 
+- **useThemeContext**: Default theme to use when no stored preference exists and system detection is not used. Pass `null` or `"inherit"` to le
 
 ## Resources
 

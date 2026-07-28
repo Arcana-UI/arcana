@@ -43,6 +43,14 @@ const CHECK_MODE = process.argv.includes('--check');
 // entries — they are public contract for agents doing automated upgrades.
 const RELEASE_HISTORY = [
   {
+    version: '0.1.2',
+    date: '2026-05-08',
+    breaking: [],
+    migration: null,
+    summary:
+      'Tree-shaking release for @arcana-ui/core (5.9). The tsup build now emits a self-contained entry per component, hook, layout module, context, and utility, each with its own "use client" banner, and the package.json exports map exposes friendly subpaths (@arcana-ui/core/Button, @arcana-ui/core/useTheme, ...). Single-component consumer import drops from 278 kB to 2.2 kB minified (99.2% reduction); the full barrel drops from 278 kB to 166.9 kB. sideEffects widened to ["**/*.css", "**/*.module.css"] so per-component styles survive tree-shaking. Only @arcana-ui/core republished; tokens, cli, and mcp stay at 0.1.0.',
+  },
+  {
     version: '0.1.1',
     date: '2026-04-17',
     breaking: [],

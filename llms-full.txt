@@ -2,7 +2,7 @@
 
 > Auto-generated file. Do not edit manually.
 > Source: scripts/generate-docs.mjs | Regenerate: pnpm generate-docs
-> Last generated: 2026-04-09T17:22:56.002Z
+> Last generated: 2026-07-25T03:19:03.156Z
 
 ## Overview
 
@@ -1609,7 +1609,8 @@ import { Image } from '@arcana-ui/core'
 |------|------|---------|-------------|
 | src | string | — | Image source URL |
 | alt | string | — | Alt text (required for accessibility — use "" for decorative images) |
-| fallback | ReactNode | — | Fallback content shown while loading or on error |
+| fallback | ReactNode | — | Fallback content shown while the image is loading or when it fails to load. When `errorFallback` is also provided, `fallback` is only used during loading. |
+| errorFallback | ReactNode | — | Content shown specifically when the image fails to load. Takes precedence over `fallback` in the error state. When the image has failed, the underlying `<img>` element is removed from the rendered output so the browser cannot paint a broken-image icon behind the fallback. |
 | aspectRatio | number | 'square' | 'video' | 'portrait' | — | Aspect ratio constraint |
 | objectFit | 'cover' \| 'contain' \| 'fill' \| 'none' | `cover` | How the image fills its container |
 | lazy | boolean | `true` | Use native lazy loading |
@@ -2081,9 +2082,10 @@ import { ThemeProvider } from '@arcana-ui/core'
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| defaultTheme | 'brutalist' \| 'commerce' \| 'corporate' \| 'dark' \| 'editorial' \| 'glass' \| 'light' \| 'midnight' \| 'mono' \| 'nature' \| 'neon' \| 'retro98' \| 'startup' \| 'terminal' | `light` | Default theme to use when no stored preference exists and system detection is not used. |
+| defaultTheme | ThemeId | null | 'inherit' | `light` | Default theme to use when no stored preference exists and system detection is not used. Pass `null` or `"inherit"` to leave the existing `data-theme` attribute on `<html>` untouched — useful when the host app manages the attribute itself (e.g. a playground rendering arbitrary themes, or SSR that has already written the attribute). |
 | storageKey | string | `arcana-theme` | localStorage key for persisting theme preference. |
 | enableTransitions | boolean | `false` | When `true`, add smooth CSS transitions during theme changes. |
+| customThemes | readonly string[] | — | Additional theme ids beyond the built-in set. When provided, these are considered valid stored values and are included in the `themes` array exposed via context. |
 
 ## Hooks Reference
 
@@ -2163,7 +2165,7 @@ Generic undo/redo history stack. New pushes after an undo clear the forward (red
 import { useTheme } from '@arcana-ui/core'
 ```
 
-Reads the persisted theme from localStorage. Returns `null` if no preference is stored or if running on the server. / function getStoredTheme(): ThemeId | null { if (typeof window === 'undefined') return null; try { const stored = localStorage.getItem(STORAGE_KEY); if (stored && THEME_IDS.includes(stored as ThemeId)) { return stored as ThemeId; } } catch { // localStorage may be unavailable (e.g.,...
+Supported theme identifiers. Accepts both built-in themes and arbitrary strings for custom themes — the `(string & {})` preserves autocomplete for built-ins while allowing any string. / export type ThemeId = BuiltInThemeId | (string & {});  export type ThemeSource = 'manual' | 'system';  export interface UseThemeReturn {  theme: ThemeId;  source: ThemeSource;  themes: readonly ThemeId[];  systemPr...
 
 ### useThemeContext
 
@@ -2171,7 +2173,7 @@ Reads the persisted theme from localStorage. Returns `null` if no preference is 
 import { useThemeContext } from '@arcana-ui/core'
 ```
 
-Reads the persisted theme from localStorage. / function getStoredTheme(key: string): ThemeId | null { if (typeof window === 'undefined') return null; try { const stored = localStorage.getItem(key); if (stored && THEME_IDS.includes(stored as ThemeId)) { return stored as ThemeId; } } catch { // localStorage may be unavailable } return null; } /** Persists the theme choice to localStorage. / function...
+Default theme to use when no stored preference exists and system detection is not used. Pass `null` or `"inherit"` to leave the existing `data-theme` attribute on `<html>` untouched — useful when the host app manages the attribute itself (e.g. a playground rendering arbitrary themes, or SSR that has already written the attribute). / defaultTheme?: ThemeId | null | 'inherit';  storageKey?: string; ...
 
 ## Layout Patterns
 

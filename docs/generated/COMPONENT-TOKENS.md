@@ -1,7 +1,7 @@
 > **Auto-generated file.** Do not edit manually.
 > Source: `scripts/generate-docs.mjs`
 > Regenerate: `pnpm generate-docs`
-> Last generated: 2026-04-09T17:22:56.002Z
+> Last generated: 2026-07-25T03:19:03.156Z
 
 # Component Token Reference
 
@@ -408,7 +408,9 @@ Component tokens (tier 3) provide per-component overrides that fall back to sema
 | `--color-border-strong` | border-color |
 | `--color-fg-on-primary` | color |
 | `--color-fg-primary` | color |
+| `--duration-fast` | transition |
 | `--ease-linear` | animation |
+| `--ease-out` | transition |
 | `--element-font-size-lg` | font-size |
 | `--element-font-size-md` | font-size |
 | `--element-font-size-sm` | font-size |

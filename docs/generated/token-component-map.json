@@ -2,7 +2,7 @@
   "_generated": {
     "warning": "This file is auto-generated. Do not edit manually.",
     "source": "scripts/generate-docs.mjs",
-    "timestamp": "2026-04-09T17:22:56.002Z",
+    "timestamp": "2026-07-25T03:19:03.156Z",
     "command": "pnpm generate-docs"
   },
   "componentCount": 69,
@@ -7372,8 +7372,16 @@
           "property": "color"
         },
         {
+          "name": "--duration-fast",
+          "property": "transition"
+        },
+        {
           "name": "--ease-linear",
           "property": "animation"
+        },
+        {
+          "name": "--ease-out",
+          "property": "transition"
         },
         {
           "name": "--element-font-size-lg",
@@ -9999,6 +10007,11 @@
       "tier": "semantic",
       "category": "motion",
       "usedBy": [
+        {
+          "component": "button",
+          "property": "transition",
+          "direct": true
+        },
         {
           "component": "colorpicker",
           "property": "transition",
@@ -16932,6 +16945,11 @@
         {
           "component": "bottomsheet",
           "property": "animation",
+          "direct": true
+        },
+        {
+          "component": "button",
+          "property": "transition",
           "direct": true
         },
         {
